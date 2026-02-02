@@ -45,6 +45,8 @@ const workflows = [
 ];
 
 const WorkflowExamplesSection = () => {
+  const baseUrl = import.meta.env.BASE_URL;
+
   return (
     <section id="workflows" className="py-12 md:py-24 relative">
       <div className="absolute inset-0 hero-gradient rotate-180 opacity-30" />
@@ -107,7 +109,7 @@ const WorkflowExamplesSection = () => {
               {/* Optional Demo Link */}
               <div className="mt-6 pt-6 border-t border-border">
                 <a
-                  href="/#demos"
+                  href={`${baseUrl}#demos`}
                   className="text-sm font-medium text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-2"
                 >
                   See this workflow in action <ArrowRight className="w-4 h-4" />

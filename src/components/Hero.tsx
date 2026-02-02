@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, MessageSquare } from "lucide-react";
 
 const Hero = () => {
+  const baseUrl = import.meta.env.BASE_URL;
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background Effects */}
@@ -42,7 +44,7 @@ const Hero = () => {
               </Button>
             </Link>
             <Button variant="heroOutline" size="xl" asChild>
-              <a href="/#contact">Schedule a Consultation</a>
+              <a href={`${baseUrl}#contact`}>Schedule a Consultation</a>
             </Button>
           </div>
 

@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom";
 import { Play, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const DemoVideosSection = () => {
+  const baseUrl = import.meta.env.BASE_URL;
+
   return (
     <section id="demos" className="py-12 md:py-24 relative">
       <div className="container mx-auto px-6">
@@ -35,7 +38,7 @@ const DemoVideosSection = () => {
           {/* Additional Demo Links (Optional) */}
           <div className="grid sm:grid-cols-2 gap-6 mt-8">
             <a
-              href="/#contact"
+              href={`${baseUrl}#contact`}
               className="group p-6 rounded-xl bg-card border border-border card-hover flex items-center gap-4 hover:border-primary/50 transition-all"
             >
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
@@ -49,8 +52,8 @@ const DemoVideosSection = () => {
               </div>
             </a>
 
-            <a
-              href="/assistant"
+            <Link
+              to="/assistant"
               className="group p-6 rounded-xl bg-card border border-border card-hover flex items-center gap-4 hover:border-primary/50 transition-all"
             >
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
@@ -62,7 +65,7 @@ const DemoVideosSection = () => {
                   Interactive chat experience with our AI
                 </p>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
 

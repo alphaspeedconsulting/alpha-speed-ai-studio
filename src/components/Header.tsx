@@ -6,14 +6,15 @@ import logo from "@/assets/logo.jpeg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const baseUrl = import.meta.env.BASE_URL;
 
   const navLinks = [
-    { label: "Platform", href: "/#platform" },
-    { label: "Use Cases", href: "/#use-cases" },
-    { label: "Demos", href: "/#demos" },
-    { label: "Services", href: "/#services" },
-    { label: "About", href: "/#about" },
-    { label: "Contact", href: "/#contact" },
+    { label: "Platform", href: `${baseUrl}#platform` },
+    { label: "Use Cases", href: `${baseUrl}#use-cases` },
+    { label: "Demos", href: `${baseUrl}#demos` },
+    { label: "Services", href: `${baseUrl}#services` },
+    { label: "About", href: `${baseUrl}#about` },
+    { label: "Contact", href: `${baseUrl}#contact` },
   ];
 
   return (
@@ -21,13 +22,13 @@ const Header = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-3">
-            <img 
-              src={logo} 
-              alt="Alpha Speed AI" 
+          <Link to="/" className="flex items-center gap-3">
+            <img
+              src={logo}
+              alt="Alpha Speed AI"
               className="h-16 w-auto invert"
             />
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-6">
@@ -46,7 +47,7 @@ const Header = () => {
               </Button>
             </Link>
             <Button variant="hero" size="default" asChild>
-              <a href="/#contact">Get Started</a>
+              <a href={`${baseUrl}#contact`}>Get Started</a>
             </Button>
           </nav>
 
@@ -80,7 +81,7 @@ const Header = () => {
                 </Button>
               </Link>
               <Button variant="hero" size="default" className="w-full" asChild>
-                <a href="/#contact" onClick={() => setIsMenuOpen(false)}>Get Started</a>
+                <a href={`${baseUrl}#contact`} onClick={() => setIsMenuOpen(false)}>Get Started</a>
               </Button>
             </nav>
           </div>
