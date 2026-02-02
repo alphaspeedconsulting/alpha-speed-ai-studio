@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail, Phone } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 
 const Contact = () => {
   return (
@@ -25,14 +25,10 @@ const Contact = () => {
 
             {/* Contact Info */}
             <div className="mt-12 pt-8 border-t border-border/50">
-              <div className="flex flex-wrap justify-center gap-8 text-muted-foreground">
-                <a href="mailto:contact@alphaspeedai.com" className="flex items-center gap-2 hover:text-primary transition-colors">
+              <div className="flex justify-center text-muted-foreground">
+                <a href="mailto:alpha.speed.consulting@gmail.com" className="flex items-center gap-2 hover:text-primary transition-colors">
                   <Mail className="w-5 h-5" />
-                  <span>contact@alphaspeedai.com</span>
-                </a>
-                <a href="tel:+1234567890" className="flex items-center gap-2 hover:text-primary transition-colors">
-                  <Phone className="w-5 h-5" />
-                  <span>+1 (234) 567-890</span>
+                  <span>alpha.speed.consulting@gmail.com</span>
                 </a>
               </div>
             </div>
