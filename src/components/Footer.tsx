@@ -24,7 +24,6 @@ const Footer = () => {
             <a href={`${baseUrl}#services`} className="hover:text-foreground transition-colors">Services</a>
             <a href={`${baseUrl}#about`} className="hover:text-foreground transition-colors">About</a>
             <a href={`${baseUrl}#contact`} className="hover:text-foreground transition-colors">Contact</a>
-            <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
           </nav>
 
           {/* Copyright */}
