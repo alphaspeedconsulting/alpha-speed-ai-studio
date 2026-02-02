@@ -10,7 +10,8 @@ import {
   ChevronUp,
   Play,
   Pause,
-  RotateCcw
+  RotateCcw,
+  Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Task, SimulationStatus } from "@/hooks/useTaskSimulation";
@@ -251,6 +252,40 @@ const AssistantLayoutC = ({
           </div>
         )}
       </div>
+
+      {/* Completion Output Summary */}
+      {status === "completed" && (
+        <div className="w-full max-w-lg mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="p-6 rounded-2xl bg-gradient-to-br from-green-500/10 to-background border border-green-500/30">
+            <div className="flex items-center gap-2 mb-4">
+              <Sparkles className="h-5 w-5 text-green-400" />
+              <h3 className="font-semibold text-green-400">Session Results</h3>
+            </div>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Priority emails identified</span>
+                <span className="font-medium">3</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Client response drafted</span>
+                <span className="font-medium text-green-400">Ready</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Meeting scheduled</span>
+                <span className="font-medium">Thu 2:00 PM</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Report generated</span>
+                <span className="font-medium text-green-400">Complete</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Competitors analyzed</span>
+                <span className="font-medium">5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

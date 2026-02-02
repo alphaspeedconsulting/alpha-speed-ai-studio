@@ -33,11 +33,11 @@ interface UseTaskSimulationReturn {
 }
 
 const INITIAL_TASKS: Task[] = [
-  { id: 1, title: "Analyzing email inbox", status: "queued", progress: 0, duration: 8000 },
-  { id: 2, title: "Drafting response to client inquiry", status: "queued", progress: 0, duration: 12000 },
-  { id: 3, title: "Scheduling team meeting for Thursday", status: "queued", progress: 0, duration: 6000 },
-  { id: 4, title: "Preparing weekly report summary", status: "queued", progress: 0, duration: 10000 },
-  { id: 5, title: "Researching competitor pricing", status: "queued", progress: 0, duration: 15000 },
+  { id: 1, title: "Analyzing email inbox", status: "queued", progress: 0, duration: 2500 },
+  { id: 2, title: "Drafting response to client inquiry", status: "queued", progress: 0, duration: 3500 },
+  { id: 3, title: "Scheduling team meeting for Thursday", status: "queued", progress: 0, duration: 2000 },
+  { id: 4, title: "Preparing weekly report summary", status: "queued", progress: 0, duration: 3000 },
+  { id: 5, title: "Researching competitor pricing", status: "queued", progress: 0, duration: 4000 },
 ];
 
 const TASK_THOUGHTS: Record<string, string[]> = {

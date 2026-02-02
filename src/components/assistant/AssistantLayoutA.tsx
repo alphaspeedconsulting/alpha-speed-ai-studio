@@ -14,7 +14,12 @@ import {
   MessageSquare,
   Play,
   Pause,
-  RotateCcw
+  RotateCcw,
+  FileText,
+  Mail,
+  Calendar,
+  BarChart3,
+  Search
 } from "lucide-react";
 import { Task, ActivityEntry, SimulationStatus } from "@/hooks/useTaskSimulation";
 
@@ -303,6 +308,62 @@ const AssistantLayoutA = ({
           </CardContent>
         </Card>
       </div>
+
+      {/* Completion Output - Example Results */}
+      {status === "completed" && (
+        <div className="mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <Card className="border-green-500/30 bg-gradient-to-br from-background to-green-500/5">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-green-400">
+                <CheckCircle2 className="h-5 w-5" />
+                Session Complete - Example Output
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-6">
+                Here's a sample of what the AI assistant produced during this session:
+              </p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Mail className="h-4 w-4 text-teal" />
+                    <span className="font-medium">Email Analysis</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Found 3 priority emails requiring immediate attention. Flagged 12 newsletters for batch processing.</p>
+                </div>
+                <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
+                  <div className="flex items-center gap-2 mb-2">
+                    <FileText className="h-4 w-4 text-teal" />
+                    <span className="font-medium">Client Response Draft</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Professional response drafted addressing pricing inquiry. Included comparison table and next steps.</p>
+                </div>
+                <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Calendar className="h-4 w-4 text-teal" />
+                    <span className="font-medium">Meeting Scheduled</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Team meeting set for Thursday 2:00 PM. Calendar invites sent to 5 attendees with agenda attached.</p>
+                </div>
+                <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
+                  <div className="flex items-center gap-2 mb-2">
+                    <BarChart3 className="h-4 w-4 text-teal" />
+                    <span className="font-medium">Weekly Report</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Generated executive summary with 4 KPIs, trend analysis, and 3 action items for leadership review.</p>
+                </div>
+                <div className="p-4 rounded-lg bg-muted/30 border border-border/50 md:col-span-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Search className="h-4 w-4 text-teal" />
+                    <span className="font-medium">Competitor Analysis</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Analyzed 5 competitors. Key findings: 2 have lower entry pricing, 1 offers similar features at 20% higher cost. Recommendation: Emphasize our unique integration capabilities in sales conversations.</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 };

@@ -160,10 +160,10 @@ const AssistantLayoutB = ({
               </div>
             )}
 
-            {/* Completion message */}
+            {/* Completion message with example output */}
             {status === "completed" && (
               <div className="mt-4 pt-4 border-t border-gray-800">
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2 mb-4">
                   <CheckCircle2 className="h-4 w-4 text-green-400 mt-0.5" />
                   <div>
                     <span className="text-green-400">Session complete!</span>
@@ -171,6 +171,37 @@ const AssistantLayoutB = ({
                       All {tasks.length} tasks have been processed successfully.
                     </p>
                   </div>
+                </div>
+                <div className="text-gray-400 mt-4">
+                  <p className="text-green-400 mb-2">$ cat ./output/session-summary.json</p>
+                  <pre className="text-xs text-gray-300 bg-gray-900 p-3 rounded overflow-x-auto">
+{`{
+  "session_id": "alpha-001",
+  "tasks_completed": 5,
+  "outputs": {
+    "email_analysis": {
+      "priority_items": 3,
+      "newsletters_flagged": 12
+    },
+    "client_response": {
+      "status": "draft_ready",
+      "word_count": 247
+    },
+    "meeting": {
+      "scheduled": "Thursday 2:00 PM",
+      "attendees": 5
+    },
+    "weekly_report": {
+      "kpis": 4,
+      "action_items": 3
+    },
+    "competitor_analysis": {
+      "competitors_reviewed": 5,
+      "recommendation": "Emphasize integrations"
+    }
+  }
+}`}
+                  </pre>
                 </div>
               </div>
             )}
