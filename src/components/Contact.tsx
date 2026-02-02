@@ -18,9 +18,11 @@ const Contact = () => {
               and drive unprecedented growth for your organization.
             </p>
             
-            <Button variant="hero" size="xl" className="group">
-              Schedule Your Free Consultation
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            <Button variant="hero" size="xl" className="group" asChild>
+              <a href="mailto:alpha.speed.consulting@gmail.com?subject=Free%20Consultation%20Request">
+                Schedule Your Free Consultation
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </a>
             </Button>
 
             {/* Contact Info */}
