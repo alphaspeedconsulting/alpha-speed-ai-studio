@@ -16,6 +16,8 @@ const Footer = () => {
 
           {/* Links */}
           <nav className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+            <a href="#platform" className="hover:text-foreground transition-colors">Platform</a>
+            <a href="#use-cases" className="hover:text-foreground transition-colors">Use Cases</a>
             <a href="#services" className="hover:text-foreground transition-colors">Services</a>
             <a href="#about" className="hover:text-foreground transition-colors">About</a>
             <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
@@ -24,7 +26,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © 2024 Alpha Speed AI. All rights reserved.
+            © 2026 Alpha Speed AI. All rights reserved.
           </p>
         </div>
       </div>

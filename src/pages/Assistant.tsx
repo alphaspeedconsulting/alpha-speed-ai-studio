@@ -13,6 +13,23 @@ const Assistant = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
       <main className="flex-1">
+        {/* Intro Section */}
+        <div className="bg-gradient-to-b from-primary/5 to-background border-b border-border/50 py-12 pt-24">
+          <div className="container mx-auto px-6">
+            <div className="max-w-3xl mx-auto text-center">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+                Your Personal <span className="gradient-text">AI Assistant</span>
+              </h1>
+              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                Experience the power of Alpha Speed AI. This is the same intelligent assistant we build and customize for your business—handling lead qualification, scheduling, customer support, and more.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Try different layouts below to see how the assistant adapts to your preferences.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Layout Selector */}
         <div className="bg-muted/30 border-b border-border/50 py-4">
           <div className="container mx-auto px-4">

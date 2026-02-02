@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowRight, Zap, MessageSquare } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -17,29 +18,31 @@ const Hero = () => {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-8">
             <Zap className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">AI-Powered Automation</span>
+            <span className="text-sm font-medium text-primary">Built for Small Business Automation</span>
           </div>
 
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Accelerate Your Business with{" "}
-            <span className="gradient-text">Intelligent Automation</span>
+            Automate Your Business with{" "}
+            <span className="gradient-text">Alpha Speed AI</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto text-balance">
-            Custom AI solutions designed to streamline your workflows, automate repetitive tasks, 
-            and unlock unprecedented efficiency for your organization.
+            One flexible platform that automates lead follow-up, scheduling, customer chat, and more—so you can focus on growing your business.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="hero" size="xl" className="group">
-              Schedule a Consultation
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button variant="heroOutline" size="xl">
-              View Our Solutions
+            <Link to="/assistant">
+              <Button variant="hero" size="xl" className="group">
+                <MessageSquare className="w-5 h-5" />
+                Try the Assistant
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+            <Button variant="heroOutline" size="xl" asChild>
+              <a href="#contact">Schedule a Consultation</a>
             </Button>
           </div>
 

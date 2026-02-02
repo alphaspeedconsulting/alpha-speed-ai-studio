@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.jpeg";
@@ -7,6 +8,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
+    { label: "Platform", href: "#platform" },
+    { label: "Use Cases", href: "#use-cases" },
+    { label: "Demos", href: "#demos" },
     { label: "Services", href: "#services" },
     { label: "About", href: "#about" },
     { label: "Contact", href: "#contact" },
@@ -26,24 +30,29 @@ const Header = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200 font-medium"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200 font-medium text-sm"
               >
                 {link.label}
               </a>
             ))}
-            <Button variant="hero" size="default">
-              Get Started
+            <Link to="/assistant">
+              <Button variant="heroOutline" size="default">
+                Try the Assistant
+              </Button>
+            </Link>
+            <Button variant="hero" size="default" asChild>
+              <a href="#contact">Get Started</a>
             </Button>
           </nav>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-foreground p-2"
+            className="lg:hidden text-foreground p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -53,7 +62,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden pb-6">
+          <div className="lg:hidden pb-6">
             <nav className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <a
@@ -65,8 +74,13 @@ const Header = () => {
                   {link.label}
                 </a>
               ))}
-              <Button variant="hero" size="default" className="mt-2">
-                Get Started
+              <Link to="/assistant" onClick={() => setIsMenuOpen(false)}>
+                <Button variant="heroOutline" size="default" className="w-full mt-2">
+                  Try the Assistant
+                </Button>
+              </Link>
+              <Button variant="hero" size="default" className="w-full" asChild>
+                <a href="#contact" onClick={() => setIsMenuOpen(false)}>Get Started</a>
               </Button>
             </nav>
           </div>

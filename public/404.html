@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Alpha Speed AI</title>
+    <script>
+      // GitHub Pages SPA redirect script
+      // This script captures the current path and redirects to index.html
+      // with the path stored in sessionStorage for the React app to handle
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+
+      // Store the current pathname for SPA routing
+      // This runs when a user directly navigates to a deep link (e.g., /assistant)
+      var path = location.pathname;
+      if (path && path !== '/') {
+        sessionStorage.redirect = location.href;
+      }
+
+      // Redirect to index.html
+      var base = '/alpha-speed-ai-studio/';
+      var redirect = base + '?path=' + encodeURIComponent(path);
+      location.replace(redirect);
+    </script>
+  </head>
+  <body>
+    <!-- This page is for GitHub Pages SPA routing support -->
+    <!-- Users will be automatically redirected to index.html -->
+  </body>
+</html>
