@@ -21,7 +21,7 @@ const Header = () => {
             <img 
               src={logo} 
               alt="Alpha Speed AI" 
-              className="h-12 w-auto invert"
+              className="h-16 w-auto invert"
             />
           </a>
 
