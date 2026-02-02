@@ -90,7 +90,7 @@ const AssistantLayoutB = () => {
           </div>
 
           {/* Terminal Content */}
-          <div className="p-4 font-mono text-sm h-[500px] overflow-y-auto">
+          <div className="p-4 font-mono text-sm h-[300px] md:h-[500px] overflow-y-auto">
             {mockLogs.map((log, index) => (
               <div key={index} className="flex items-start gap-2 mb-1">
                 <span className="text-gray-600 select-none">{log.timestamp}</span>

@@ -3,7 +3,7 @@ import { ArrowRight, Mail, Phone } from "lucide-react";
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-24 relative">
+    <section id="contact" className="py-12 md:py-24 relative">
       <div className="absolute inset-0 hero-gradient" />
       
       <div className="container mx-auto px-6 relative z-10">

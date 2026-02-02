@@ -46,7 +46,7 @@ const workflows = [
 
 const WorkflowExamplesSection = () => {
   return (
-    <section id="workflows" className="py-24 relative">
+    <section id="workflows" className="py-12 md:py-24 relative">
       <div className="absolute inset-0 hero-gradient rotate-180 opacity-30" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -61,7 +61,7 @@ const WorkflowExamplesSection = () => {
         </div>
 
         {/* Workflows Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
           {workflows.map((workflow, index) => (
             <div
               key={index}

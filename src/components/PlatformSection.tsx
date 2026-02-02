@@ -48,7 +48,7 @@ const deploymentOptions = [
 
 const PlatformSection = () => {
   return (
-    <section id="platform" className="py-24 relative">
+    <section id="platform" className="py-12 md:py-24 relative">
       <div className="absolute inset-0 hero-gradient opacity-30" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -66,7 +66,7 @@ const PlatformSection = () => {
         </div>
 
         {/* Platform Features Grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {platformFeatures.map((feature, index) => (
             <div
               key={index}
@@ -88,7 +88,7 @@ const PlatformSection = () => {
           <h3 className="text-2xl font-bold mb-6 text-center">
             <span className="gradient-text">One Platform</span> — All the Capabilities You Need
           </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
             {platformCapabilities.map((capability, index) => (
               <div key={index} className="flex items-center gap-3 p-4 rounded-lg bg-background/50">
                 <div className="w-2 h-2 rounded-full bg-primary" />
@@ -103,7 +103,7 @@ const PlatformSection = () => {
           <h3 className="text-2xl font-bold mb-8 text-center">
             Deploy <span className="gradient-text">Your Way</span>
           </h3>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {deploymentOptions.map((option, index) => (
               <div
                 key={index}

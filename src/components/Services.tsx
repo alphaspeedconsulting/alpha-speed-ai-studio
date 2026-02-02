@@ -35,7 +35,7 @@ const services = [
 
 const Services = () => {
   return (
-    <section id="services" className="py-24 relative">
+    <section id="services" className="py-12 md:py-24 relative">
       <div className="absolute inset-0 hero-gradient rotate-180 opacity-50" />
       
       <div className="container mx-auto px-6 relative z-10">
