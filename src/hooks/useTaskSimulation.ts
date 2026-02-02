@@ -204,9 +204,51 @@ export const useTaskSimulation = (): UseTaskSimulationReturn => {
         addLogEntry(thoughts[thoughtIndex], "thinking");
       }
 
+      // When task completes, update it directly here instead of calling another setState
       if (newProgress >= 100) {
-        completeCurrentTask();
-        return prevTasks;
+        const newTasks = [...prevTasks];
+        const taskTitle = newTasks[inProgressIndex].title;
+        newTasks[inProgressIndex] = {
+          ...newTasks[inProgressIndex],
+          status: "completed",
+          progress: 100,
+          detail: TASK_COMPLETION_DETAILS[taskTitle] || "Completed",
+        };
+
+        addLogEntry(`Completed: ${taskTitle}`, "success");
+
+        // Check if there are more tasks - if not, mark simulation complete
+        const nextQueuedIndex = newTasks.findIndex(t => t.status === "queued");
+        if (nextQueuedIndex === -1) {
+          // No more tasks - schedule completion
+          setTimeout(() => {
+            setStatus("completed");
+            addLogEntry("All tasks completed successfully!", "success");
+          }, 300);
+        } else {
+          // Start next task after short delay
+          setTimeout(() => {
+            setTasks(currentTasks => {
+              const nextIdx = currentTasks.findIndex(t => t.status === "queued");
+              if (nextIdx === -1) return currentTasks;
+
+              const updated = [...currentTasks];
+              updated[nextIdx] = {
+                ...updated[nextIdx],
+                status: "in-progress",
+                progress: 0,
+              };
+
+              addLogEntry(`Starting task: ${updated[nextIdx].title}`, "task");
+              thoughtIndexRef.current = 0;
+              startTimeRef.current = Date.now();
+
+              return updated;
+            });
+          }, 300);
+        }
+
+        return newTasks;
       }
 
       const newTasks = [...prevTasks];
@@ -216,7 +258,7 @@ export const useTaskSimulation = (): UseTaskSimulationReturn => {
       };
       return newTasks;
     });
-  }, [addLogEntry, completeCurrentTask]);
+  }, [addLogEntry]);
 
   const start = useCallback(() => {
     if (status === "running") return;
