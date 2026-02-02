@@ -19,8 +19,12 @@ import {
   Mail,
   Calendar,
   BarChart3,
-  Search
+  Search,
+  Users,
+  Paperclip,
+  Check
 } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Task, ActivityEntry, SimulationStatus } from "@/hooks/useTaskSimulation";
 
 interface AssistantLayoutAProps {
@@ -309,57 +313,282 @@ const AssistantLayoutA = ({
         </Card>
       </div>
 
-      {/* Completion Output - Example Results */}
+      {/* Completion Output - Detailed Deliverables */}
       {status === "completed" && (
         <div className="mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
           <Card className="border-green-500/30 bg-gradient-to-br from-background to-green-500/5">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-green-400">
                 <CheckCircle2 className="h-5 w-5" />
-                Session Complete - Example Output
+                Session Complete - Deliverables Ready
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-6">
-                Here's a sample of what the AI assistant produced during this session:
+                Here are the deliverables produced by the AI assistant:
               </p>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Mail className="h-4 w-4 text-teal" />
-                    <span className="font-medium">Email Analysis</span>
+
+              <Tabs defaultValue="email" className="w-full">
+                <TabsList className="grid w-full grid-cols-5 mb-6">
+                  <TabsTrigger value="email" className="text-xs"><Mail className="h-3 w-3 mr-1" />Email</TabsTrigger>
+                  <TabsTrigger value="response" className="text-xs"><FileText className="h-3 w-3 mr-1" />Response</TabsTrigger>
+                  <TabsTrigger value="meeting" className="text-xs"><Calendar className="h-3 w-3 mr-1" />Meeting</TabsTrigger>
+                  <TabsTrigger value="report" className="text-xs"><BarChart3 className="h-3 w-3 mr-1" />Report</TabsTrigger>
+                  <TabsTrigger value="analysis" className="text-xs"><Search className="h-3 w-3 mr-1" />Analysis</TabsTrigger>
+                </TabsList>
+
+                {/* Email Analysis Tab */}
+                <TabsContent value="email">
+                  <div className="rounded-lg border border-border bg-card p-4">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="font-medium flex items-center gap-2">
+                        <Mail className="h-4 w-4 text-teal" />
+                        Email Inbox Analysis
+                      </h4>
+                      <Badge variant="secondary">3 Priority Items</Badge>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="p-3 rounded bg-red-500/10 border border-red-500/20">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-medium text-sm">John Smith (Acme Corp)</span>
+                          <Badge className="bg-red-500/20 text-red-400 text-xs">Urgent</Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground">Re: Contract renewal deadline - Tomorrow</p>
+                      </div>
+                      <div className="p-3 rounded bg-yellow-500/10 border border-yellow-500/20">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-medium text-sm">Sarah Chen (TechStart)</span>
+                          <Badge className="bg-yellow-500/20 text-yellow-400 text-xs">High</Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground">Pricing inquiry - Enterprise tier</p>
+                      </div>
+                      <div className="p-3 rounded bg-yellow-500/10 border border-yellow-500/20">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-medium text-sm">Michael Rodriguez</span>
+                          <Badge className="bg-yellow-500/20 text-yellow-400 text-xs">High</Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground">Demo request - 50 user deployment</p>
+                      </div>
+                      <div className="pt-3 border-t border-border text-sm text-muted-foreground">
+                        <span className="text-teal">12 newsletters</span> flagged for batch processing • <span className="text-teal">8 automated replies</span> sent
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">Found 3 priority emails requiring immediate attention. Flagged 12 newsletters for batch processing.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
-                  <div className="flex items-center gap-2 mb-2">
-                    <FileText className="h-4 w-4 text-teal" />
-                    <span className="font-medium">Client Response Draft</span>
+                </TabsContent>
+
+                {/* Client Response Tab */}
+                <TabsContent value="response">
+                  <div className="rounded-lg border border-border bg-card">
+                    <div className="p-4 border-b border-border bg-muted/30">
+                      <div className="space-y-2 text-sm">
+                        <div className="flex gap-2"><span className="text-muted-foreground w-12">To:</span><span>john.smith@acmecorp.com</span></div>
+                        <div className="flex gap-2"><span className="text-muted-foreground w-12">Subject:</span><span>Re: Pricing Inquiry - Custom Enterprise Solution</span></div>
+                      </div>
+                    </div>
+                    <div className="p-4 space-y-4 text-sm">
+                      <p>Hi John,</p>
+                      <p>Thank you for reaching out about our enterprise solutions. I've reviewed your requirements and put together a custom proposal.</p>
+                      <p>Based on your team size (50 users) and integration needs, I recommend our <span className="text-teal font-medium">Professional tier at $89/user/month</span>, which includes:</p>
+                      <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-2">
+                        <li>Unlimited API calls</li>
+                        <li>Priority support (4-hour SLA)</li>
+                        <li>Custom integrations</li>
+                        <li>Dedicated account manager</li>
+                      </ul>
+                      <p>I've attached a detailed comparison with your current solution showing potential <span className="text-green-400 font-medium">cost savings of 23% annually</span>.</p>
+                      <p>Would Thursday at 2 PM work for a brief call to discuss?</p>
+                      <div className="pt-4 text-muted-foreground">
+                        <p>Best regards,</p>
+                        <p className="font-medium text-foreground">AI Assistant</p>
+                        <p>Alpha Speed Consulting</p>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">Professional response drafted addressing pricing inquiry. Included comparison table and next steps.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Calendar className="h-4 w-4 text-teal" />
-                    <span className="font-medium">Meeting Scheduled</span>
+                </TabsContent>
+
+                {/* Meeting Tab */}
+                <TabsContent value="meeting">
+                  <div className="rounded-lg border border-border bg-card p-4">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="w-16 h-16 rounded-lg bg-teal/20 flex flex-col items-center justify-center">
+                        <span className="text-xs text-teal">THU</span>
+                        <span className="text-2xl font-bold text-teal">6</span>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-lg">Team Strategy Meeting</h4>
+                        <p className="text-muted-foreground text-sm">Thursday, February 6, 2026 • 2:00 PM - 3:00 PM EST</p>
+                        <p className="text-sm text-teal">Zoom (link attached)</p>
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <h5 className="font-medium mb-2 flex items-center gap-2"><Users className="h-4 w-4" /> Attendees</h5>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex items-center gap-2"><Check className="h-3 w-3 text-green-400" /><span>Sarah Chen</span><Badge variant="outline" className="text-xs">Confirmed</Badge></div>
+                          <div className="flex items-center gap-2"><Check className="h-3 w-3 text-green-400" /><span>Michael Rodriguez</span><Badge variant="outline" className="text-xs">Confirmed</Badge></div>
+                          <div className="flex items-center gap-2"><Circle className="h-3 w-3 text-yellow-400" /><span>Jennifer Park</span><Badge variant="outline" className="text-xs">Pending</Badge></div>
+                          <div className="flex items-center gap-2"><Check className="h-3 w-3 text-green-400" /><span>David Kim</span><Badge variant="outline" className="text-xs">Confirmed</Badge></div>
+                          <div className="flex items-center gap-2"><Circle className="h-3 w-3 text-yellow-400" /><span>Alex Thompson</span><Badge variant="outline" className="text-xs">Pending</Badge></div>
+                        </div>
+                      </div>
+                      <div>
+                        <h5 className="font-medium mb-2">Agenda</h5>
+                        <ol className="space-y-1 text-sm text-muted-foreground list-decimal list-inside">
+                          <li>Q4 Performance Review (15 min)</li>
+                          <li>2026 Strategy Discussion (25 min)</li>
+                          <li>Resource Allocation (15 min)</li>
+                          <li>Next Steps & Action Items (5 min)</li>
+                        </ol>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 pt-4 border-t border-border flex items-center gap-2 text-sm text-muted-foreground">
+                      <Paperclip className="h-4 w-4" />
+                      <span>Q4_Report.pdf, Strategy_Deck.pptx</span>
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">Team meeting set for Thursday 2:00 PM. Calendar invites sent to 5 attendees with agenda attached.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-muted/30 border border-border/50">
-                  <div className="flex items-center gap-2 mb-2">
-                    <BarChart3 className="h-4 w-4 text-teal" />
-                    <span className="font-medium">Weekly Report</span>
+                </TabsContent>
+
+                {/* Report Tab */}
+                <TabsContent value="report">
+                  <div className="rounded-lg border border-border bg-card p-4">
+                    <h4 className="font-semibold mb-1">Weekly Executive Summary</h4>
+                    <p className="text-sm text-muted-foreground mb-4">Week of January 27 - February 2, 2026</p>
+
+                    <div className="overflow-x-auto mb-4">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b border-border">
+                            <th className="text-left py-2 font-medium">Metric</th>
+                            <th className="text-right py-2 font-medium">Actual</th>
+                            <th className="text-right py-2 font-medium">Target</th>
+                            <th className="text-right py-2 font-medium">Variance</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b border-border/50">
+                            <td className="py-2">Revenue</td>
+                            <td className="text-right">$47.2K</td>
+                            <td className="text-right text-muted-foreground">$45K</td>
+                            <td className="text-right text-green-400">+4.9%</td>
+                          </tr>
+                          <tr className="border-b border-border/50">
+                            <td className="py-2">New Leads</td>
+                            <td className="text-right">127</td>
+                            <td className="text-right text-muted-foreground">100</td>
+                            <td className="text-right text-green-400">+27%</td>
+                          </tr>
+                          <tr className="border-b border-border/50">
+                            <td className="py-2">Conversion</td>
+                            <td className="text-right">3.2%</td>
+                            <td className="text-right text-muted-foreground">3.0%</td>
+                            <td className="text-right text-green-400">+0.2%</td>
+                          </tr>
+                          <tr>
+                            <td className="py-2">Response Time</td>
+                            <td className="text-right">2.3 hrs</td>
+                            <td className="text-right text-muted-foreground">4 hrs</td>
+                            <td className="text-right text-green-400">-42%</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <h5 className="font-medium mb-2 text-green-400">Highlights</h5>
+                        <ul className="text-sm space-y-1 text-muted-foreground">
+                          <li>• Lead generation exceeded target by 27%</li>
+                          <li>• Average response time improved to 2.3 hours</li>
+                          <li>• Two enterprise deals in final negotiation</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h5 className="font-medium mb-2 text-teal">Action Items</h5>
+                        <ul className="text-sm space-y-1 text-muted-foreground">
+                          <li>1. Follow up with Acme Corp (Decision: Feb 5)</li>
+                          <li>2. Schedule demo for TechStart Inc</li>
+                          <li>3. Review pricing for Q2 adjustments</li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">Generated executive summary with 4 KPIs, trend analysis, and 3 action items for leadership review.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-muted/30 border border-border/50 md:col-span-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Search className="h-4 w-4 text-teal" />
-                    <span className="font-medium">Competitor Analysis</span>
+                </TabsContent>
+
+                {/* Analysis Tab */}
+                <TabsContent value="analysis">
+                  <div className="rounded-lg border border-border bg-card p-4">
+                    <h4 className="font-semibold mb-4">Competitive Landscape Analysis</h4>
+
+                    <div className="overflow-x-auto mb-4">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b border-border">
+                            <th className="text-left py-2 font-medium">Feature</th>
+                            <th className="text-center py-2 font-medium text-teal">Us</th>
+                            <th className="text-center py-2 font-medium">Comp A</th>
+                            <th className="text-center py-2 font-medium">Comp B</th>
+                            <th className="text-center py-2 font-medium">Comp C</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b border-border/50">
+                            <td className="py-2">Base Price</td>
+                            <td className="text-center text-teal font-medium">$79/mo</td>
+                            <td className="text-center">$59/mo</td>
+                            <td className="text-center">$99/mo</td>
+                            <td className="text-center">$69/mo</td>
+                          </tr>
+                          <tr className="border-b border-border/50">
+                            <td className="py-2">API Calls</td>
+                            <td className="text-center text-teal font-medium">Unlimited</td>
+                            <td className="text-center text-muted-foreground">10K/mo</td>
+                            <td className="text-center">Unlimited</td>
+                            <td className="text-center text-muted-foreground">50K/mo</td>
+                          </tr>
+                          <tr className="border-b border-border/50">
+                            <td className="py-2">Integrations</td>
+                            <td className="text-center text-teal font-medium">45+</td>
+                            <td className="text-center text-muted-foreground">20</td>
+                            <td className="text-center">30</td>
+                            <td className="text-center text-muted-foreground">25</td>
+                          </tr>
+                          <tr className="border-b border-border/50">
+                            <td className="py-2">Support SLA</td>
+                            <td className="text-center text-teal font-medium">4 hrs</td>
+                            <td className="text-center text-muted-foreground">24 hrs</td>
+                            <td className="text-center">8 hrs</td>
+                            <td className="text-center text-muted-foreground">12 hrs</td>
+                          </tr>
+                          <tr>
+                            <td className="py-2">Custom Workflows</td>
+                            <td className="text-center text-green-400">✓</td>
+                            <td className="text-center text-red-400">✗</td>
+                            <td className="text-center text-green-400">✓</td>
+                            <td className="text-center text-yellow-400">Limited</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div className="p-3 rounded bg-teal/10 border border-teal/20">
+                      <h5 className="font-medium mb-2 flex items-center gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-teal" />
+                        Recommendation
+                      </h5>
+                      <p className="text-sm text-muted-foreground">
+                        While Competitor A offers lower pricing, our unlimited API calls and superior integration options justify the premium. Focus sales conversations on:
+                      </p>
+                      <ul className="text-sm mt-2 space-y-1">
+                        <li>• <span className="text-teal">Integration depth</span> (45+ vs industry avg of 25)</li>
+                        <li>• <span className="text-teal">Support SLA</span> (4 hrs vs competitor avg of 14 hrs)</li>
+                        <li>• <span className="text-teal">Custom workflow flexibility</span></li>
+                      </ul>
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">Analyzed 5 competitors. Key findings: 2 have lower entry pricing, 1 offers similar features at 20% higher cost. Recommendation: Emphasize our unique integration capabilities in sales conversations.</p>
-                </div>
-              </div>
+                </TabsContent>
+              </Tabs>
             </CardContent>
           </Card>
         </div>

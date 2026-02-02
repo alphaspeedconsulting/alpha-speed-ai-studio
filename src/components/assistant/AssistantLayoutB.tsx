@@ -160,7 +160,7 @@ const AssistantLayoutB = ({
               </div>
             )}
 
-            {/* Completion message with example output */}
+            {/* Completion message with detailed deliverables */}
             {status === "completed" && (
               <div className="mt-4 pt-4 border-t border-gray-800">
                 <div className="flex items-start gap-2 mb-4">
@@ -168,39 +168,124 @@ const AssistantLayoutB = ({
                   <div>
                     <span className="text-green-400">Session complete!</span>
                     <p className="text-gray-500 mt-1">
-                      All {tasks.length} tasks have been processed successfully.
+                      All {tasks.length} tasks have been processed. Deliverables ready.
                     </p>
                   </div>
                 </div>
+
+                {/* Email Draft Output */}
                 <div className="text-gray-400 mt-4">
-                  <p className="text-green-400 mb-2">$ cat ./output/session-summary.json</p>
-                  <pre className="text-xs text-gray-300 bg-gray-900 p-3 rounded overflow-x-auto">
-{`{
-  "session_id": "alpha-001",
-  "tasks_completed": 5,
-  "outputs": {
-    "email_analysis": {
-      "priority_items": 3,
-      "newsletters_flagged": 12
-    },
-    "client_response": {
-      "status": "draft_ready",
-      "word_count": 247
-    },
-    "meeting": {
-      "scheduled": "Thursday 2:00 PM",
-      "attendees": 5
-    },
-    "weekly_report": {
-      "kpis": 4,
-      "action_items": 3
-    },
-    "competitor_analysis": {
-      "competitors_reviewed": 5,
-      "recommendation": "Emphasize integrations"
-    }
-  }
-}`}
+                  <p className="text-teal mb-2">$ cat ./output/client_response.txt</p>
+                  <pre className="text-xs text-gray-300 bg-gray-900 p-3 rounded overflow-x-auto whitespace-pre-wrap">
+{`To: john.smith@acmecorp.com
+Subject: Re: Pricing Inquiry - Custom Enterprise Solution
+
+Hi John,
+
+Thank you for reaching out about our enterprise solutions.
+I've reviewed your requirements and put together a custom proposal.
+
+Based on your team size (50 users) and integration needs,
+I recommend our Professional tier at $89/user/month, which includes:
+
+  • Unlimited API calls
+  • Priority support (4-hour SLA)
+  • Custom integrations
+  • Dedicated account manager
+
+I've attached a detailed comparison showing potential
+cost savings of 23% annually.
+
+Would Thursday at 2 PM work for a brief call to discuss?
+
+Best regards,
+AI Assistant
+Alpha Speed Consulting`}
+                  </pre>
+                </div>
+
+                {/* Meeting Output */}
+                <div className="text-gray-400 mt-4">
+                  <p className="text-teal mb-2">$ cat ./output/meeting_invite.txt</p>
+                  <pre className="text-xs text-gray-300 bg-gray-900 p-3 rounded overflow-x-auto whitespace-pre-wrap">
+{`CALENDAR INVITE CREATED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Team Strategy Meeting
+Thursday, February 6, 2026 | 2:00 PM - 3:00 PM EST
+Location: Zoom (link attached)
+
+ATTENDEES:
+  [✓] Sarah Chen         - Confirmed
+  [✓] Michael Rodriguez  - Confirmed
+  [○] Jennifer Park      - Pending
+  [✓] David Kim          - Confirmed
+  [○] Alex Thompson      - Pending
+
+AGENDA:
+  1. Q4 Performance Review      (15 min)
+  2. 2026 Strategy Discussion   (25 min)
+  3. Resource Allocation        (15 min)
+  4. Next Steps & Action Items  ( 5 min)
+
+ATTACHMENTS: Q4_Report.pdf, Strategy_Deck.pptx`}
+                  </pre>
+                </div>
+
+                {/* Report Output */}
+                <div className="text-gray-400 mt-4">
+                  <p className="text-teal mb-2">$ cat ./output/weekly_report.txt</p>
+                  <pre className="text-xs text-gray-300 bg-gray-900 p-3 rounded overflow-x-auto whitespace-pre-wrap">
+{`WEEKLY EXECUTIVE SUMMARY
+Week of January 27 - February 2, 2026
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+KEY METRICS:
+┌────────────────┬─────────┬─────────┬──────────┐
+│ Metric         │ Actual  │ Target  │ Variance │
+├────────────────┼─────────┼─────────┼──────────┤
+│ Revenue        │ $47.2K  │ $45K    │   +4.9%  │
+│ New Leads      │ 127     │ 100     │   +27%   │
+│ Conversion     │ 3.2%    │ 3.0%    │   +0.2%  │
+│ Response Time  │ 2.3 hrs │ 4 hrs   │   -42%   │
+└────────────────┴─────────┴─────────┴──────────┘
+
+HIGHLIGHTS:
+  • Lead generation exceeded target by 27%
+  • Average response time improved to 2.3 hours
+  • Two enterprise deals in final negotiation
+
+ACTION ITEMS:
+  1. Follow up with Acme Corp (Decision: Feb 5)
+  2. Schedule demo for TechStart Inc
+  3. Review pricing for Q2 adjustments`}
+                  </pre>
+                </div>
+
+                {/* Competitor Analysis Output */}
+                <div className="text-gray-400 mt-4">
+                  <p className="text-teal mb-2">$ cat ./output/competitor_analysis.txt</p>
+                  <pre className="text-xs text-gray-300 bg-gray-900 p-3 rounded overflow-x-auto whitespace-pre-wrap">
+{`COMPETITIVE LANDSCAPE ANALYSIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌─────────────────┬──────────┬──────────┬──────────┬──────────┐
+│ Feature         │ Us       │ Comp A   │ Comp B   │ Comp C   │
+├─────────────────┼──────────┼──────────┼──────────┼──────────┤
+│ Base Price      │ $79/mo   │ $59/mo   │ $99/mo   │ $69/mo   │
+│ API Calls       │ Unlimited│ 10K/mo   │ Unlimited│ 50K/mo   │
+│ Integrations    │ 45+      │ 20       │ 30       │ 25       │
+│ Support SLA     │ 4 hrs    │ 24 hrs   │ 8 hrs    │ 12 hrs   │
+│ Custom Workflows│ ✓        │ ✗        │ ✓        │ Limited  │
+└─────────────────┴──────────┴──────────┴──────────┴──────────┘
+
+RECOMMENDATION:
+While Competitor A offers lower pricing, our unlimited API
+calls and superior integration options justify the premium.
+
+Focus sales conversations on:
+  • Integration depth (45+ vs industry avg of 25)
+  • Support SLA (4 hrs vs competitor avg of 14 hrs)
+  • Custom workflow flexibility`}
                   </pre>
                 </div>
               </div>

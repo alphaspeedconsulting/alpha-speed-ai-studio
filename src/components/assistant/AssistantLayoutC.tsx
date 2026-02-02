@@ -11,9 +11,20 @@ import {
   Play,
   Pause,
   RotateCcw,
-  Sparkles
+  Sparkles,
+  Mail,
+  FileText,
+  Calendar,
+  BarChart3,
+  Search
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Task, SimulationStatus } from "@/hooks/useTaskSimulation";
 
 interface AssistantLayoutCProps {
@@ -253,36 +264,136 @@ const AssistantLayoutC = ({
         )}
       </div>
 
-      {/* Completion Output Summary */}
+      {/* Completion Output - Expandable Deliverables */}
       {status === "completed" && (
-        <div className="w-full max-w-lg mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="w-full max-w-2xl mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
           <div className="p-6 rounded-2xl bg-gradient-to-br from-green-500/10 to-background border border-green-500/30">
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="h-5 w-5 text-green-400" />
-              <h3 className="font-semibold text-green-400">Session Results</h3>
+              <h3 className="font-semibold text-green-400">Deliverables Ready</h3>
             </div>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Priority emails identified</span>
-                <span className="font-medium">3</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Client response drafted</span>
-                <span className="font-medium text-green-400">Ready</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Meeting scheduled</span>
-                <span className="font-medium">Thu 2:00 PM</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Report generated</span>
-                <span className="font-medium text-green-400">Complete</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Competitors analyzed</span>
-                <span className="font-medium">5</span>
-              </div>
-            </div>
+
+            <Accordion type="single" collapsible className="w-full">
+              {/* Email Analysis */}
+              <AccordionItem value="email" className="border-border/50">
+                <AccordionTrigger className="text-sm hover:no-underline">
+                  <div className="flex items-center gap-2">
+                    <Mail className="h-4 w-4 text-teal" />
+                    <span>Email Analysis</span>
+                    <Badge variant="secondary" className="ml-2 text-xs">3 priority</Badge>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="space-y-2 text-sm pt-2">
+                    <div className="p-2 rounded bg-red-500/10 border border-red-500/20">
+                      <span className="font-medium">John Smith (Acme Corp)</span>
+                      <p className="text-xs text-muted-foreground">Contract renewal - Urgent</p>
+                    </div>
+                    <div className="p-2 rounded bg-yellow-500/10 border border-yellow-500/20">
+                      <span className="font-medium">Sarah Chen (TechStart)</span>
+                      <p className="text-xs text-muted-foreground">Pricing inquiry - High</p>
+                    </div>
+                    <div className="p-2 rounded bg-yellow-500/10 border border-yellow-500/20">
+                      <span className="font-medium">Michael Rodriguez</span>
+                      <p className="text-xs text-muted-foreground">Demo request - High</p>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Client Response */}
+              <AccordionItem value="response" className="border-border/50">
+                <AccordionTrigger className="text-sm hover:no-underline">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-teal" />
+                    <span>Client Response Draft</span>
+                    <Badge className="ml-2 text-xs bg-green-500/20 text-green-400">Ready</Badge>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="text-sm pt-2 space-y-2">
+                    <p className="text-muted-foreground text-xs">To: john.smith@acmecorp.com</p>
+                    <p>Hi John, thank you for reaching out about our enterprise solutions...</p>
+                    <p>Recommending <span className="text-teal">Professional tier at $89/user/month</span> with:</p>
+                    <ul className="text-xs text-muted-foreground list-disc list-inside">
+                      <li>Unlimited API calls</li>
+                      <li>Priority support (4-hour SLA)</li>
+                      <li>Custom integrations</li>
+                    </ul>
+                    <p className="text-green-400 text-xs">Potential savings: 23% annually</p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Meeting */}
+              <AccordionItem value="meeting" className="border-border/50">
+                <AccordionTrigger className="text-sm hover:no-underline">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-teal" />
+                    <span>Meeting Scheduled</span>
+                    <Badge variant="outline" className="ml-2 text-xs">Thu 2:00 PM</Badge>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="text-sm pt-2">
+                    <p className="font-medium">Team Strategy Meeting</p>
+                    <p className="text-xs text-muted-foreground mb-2">Feb 6, 2026 • 2:00 PM - 3:00 PM EST</p>
+                    <div className="text-xs space-y-1">
+                      <p className="text-muted-foreground">Attendees: 5 (3 confirmed, 2 pending)</p>
+                      <p className="text-muted-foreground">Agenda: Q4 Review, 2026 Strategy, Resource Allocation</p>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Report */}
+              <AccordionItem value="report" className="border-border/50">
+                <AccordionTrigger className="text-sm hover:no-underline">
+                  <div className="flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4 text-teal" />
+                    <span>Weekly Report</span>
+                    <Badge className="ml-2 text-xs bg-green-500/20 text-green-400">Complete</Badge>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="text-sm pt-2 space-y-2">
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className="p-2 rounded bg-muted/30">
+                        <p className="text-muted-foreground">Revenue</p>
+                        <p className="font-medium">$47.2K <span className="text-green-400">+4.9%</span></p>
+                      </div>
+                      <div className="p-2 rounded bg-muted/30">
+                        <p className="text-muted-foreground">New Leads</p>
+                        <p className="font-medium">127 <span className="text-green-400">+27%</span></p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground">3 action items identified for leadership review</p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Competitor Analysis */}
+              <AccordionItem value="analysis" className="border-border/50">
+                <AccordionTrigger className="text-sm hover:no-underline">
+                  <div className="flex items-center gap-2">
+                    <Search className="h-4 w-4 text-teal" />
+                    <span>Competitor Analysis</span>
+                    <Badge variant="secondary" className="ml-2 text-xs">5 reviewed</Badge>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="text-sm pt-2 space-y-2">
+                    <p className="text-xs text-muted-foreground">Key advantages over competition:</p>
+                    <ul className="text-xs space-y-1">
+                      <li>• <span className="text-teal">45+ integrations</span> vs avg 25</li>
+                      <li>• <span className="text-teal">4hr support SLA</span> vs avg 14hrs</li>
+                      <li>• <span className="text-teal">Custom workflows</span> included</li>
+                    </ul>
+                    <p className="text-xs text-green-400 mt-2">Recommendation: Emphasize integration depth in sales</p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       )}
