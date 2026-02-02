@@ -107,7 +107,7 @@ const WorkflowExamplesSection = () => {
               {/* Optional Demo Link */}
               <div className="mt-6 pt-6 border-t border-border">
                 <a
-                  href="#demos"
+                  href="/#demos"
                   className="text-sm font-medium text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-2"
                 >
                   See this workflow in action <ArrowRight className="w-4 h-4" />

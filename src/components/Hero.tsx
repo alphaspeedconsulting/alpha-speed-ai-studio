@@ -42,7 +42,7 @@ const Hero = () => {
               </Button>
             </Link>
             <Button variant="heroOutline" size="xl" asChild>
-              <a href="#contact">Schedule a Consultation</a>
+              <a href="/#contact">Schedule a Consultation</a>
             </Button>
           </div>
 
