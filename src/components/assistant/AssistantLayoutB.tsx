@@ -1,49 +1,49 @@
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Brain, 
+import { Button } from "@/components/ui/button";
+import {
+  Brain,
   Terminal,
-  ChevronRight,
   Circle,
   CheckCircle2,
-  Loader2
+  Loader2,
+  Play,
+  Pause,
+  RotateCcw
 } from "lucide-react";
+import { Task, ActivityEntry, SimulationStatus } from "@/hooks/useTaskSimulation";
 
-const mockTasks = [
-  { id: 1, title: "Analyzing email inbox", status: "completed" },
-  { id: 2, title: "Drafting response to client inquiry", status: "in-progress" },
-  { id: 3, title: "Scheduling team meeting for Thursday", status: "queued" },
-  { id: 4, title: "Preparing weekly report summary", status: "queued" },
-  { id: 5, title: "Researching competitor pricing", status: "queued" },
-];
+interface AssistantLayoutBProps {
+  tasks: Task[];
+  currentTask: Task | null;
+  activityLog: ActivityEntry[];
+  status: SimulationStatus;
+  completedCount: number;
+  currentThought: string;
+  start: () => void;
+  pause: () => void;
+  reset: () => void;
+}
 
-const mockLogs = [
-  { type: "info", message: "Session initialized", timestamp: "10:42:15" },
-  { type: "task", message: "Starting task: Analyzing email inbox", timestamp: "10:42:18" },
-  { type: "info", message: "Connecting to email API...", timestamp: "10:42:19" },
-  { type: "success", message: "Connected successfully", timestamp: "10:42:21" },
-  { type: "info", message: "Scanning 247 emails from last 7 days", timestamp: "10:42:22" },
-  { type: "info", message: "Applying priority filters...", timestamp: "10:43:45" },
-  { type: "success", message: "Found 3 priority items requiring attention", timestamp: "10:44:02" },
-  { type: "task", message: "Completed: Analyzing email inbox", timestamp: "10:44:15" },
-  { type: "task", message: "Starting task: Drafting response to client inquiry", timestamp: "10:44:18" },
-  { type: "info", message: "Loading client context from CRM...", timestamp: "10:44:20" },
-  { type: "info", message: "Generating response draft...", timestamp: "10:45:30" },
-  { type: "thinking", message: "Considering tone and previous interactions...", timestamp: "10:46:00" },
-];
+const AssistantLayoutB = ({
+  tasks,
+  currentTask,
+  activityLog,
+  status,
+  completedCount,
+  currentThought,
+  start,
+  pause,
+  reset,
+}: AssistantLayoutBProps) => {
+  const logContainerRef = useRef<HTMLDivElement>(null);
 
-const AssistantLayoutB = () => {
-  const [typingIndex, setTypingIndex] = useState(0);
-  const currentThought = "Analyzing client history to ensure response aligns with previous communication style...";
-
+  // Auto-scroll to bottom when new logs arrive
   useEffect(() => {
-    if (typingIndex < currentThought.length) {
-      const timeout = setTimeout(() => {
-        setTypingIndex((prev) => prev + 1);
-      }, 50);
-      return () => clearTimeout(timeout);
+    if (logContainerRef.current) {
+      logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight;
     }
-  }, [typingIndex]);
+  }, [activityLog]);
 
   const getLogColor = (type: string) => {
     switch (type) {
@@ -65,11 +65,33 @@ const AssistantLayoutB = () => {
     }
   };
 
+  const queuedCount = tasks.filter(t => t.status === "queued").length;
+  const inProgressCount = tasks.filter(t => t.status === "in-progress").length;
+
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">AI Assistant Terminal</h1>
-        <p className="text-muted-foreground">Layout B - Terminal/developer-style view</p>
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">AI Assistant Terminal</h1>
+          <p className="text-muted-foreground">Layout B - Terminal/developer-style view</p>
+        </div>
+        <div className="flex items-center gap-2">
+          {status === "running" ? (
+            <Button variant="outline" size="sm" onClick={pause}>
+              <Pause className="h-4 w-4 mr-2" />
+              Pause
+            </Button>
+          ) : (
+            <Button variant="outline" size="sm" onClick={start}>
+              <Play className="h-4 w-4 mr-2" />
+              {status === "paused" ? "Resume" : "Start"}
+            </Button>
+          )}
+          <Button variant="ghost" size="sm" onClick={reset}>
+            <RotateCcw className="h-4 w-4 mr-2" />
+            Reset
+          </Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -82,36 +104,76 @@ const AssistantLayoutB = () => {
               <span className="text-sm font-mono text-muted-foreground">alpha-speed-ai ~ session-001</span>
             </div>
             <div className="flex items-center gap-2">
-              <Badge className="bg-teal/20 text-teal border-teal/30 font-mono text-xs">
-                <Loader2 className="h-3 w-3 mr-1 animate-spin" />
-                ACTIVE
+              <Badge className={`font-mono text-xs ${
+                status === "running"
+                  ? "bg-teal/20 text-teal border-teal/30"
+                  : status === "paused"
+                  ? "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
+                  : status === "completed"
+                  ? "bg-green-500/20 text-green-400 border-green-500/30"
+                  : "bg-gray-800 text-gray-400 border-gray-700"
+              }`}>
+                {status === "running" && <Loader2 className="h-3 w-3 mr-1 animate-spin" />}
+                {status === "paused" && <Pause className="h-3 w-3 mr-1" />}
+                {status === "completed" && <CheckCircle2 className="h-3 w-3 mr-1" />}
+                {status === "idle" && <Circle className="h-3 w-3 mr-1" />}
+                {status.toUpperCase()}
               </Badge>
             </div>
           </div>
 
           {/* Terminal Content */}
-          <div className="p-4 font-mono text-sm h-[300px] md:h-[500px] overflow-y-auto">
-            {mockLogs.map((log, index) => (
-              <div key={index} className="flex items-start gap-2 mb-1">
-                <span className="text-gray-600 select-none">{log.timestamp}</span>
-                <span className={`${getLogColor(log.type)} select-none`}>{getLogPrefix(log.type)}</span>
-                <span className="text-gray-300">{log.message}</span>
+          <div
+            ref={logContainerRef}
+            className="p-4 font-mono text-sm h-[300px] md:h-[500px] overflow-y-auto"
+          >
+            {activityLog.length > 0 ? (
+              // Reverse to show oldest first (terminal style)
+              [...activityLog].reverse().map((log, index) => (
+                <div key={index} className="flex items-start gap-2 mb-1">
+                  <span className="text-gray-600 select-none">{log.timestamp}</span>
+                  <span className={`${getLogColor(log.type)} select-none`}>{getLogPrefix(log.type)}</span>
+                  <span className="text-gray-300">{log.action}</span>
+                </div>
+              ))
+            ) : (
+              <div className="text-gray-500">
+                <p>$ alpha-speed-ai --start</p>
+                <p className="text-gray-600 mt-2">Waiting for session to begin...</p>
+                <p className="text-gray-600">Press Start to initialize the AI assistant.</p>
               </div>
-            ))}
-            
-            {/* Current Thinking */}
-            <div className="mt-4 pt-4 border-t border-gray-800">
-              <div className="flex items-start gap-2">
-                <Brain className="h-4 w-4 text-teal animate-pulse mt-0.5" />
-                <div>
-                  <span className="text-teal">Currently thinking:</span>
-                  <p className="text-gray-300 mt-1">
-                    {currentThought.slice(0, typingIndex)}
-                    <span className="inline-block w-2 h-4 bg-teal ml-0.5 animate-pulse" />
-                  </p>
+            )}
+
+            {/* Current Thinking - only show when running */}
+            {status === "running" && currentThought && (
+              <div className="mt-4 pt-4 border-t border-gray-800">
+                <div className="flex items-start gap-2">
+                  <Brain className="h-4 w-4 text-teal animate-pulse mt-0.5" />
+                  <div>
+                    <span className="text-teal">Currently thinking:</span>
+                    <p className="text-gray-300 mt-1">
+                      {currentThought}
+                      <span className="inline-block w-2 h-4 bg-teal ml-0.5 animate-pulse" />
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+
+            {/* Completion message */}
+            {status === "completed" && (
+              <div className="mt-4 pt-4 border-t border-gray-800">
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-green-400 mt-0.5" />
+                  <div>
+                    <span className="text-green-400">Session complete!</span>
+                    <p className="text-gray-500 mt-1">
+                      All {tasks.length} tasks have been processed successfully.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -121,12 +183,12 @@ const AssistantLayoutB = () => {
             <span className="text-sm font-mono text-muted-foreground">Task Queue</span>
           </div>
           <div className="p-3 space-y-2">
-            {mockTasks.map((task, index) => (
-              <div 
+            {tasks.map((task, index) => (
+              <div
                 key={task.id}
                 className={`p-3 rounded border font-mono text-xs ${
-                  task.status === 'in-progress' 
-                    ? 'border-teal/50 bg-teal/10' 
+                  task.status === 'in-progress'
+                    ? 'border-teal/50 bg-teal/10'
                     : task.status === 'completed'
                     ? 'border-gray-800 bg-gray-900/50'
                     : 'border-gray-800 bg-gray-900'
@@ -145,14 +207,25 @@ const AssistantLayoutB = () => {
                   <span className="text-gray-500">#{index + 1}</span>
                 </div>
                 <p className={`${
-                  task.status === 'completed' 
-                    ? 'text-gray-600 line-through' 
+                  task.status === 'completed'
+                    ? 'text-gray-600 line-through'
                     : task.status === 'in-progress'
                     ? 'text-teal'
                     : 'text-gray-400'
                 }`}>
                   {task.title}
                 </p>
+                {task.status === 'in-progress' && (
+                  <div className="mt-2 h-1 bg-gray-800 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-teal transition-all duration-100"
+                      style={{ width: `${task.progress}%` }}
+                    />
+                  </div>
+                )}
+                {task.status === 'completed' && task.detail && (
+                  <p className="text-gray-600 text-[10px] mt-1">{task.detail}</p>
+                )}
               </div>
             ))}
           </div>
@@ -161,15 +234,15 @@ const AssistantLayoutB = () => {
           <div className="border-t border-gray-800 p-3 font-mono text-xs">
             <div className="flex justify-between text-gray-500 mb-1">
               <span>Completed:</span>
-              <span className="text-green-500">1</span>
+              <span className="text-green-500">{completedCount}</span>
             </div>
             <div className="flex justify-between text-gray-500 mb-1">
               <span>Active:</span>
-              <span className="text-teal">1</span>
+              <span className="text-teal">{inProgressCount}</span>
             </div>
             <div className="flex justify-between text-gray-500">
               <span>Queued:</span>
-              <span className="text-gray-400">3</span>
+              <span className="text-gray-400">{queuedCount}</span>
             </div>
           </div>
         </div>

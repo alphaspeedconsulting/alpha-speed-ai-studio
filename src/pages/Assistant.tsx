@@ -2,12 +2,16 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { useTaskSimulation } from "@/hooks/useTaskSimulation";
 import AssistantLayoutA from "@/components/assistant/AssistantLayoutA";
 import AssistantLayoutB from "@/components/assistant/AssistantLayoutB";
 import AssistantLayoutC from "@/components/assistant/AssistantLayoutC";
 
 const Assistant = () => {
   const [selectedLayout, setSelectedLayout] = useState<"A" | "B" | "C">("A");
+
+  // Shared simulation state - persists across layout switches
+  const simulation = useTaskSimulation();
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -62,10 +66,45 @@ const Assistant = () => {
           </div>
         </div>
 
-        {/* Selected Layout */}
-        {selectedLayout === "A" && <AssistantLayoutA />}
-        {selectedLayout === "B" && <AssistantLayoutB />}
-        {selectedLayout === "C" && <AssistantLayoutC />}
+        {/* Selected Layout - all receive shared simulation state */}
+        {selectedLayout === "A" && (
+          <AssistantLayoutA
+            tasks={simulation.tasks}
+            currentTask={simulation.currentTask}
+            activityLog={simulation.activityLog}
+            status={simulation.status}
+            completedCount={simulation.completedCount}
+            totalCount={simulation.totalCount}
+            start={simulation.start}
+            pause={simulation.pause}
+            reset={simulation.reset}
+          />
+        )}
+        {selectedLayout === "B" && (
+          <AssistantLayoutB
+            tasks={simulation.tasks}
+            currentTask={simulation.currentTask}
+            activityLog={simulation.activityLog}
+            status={simulation.status}
+            completedCount={simulation.completedCount}
+            currentThought={simulation.currentThought}
+            start={simulation.start}
+            pause={simulation.pause}
+            reset={simulation.reset}
+          />
+        )}
+        {selectedLayout === "C" && (
+          <AssistantLayoutC
+            tasks={simulation.tasks}
+            currentTask={simulation.currentTask}
+            status={simulation.status}
+            completedCount={simulation.completedCount}
+            totalCount={simulation.totalCount}
+            start={simulation.start}
+            pause={simulation.pause}
+            reset={simulation.reset}
+          />
+        )}
       </main>
       <Footer />
     </div>

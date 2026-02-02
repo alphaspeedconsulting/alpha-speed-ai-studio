@@ -2,35 +2,47 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { 
-  Brain, 
-  CheckCircle2, 
-  Circle, 
-  Loader2, 
-  Clock, 
+import { Button } from "@/components/ui/button";
+import {
+  Brain,
+  CheckCircle2,
+  Circle,
+  Loader2,
+  Clock,
   Zap,
   Activity,
-  MessageSquare
+  MessageSquare,
+  Play,
+  Pause,
+  RotateCcw
 } from "lucide-react";
+import { Task, ActivityEntry, SimulationStatus } from "@/hooks/useTaskSimulation";
 
-const mockTasks = [
-  { id: 1, title: "Analyzing email inbox", status: "completed", progress: 100 },
-  { id: 2, title: "Drafting response to client inquiry", status: "in-progress", progress: 65 },
-  { id: 3, title: "Scheduling team meeting for Thursday", status: "queued", progress: 0 },
-  { id: 4, title: "Preparing weekly report summary", status: "queued", progress: 0 },
-  { id: 5, title: "Researching competitor pricing", status: "queued", progress: 0 },
-];
+interface AssistantLayoutAProps {
+  tasks: Task[];
+  currentTask: Task | null;
+  activityLog: ActivityEntry[];
+  status: SimulationStatus;
+  completedCount: number;
+  totalCount: number;
+  start: () => void;
+  pause: () => void;
+  reset: () => void;
+}
 
-const mockActivity = [
-  { time: "2 min ago", action: "Completed email analysis - found 3 priority items" },
-  { time: "5 min ago", action: "Started drafting client response" },
-  { time: "8 min ago", action: "Added 3 new tasks to queue" },
-  { time: "12 min ago", action: "Session initialized" },
-];
-
-const AssistantLayoutA = () => {
+const AssistantLayoutA = ({
+  tasks,
+  currentTask,
+  activityLog,
+  status,
+  completedCount,
+  totalCount,
+  start,
+  pause,
+  reset,
+}: AssistantLayoutAProps) => {
   const [pulsePhase, setPulsePhase] = useState(0);
-  const [currentTask, setCurrentTask] = useState(mockTasks[1]);
+  const [sessionTime, setSessionTime] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,11 +51,84 @@ const AssistantLayoutA = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    if (status === "running") {
+      interval = setInterval(() => {
+        setSessionTime((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [status]);
+
+  const formatSessionTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const queuedCount = tasks.filter(t => t.status === "queued").length;
+  const inProgressCount = tasks.filter(t => t.status === "in-progress").length;
+
+  const getStatusBadge = () => {
+    switch (status) {
+      case "running":
+        return (
+          <Badge className="bg-teal text-white border-0">
+            <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+            Working
+          </Badge>
+        );
+      case "paused":
+        return (
+          <Badge className="bg-yellow-500 text-white border-0">
+            <Pause className="h-3 w-3 mr-1" />
+            Paused
+          </Badge>
+        );
+      case "completed":
+        return (
+          <Badge className="bg-green-500 text-white border-0">
+            <CheckCircle2 className="h-3 w-3 mr-1" />
+            Complete
+          </Badge>
+        );
+      default:
+        return (
+          <Badge className="bg-muted text-muted-foreground border-0">
+            <Circle className="h-3 w-3 mr-1" />
+            Idle
+          </Badge>
+        );
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">AI Assistant Dashboard</h1>
-        <p className="text-muted-foreground">Layout A - Card-based dashboard view</p>
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">AI Assistant Dashboard</h1>
+          <p className="text-muted-foreground">Layout A - Card-based dashboard view</p>
+        </div>
+        <div className="flex items-center gap-2">
+          {status === "running" ? (
+            <Button variant="outline" size="sm" onClick={pause}>
+              <Pause className="h-4 w-4 mr-2" />
+              Pause
+            </Button>
+          ) : (
+            <Button variant="outline" size="sm" onClick={start}>
+              <Play className="h-4 w-4 mr-2" />
+              {status === "paused" ? "Resume" : "Start"}
+            </Button>
+          )}
+          <Button variant="ghost" size="sm" onClick={reset}>
+            <RotateCcw className="h-4 w-4 mr-2" />
+            Reset
+          </Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -59,30 +144,37 @@ const AssistantLayoutA = () => {
             {/* Animated AI Orb */}
             <div className="relative mb-6">
               <div className="w-32 h-32 rounded-full bg-gradient-to-br from-teal/20 to-teal/5 flex items-center justify-center">
-                <div 
+                <div
                   className={`w-24 h-24 rounded-full bg-gradient-to-br from-teal to-teal-glow flex items-center justify-center transition-all duration-500 ${
-                    pulsePhase === 0 ? 'scale-100 shadow-[0_0_30px_hsl(var(--teal)/0.5)]' : 
-                    pulsePhase === 1 ? 'scale-105 shadow-[0_0_50px_hsl(var(--teal)/0.7)]' : 
-                    'scale-95 shadow-[0_0_20px_hsl(var(--teal)/0.3)]'
+                    status === "running"
+                      ? pulsePhase === 0 ? 'scale-100 shadow-[0_0_30px_hsl(var(--teal)/0.5)]' :
+                        pulsePhase === 1 ? 'scale-105 shadow-[0_0_50px_hsl(var(--teal)/0.7)]' :
+                        'scale-95 shadow-[0_0_20px_hsl(var(--teal)/0.3)]'
+                      : 'scale-100 shadow-none opacity-50'
                   }`}
                 >
                   <Brain className="h-12 w-12 text-white" />
                 </div>
               </div>
               <div className="absolute -bottom-2 left-1/2 -translate-x-1/2">
-                <Badge className="bg-teal text-white border-0">
-                  <Loader2 className="h-3 w-3 mr-1 animate-spin" />
-                  Working
-                </Badge>
+                {getStatusBadge()}
               </div>
             </div>
 
             {/* Current Task */}
             <div className="text-center w-full">
-              <p className="text-sm text-muted-foreground mb-2">Currently working on:</p>
-              <p className="font-medium text-foreground mb-3">{currentTask.title}</p>
-              <Progress value={currentTask.progress} className="h-2" />
-              <p className="text-xs text-muted-foreground mt-2">{currentTask.progress}% complete</p>
+              <p className="text-sm text-muted-foreground mb-2">
+                {currentTask ? "Currently working on:" : status === "completed" ? "Session complete" : "Ready to start"}
+              </p>
+              <p className="font-medium text-foreground mb-3">
+                {currentTask?.title || (status === "completed" ? "All tasks finished!" : "Click Start to begin")}
+              </p>
+              {currentTask && (
+                <>
+                  <Progress value={currentTask.progress} className="h-2" />
+                  <p className="text-xs text-muted-foreground mt-2">{currentTask.progress}% complete</p>
+                </>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -95,17 +187,17 @@ const AssistantLayoutA = () => {
                 <Zap className="h-5 w-5 text-teal" />
                 Task Queue
               </span>
-              <Badge variant="secondary">{mockTasks.length} tasks</Badge>
+              <Badge variant="secondary">{tasks.length} tasks</Badge>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {mockTasks.map((task) => (
-                <div 
+              {tasks.map((task) => (
+                <div
                   key={task.id}
                   className={`p-4 rounded-lg border transition-all ${
-                    task.status === 'in-progress' 
-                      ? 'border-teal/50 bg-teal/5' 
+                    task.status === 'in-progress'
+                      ? 'border-teal/50 bg-teal/5'
                       : task.status === 'completed'
                       ? 'border-border/50 bg-muted/30'
                       : 'border-border/30 bg-background'
@@ -130,6 +222,9 @@ const AssistantLayoutA = () => {
                       {task.status === 'in-progress' && (
                         <Progress value={task.progress} className="h-1.5 mt-2" />
                       )}
+                      {task.status === 'completed' && task.detail && (
+                        <p className="text-xs text-muted-foreground mt-1">{task.detail}</p>
+                      )}
                     </div>
                     <Badge variant={
                       task.status === 'completed' ? 'secondary' :
@@ -153,16 +248,27 @@ const AssistantLayoutA = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
-              {mockActivity.map((item, index) => (
-                <div key={index} className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
-                  <Clock className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <div className="flex-1">
-                    <p className="text-sm">{item.action}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{item.time}</p>
+            <div className="space-y-3 max-h-64 overflow-y-auto">
+              {activityLog.length > 0 ? (
+                activityLog.map((item, index) => (
+                  <div key={index} className="flex items-start gap-3 p-3 rounded-lg bg-muted/30">
+                    <Clock className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                    <div className="flex-1">
+                      <p className={`text-sm ${
+                        item.type === 'success' ? 'text-green-400' :
+                        item.type === 'task' ? 'text-teal' :
+                        item.type === 'thinking' ? 'text-yellow-400' : ''
+                      }`}>{item.action}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{item.time}</p>
+                    </div>
                   </div>
+                ))
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">
+                  <Activity className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                  <p>No activity yet. Start the simulation to see logs.</p>
                 </div>
-              ))}
+              )}
             </div>
           </CardContent>
         </Card>
@@ -179,19 +285,19 @@ const AssistantLayoutA = () => {
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground">Tasks Completed</span>
-                <span className="text-2xl font-bold text-teal">1</span>
+                <span className="text-2xl font-bold text-teal">{completedCount}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground">In Progress</span>
-                <span className="text-2xl font-bold">1</span>
+                <span className="text-2xl font-bold">{inProgressCount}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground">Queued</span>
-                <span className="text-2xl font-bold text-muted-foreground">3</span>
+                <span className="text-2xl font-bold text-muted-foreground">{queuedCount}</span>
               </div>
               <div className="flex justify-between items-center pt-4 border-t border-border/50">
                 <span className="text-muted-foreground">Session Time</span>
-                <span className="font-medium">12 minutes</span>
+                <span className="font-medium">{formatSessionTime(sessionTime)}</span>
               </div>
             </div>
           </CardContent>
