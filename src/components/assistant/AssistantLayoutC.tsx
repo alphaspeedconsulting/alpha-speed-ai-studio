@@ -65,21 +65,21 @@ const AssistantLayoutC = ({
     switch (status) {
       case "running":
         return (
-          <Badge className="bg-teal text-white border-0 shadow-lg px-4 py-1">
+          <Badge className="bg-brand text-white border-0 shadow-lg px-4 py-1">
             <Loader2 className="h-3 w-3 mr-2 animate-spin" />
             Processing
           </Badge>
         );
       case "paused":
         return (
-          <Badge className="bg-yellow-500 text-white border-0 shadow-lg px-4 py-1">
+          <Badge className="bg-warning text-white border-0 shadow-lg px-4 py-1">
             <Pause className="h-3 w-3 mr-2" />
             Paused
           </Badge>
         );
       case "completed":
         return (
-          <Badge className="bg-green-500 text-white border-0 shadow-lg px-4 py-1">
+          <Badge className="bg-success text-white border-0 shadow-lg px-4 py-1">
             <CheckCircle2 className="h-3 w-3 mr-2" />
             Complete
           </Badge>
@@ -108,7 +108,7 @@ const AssistantLayoutC = ({
           className="absolute inset-0 rounded-full"
           style={{
             background: status === "running"
-              ? `conic-gradient(from ${orbPhase}deg, transparent, hsl(var(--teal)) 25%, transparent 50%, hsl(var(--teal-glow)) 75%, transparent)`
+              ? `conic-gradient(from ${orbPhase}deg, transparent, hsl(var(--brand)) 25%, transparent 50%, hsl(var(--brand-glow)) 75%, transparent)`
               : "transparent",
             filter: 'blur(20px)',
             opacity: status === "running" ? 0.4 : 0.1,
@@ -119,27 +119,27 @@ const AssistantLayoutC = ({
         {/* Main orb */}
         <div className={`relative w-48 h-48 rounded-full bg-gradient-to-br from-gray-900 to-background border-2 flex items-center justify-center transition-all duration-300 ${
           status === "running"
-            ? "border-teal/30 shadow-[0_0_60px_-10px_hsl(var(--teal)/0.5)]"
+            ? "border-brand/30 shadow-[0_0_60px_-10px_hsl(var(--brand)/0.5)]"
             : status === "completed"
-            ? "border-green-500/30 shadow-[0_0_60px_-10px_hsl(142_76%_36%/0.5)]"
+            ? "border-success/30 shadow-[0_0_60px_-10px_hsl(var(--success)/0.5)]"
             : "border-border/30"
         }`}>
           {/* Inner rotating ring */}
           <div
             className={`absolute inset-4 rounded-full border transition-colors ${
-              status === "running" ? "border-teal/20" : "border-border/10"
+              status === "running" ? "border-brand/20" : "border-border/10"
             }`}
             style={{ transform: status === "running" ? `rotate(${orbPhase}deg)` : "rotate(0deg)" }}
           >
             <div className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full transition-colors ${
-              status === "running" ? "bg-teal" : "bg-muted"
+              status === "running" ? "bg-brand" : "bg-muted"
             }`} />
           </div>
 
           {/* Brain icon */}
           <Brain className={`h-16 w-16 transition-colors ${
-            status === "running" ? "text-teal" :
-            status === "completed" ? "text-green-500" : "text-muted-foreground"
+            status === "running" ? "text-brand" :
+            status === "completed" ? "text-success" : "text-muted-foreground"
           }`} />
         </div>
 
@@ -200,8 +200,8 @@ const AssistantLayoutC = ({
             <div
               key={task.id}
               className={`w-8 h-2 rounded-full transition-all ${
-                task.status === 'completed' ? 'bg-teal' :
-                task.status === 'in-progress' ? 'bg-teal/50 animate-pulse' :
+                task.status === 'completed' ? 'bg-brand' :
+                task.status === 'in-progress' ? 'bg-brand/50 animate-pulse' :
                 'bg-muted'
               }`}
             />
@@ -230,17 +230,17 @@ const AssistantLayoutC = ({
                 key={task.id}
                 className={`flex items-center gap-3 p-4 rounded-xl border transition-all ${
                   task.status === 'in-progress'
-                    ? 'border-teal/30 bg-teal/5'
+                    ? 'border-brand/30 bg-brand/5'
                     : task.status === 'completed'
                     ? 'border-border/30 bg-muted/20'
                     : 'border-border/20 bg-background'
                 }`}
               >
                 {task.status === 'completed' && (
-                  <CheckCircle2 className="h-5 w-5 text-teal flex-shrink-0" />
+                  <CheckCircle2 className="h-5 w-5 text-brand flex-shrink-0" />
                 )}
                 {task.status === 'in-progress' && (
-                  <Loader2 className="h-5 w-5 text-teal animate-spin flex-shrink-0" />
+                  <Loader2 className="h-5 w-5 text-brand animate-spin flex-shrink-0" />
                 )}
                 {task.status === 'queued' && (
                   <Circle className="h-5 w-5 text-muted-foreground/50 flex-shrink-0" />
@@ -267,10 +267,10 @@ const AssistantLayoutC = ({
       {/* Completion Output - Expandable Deliverables */}
       {status === "completed" && (
         <div className="w-full max-w-2xl mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <div className="p-6 rounded-2xl bg-gradient-to-br from-green-500/10 to-background border border-green-500/30">
+          <div className="p-6 rounded-2xl bg-gradient-to-br from-success/10 to-background border border-success/30">
             <div className="flex items-center gap-2 mb-4">
-              <Sparkles className="h-5 w-5 text-green-400" />
-              <h3 className="font-semibold text-green-400">Deliverables Ready</h3>
+              <Sparkles className="h-5 w-5 text-success" />
+              <h3 className="font-semibold text-success">Deliverables Ready</h3>
             </div>
 
             <Accordion type="single" collapsible className="w-full">
@@ -278,22 +278,22 @@ const AssistantLayoutC = ({
               <AccordionItem value="email" className="border-border/50">
                 <AccordionTrigger className="text-sm hover:no-underline">
                   <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-teal" />
+                    <Mail className="h-4 w-4 text-brand" />
                     <span>Email Analysis</span>
                     <Badge variant="secondary" className="ml-2 text-xs">3 priority</Badge>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="space-y-2 text-sm pt-2">
-                    <div className="p-2 rounded bg-red-500/10 border border-red-500/20">
+                    <div className="p-2 rounded bg-danger/10 border border-danger/20">
                       <span className="font-medium">John Smith (Acme Corp)</span>
                       <p className="text-xs text-muted-foreground">Contract renewal - Urgent</p>
                     </div>
-                    <div className="p-2 rounded bg-yellow-500/10 border border-yellow-500/20">
+                    <div className="p-2 rounded bg-warning/10 border border-warning/20">
                       <span className="font-medium">Sarah Chen (TechStart)</span>
                       <p className="text-xs text-muted-foreground">Pricing inquiry - High</p>
                     </div>
-                    <div className="p-2 rounded bg-yellow-500/10 border border-yellow-500/20">
+                    <div className="p-2 rounded bg-warning/10 border border-warning/20">
                       <span className="font-medium">Michael Rodriguez</span>
                       <p className="text-xs text-muted-foreground">Demo request - High</p>
                     </div>
@@ -305,22 +305,22 @@ const AssistantLayoutC = ({
               <AccordionItem value="response" className="border-border/50">
                 <AccordionTrigger className="text-sm hover:no-underline">
                   <div className="flex items-center gap-2">
-                    <FileText className="h-4 w-4 text-teal" />
+                    <FileText className="h-4 w-4 text-brand" />
                     <span>Client Response Draft</span>
-                    <Badge className="ml-2 text-xs bg-green-500/20 text-green-400">Ready</Badge>
+                    <Badge className="ml-2 text-xs bg-success/20 text-success">Ready</Badge>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="text-sm pt-2 space-y-2">
                     <p className="text-muted-foreground text-xs">To: john.smith@acmecorp.com</p>
                     <p>Hi John, thank you for reaching out about our enterprise solutions...</p>
-                    <p>Recommending <span className="text-teal">Professional tier at $89/user/month</span> with:</p>
+                    <p>Recommending <span className="text-brand">Professional tier at $89/user/month</span> with:</p>
                     <ul className="text-xs text-muted-foreground list-disc list-inside">
                       <li>Unlimited API calls</li>
                       <li>Priority support (4-hour SLA)</li>
                       <li>Custom integrations</li>
                     </ul>
-                    <p className="text-green-400 text-xs">Potential savings: 23% annually</p>
+                    <p className="text-success text-xs">Potential savings: 23% annually</p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
@@ -329,7 +329,7 @@ const AssistantLayoutC = ({
               <AccordionItem value="meeting" className="border-border/50">
                 <AccordionTrigger className="text-sm hover:no-underline">
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-teal" />
+                    <Calendar className="h-4 w-4 text-brand" />
                     <span>Meeting Scheduled</span>
                     <Badge variant="outline" className="ml-2 text-xs">Thu 2:00 PM</Badge>
                   </div>
@@ -350,9 +350,9 @@ const AssistantLayoutC = ({
               <AccordionItem value="report" className="border-border/50">
                 <AccordionTrigger className="text-sm hover:no-underline">
                   <div className="flex items-center gap-2">
-                    <BarChart3 className="h-4 w-4 text-teal" />
+                    <BarChart3 className="h-4 w-4 text-brand" />
                     <span>Weekly Report</span>
-                    <Badge className="ml-2 text-xs bg-green-500/20 text-green-400">Complete</Badge>
+                    <Badge className="ml-2 text-xs bg-success/20 text-success">Complete</Badge>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -360,11 +360,11 @@ const AssistantLayoutC = ({
                     <div className="grid grid-cols-2 gap-2 text-xs">
                       <div className="p-2 rounded bg-muted/30">
                         <p className="text-muted-foreground">Revenue</p>
-                        <p className="font-medium">$47.2K <span className="text-green-400">+4.9%</span></p>
+                        <p className="font-medium">$47.2K <span className="text-success">+4.9%</span></p>
                       </div>
                       <div className="p-2 rounded bg-muted/30">
                         <p className="text-muted-foreground">New Leads</p>
-                        <p className="font-medium">127 <span className="text-green-400">+27%</span></p>
+                        <p className="font-medium">127 <span className="text-success">+27%</span></p>
                       </div>
                     </div>
                     <p className="text-xs text-muted-foreground">3 action items identified for leadership review</p>
@@ -376,7 +376,7 @@ const AssistantLayoutC = ({
               <AccordionItem value="analysis" className="border-border/50">
                 <AccordionTrigger className="text-sm hover:no-underline">
                   <div className="flex items-center gap-2">
-                    <Search className="h-4 w-4 text-teal" />
+                    <Search className="h-4 w-4 text-brand" />
                     <span>Competitor Analysis</span>
                     <Badge variant="secondary" className="ml-2 text-xs">5 reviewed</Badge>
                   </div>
@@ -385,11 +385,11 @@ const AssistantLayoutC = ({
                   <div className="text-sm pt-2 space-y-2">
                     <p className="text-xs text-muted-foreground">Key advantages over competition:</p>
                     <ul className="text-xs space-y-1">
-                      <li>• <span className="text-teal">45+ integrations</span> vs avg 25</li>
-                      <li>• <span className="text-teal">4hr support SLA</span> vs avg 14hrs</li>
-                      <li>• <span className="text-teal">Custom workflows</span> included</li>
+                      <li>• <span className="text-brand">45+ integrations</span> vs avg 25</li>
+                      <li>• <span className="text-brand">4hr support SLA</span> vs avg 14hrs</li>
+                      <li>• <span className="text-brand">Custom workflows</span> included</li>
                     </ul>
-                    <p className="text-xs text-green-400 mt-2">Recommendation: Emphasize integration depth in sales</p>
+                    <p className="text-xs text-success mt-2">Recommendation: Emphasize integration depth in sales</p>
                   </div>
                 </AccordionContent>
               </AccordionItem>

@@ -13,7 +13,7 @@ const Footer = () => {
             <img
               src={logo}
               alt="Alpha Speed AI"
-              className="h-14 w-auto invert opacity-80"
+              className="h-14 w-auto invert opacity-80 logo-img"
             />
           </Link>
 

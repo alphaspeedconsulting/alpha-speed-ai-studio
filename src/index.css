@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    /* Dark theme as default - Black, Teal, Grey */
+    /* Alpha Dark theme (default) */
     --background: 220 20% 6%;
     --foreground: 0 0% 98%;
 
@@ -35,15 +35,33 @@
 
     --radius: 0.75rem;
 
-    /* Custom colors */
+    /* Brand (teal across all themes) */
+    --brand: 174 72% 46%;
+    --brand-glow: 174 72% 56%;
+
+    /* Semantic status colors */
+    --success: 142 76% 36%;
+    --success-foreground: 142 76% 80%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 38 92% 80%;
+    --danger: 0 84% 60%;
+    --danger-foreground: 0 84% 85%;
+    --info: 210 60% 50%;
+    --info-foreground: 210 60% 80%;
+
+    /* Legacy aliases */
     --teal: 174 72% 46%;
     --teal-glow: 174 72% 56%;
     --grey-dark: 220 14% 12%;
     --grey-medium: 220 10% 40%;
     --grey-light: 220 10% 70%;
+
+    /* Glow intensity (reduced in light themes) */
+    --glow-opacity: 1;
   }
 
-  .dark {
+  .dark,
+  [data-theme="dark"] {
     --background: 220 20% 6%;
     --foreground: 0 0% 98%;
     --card: 220 20% 8%;
@@ -63,6 +81,77 @@
     --border: 220 14% 18%;
     --input: 220 14% 18%;
     --ring: 174 72% 46%;
+    --success: 142 76% 36%;
+    --success-foreground: 142 76% 80%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 38 92% 80%;
+    --danger: 0 84% 60%;
+    --danger-foreground: 0 84% 85%;
+    --glow-opacity: 1;
+  }
+
+  [data-theme="soft"] {
+    --background: 30 25% 97%;
+    --foreground: 220 20% 20%;
+    --card: 30 20% 94%;
+    --card-foreground: 220 20% 20%;
+    --popover: 30 20% 94%;
+    --popover-foreground: 220 20% 20%;
+    --primary: 174 72% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 30 15% 90%;
+    --secondary-foreground: 220 20% 25%;
+    --muted: 30 10% 88%;
+    --muted-foreground: 220 10% 50%;
+    --accent: 174 72% 40%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 10% 85%;
+    --input: 30 10% 85%;
+    --ring: 174 72% 40%;
+    --radius: 1rem;
+    --brand: 174 72% 40%;
+    --brand-glow: 174 72% 50%;
+    --success: 152 50% 38%;
+    --success-foreground: 152 50% 25%;
+    --warning: 38 80% 48%;
+    --warning-foreground: 38 80% 25%;
+    --danger: 0 60% 52%;
+    --danger-foreground: 0 60% 25%;
+    --glow-opacity: 0.4;
+  }
+
+  [data-theme="corporate"] {
+    --background: 220 15% 98%;
+    --foreground: 220 25% 15%;
+    --card: 220 10% 95%;
+    --card-foreground: 220 25% 15%;
+    --popover: 220 10% 95%;
+    --popover-foreground: 220 25% 15%;
+    --primary: 174 65% 38%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 15% 92%;
+    --secondary-foreground: 220 25% 20%;
+    --muted: 220 10% 90%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 174 65% 38%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 75% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 10% 88%;
+    --input: 220 10% 88%;
+    --ring: 174 65% 38%;
+    --radius: 0.5rem;
+    --brand: 174 65% 38%;
+    --brand-glow: 174 65% 48%;
+    --success: 142 60% 36%;
+    --success-foreground: 142 60% 20%;
+    --warning: 38 85% 45%;
+    --warning-foreground: 38 85% 20%;
+    --danger: 0 70% 48%;
+    --danger-foreground: 0 70% 20%;
+    --glow-opacity: 0;
   }
 }
 
@@ -78,20 +167,26 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold tracking-tight;
   }
+
+  /* Logo inversion: dark themes invert, light themes do not */
+  [data-theme="soft"] .logo-img,
+  [data-theme="corporate"] .logo-img {
+    filter: none;
+  }
 }
 
 @layer components {
   .gradient-text {
-    @apply bg-gradient-to-r from-[hsl(var(--teal))] to-[hsl(var(--teal-glow))] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[hsl(var(--brand))] to-[hsl(var(--brand-glow))] bg-clip-text text-transparent;
   }
 
-  .glow-teal {
-    box-shadow: 0 0 40px -10px hsl(var(--teal) / 0.5),
-                0 0 80px -20px hsl(var(--teal) / 0.3);
+  .glow-brand {
+    box-shadow: 0 0 40px -10px hsl(var(--brand) / calc(0.5 * var(--glow-opacity))),
+                0 0 80px -20px hsl(var(--brand) / calc(0.3 * var(--glow-opacity)));
   }
 
-  .glow-teal-sm {
-    box-shadow: 0 0 20px -5px hsl(var(--teal) / 0.4);
+  .glow-brand-sm {
+    box-shadow: 0 0 20px -5px hsl(var(--brand) / calc(0.4 * var(--glow-opacity)));
   }
 
   .card-hover {
@@ -99,18 +194,18 @@
   }
 
   .card-hover:hover {
-    box-shadow: 0 0 30px -10px hsl(var(--teal) / 0.3);
+    box-shadow: 0 0 30px -10px hsl(var(--brand) / calc(0.3 * var(--glow-opacity)));
   }
 
   .grid-pattern {
-    background-image: 
+    background-image:
       linear-gradient(to right, hsl(var(--border) / 0.3) 1px, transparent 1px),
       linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 
   .hero-gradient {
-    background: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--teal) / 0.15), transparent);
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--brand) / calc(0.15 * var(--glow-opacity))), transparent);
   }
 }
 

@@ -47,10 +47,10 @@ const AssistantLayoutB = ({
 
   const getLogColor = (type: string) => {
     switch (type) {
-      case "success": return "text-green-400";
-      case "error": return "text-red-400";
-      case "task": return "text-teal";
-      case "thinking": return "text-yellow-400";
+      case "success": return "text-success";
+      case "error": return "text-danger";
+      case "task": return "text-brand";
+      case "thinking": return "text-warning";
       default: return "text-muted-foreground";
     }
   };
@@ -100,17 +100,17 @@ const AssistantLayoutB = ({
           {/* Terminal Header */}
           <div className="bg-gray-900 px-4 py-2 flex items-center justify-between border-b border-gray-800">
             <div className="flex items-center gap-2">
-              <Terminal className="h-4 w-4 text-teal" />
+              <Terminal className="h-4 w-4 text-brand" />
               <span className="text-sm font-mono text-muted-foreground">alpha-speed-ai ~ session-001</span>
             </div>
             <div className="flex items-center gap-2">
               <Badge className={`font-mono text-xs ${
                 status === "running"
-                  ? "bg-teal/20 text-teal border-teal/30"
+                  ? "bg-brand/20 text-brand border-brand/30"
                   : status === "paused"
-                  ? "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
+                  ? "bg-warning/20 text-warning border-warning/30"
                   : status === "completed"
-                  ? "bg-green-500/20 text-green-400 border-green-500/30"
+                  ? "bg-success/20 text-success border-success/30"
                   : "bg-gray-800 text-gray-400 border-gray-700"
               }`}>
                 {status === "running" && <Loader2 className="h-3 w-3 mr-1 animate-spin" />}
@@ -148,12 +148,12 @@ const AssistantLayoutB = ({
             {status === "running" && currentThought && (
               <div className="mt-4 pt-4 border-t border-gray-800">
                 <div className="flex items-start gap-2">
-                  <Brain className="h-4 w-4 text-teal animate-pulse mt-0.5" />
+                  <Brain className="h-4 w-4 text-brand animate-pulse mt-0.5" />
                   <div>
-                    <span className="text-teal">Currently thinking:</span>
+                    <span className="text-brand">Currently thinking:</span>
                     <p className="text-gray-300 mt-1">
                       {currentThought}
-                      <span className="inline-block w-2 h-4 bg-teal ml-0.5 animate-pulse" />
+                      <span className="inline-block w-2 h-4 bg-brand ml-0.5 animate-pulse" />
                     </p>
                   </div>
                 </div>
@@ -164,9 +164,9 @@ const AssistantLayoutB = ({
             {status === "completed" && (
               <div className="mt-4 pt-4 border-t border-gray-800">
                 <div className="flex items-start gap-2 mb-4">
-                  <CheckCircle2 className="h-4 w-4 text-green-400 mt-0.5" />
+                  <CheckCircle2 className="h-4 w-4 text-success mt-0.5" />
                   <div>
-                    <span className="text-green-400">Session complete!</span>
+                    <span className="text-success">Session complete!</span>
                     <p className="text-gray-500 mt-1">
                       All {tasks.length} tasks have been processed. Deliverables ready.
                     </p>
@@ -175,7 +175,7 @@ const AssistantLayoutB = ({
 
                 {/* Email Draft Output */}
                 <div className="text-gray-400 mt-4">
-                  <p className="text-teal mb-2">$ cat ./output/client_response.txt</p>
+                  <p className="text-brand mb-2">$ cat ./output/client_response.txt</p>
                   <pre className="text-xs text-gray-300 bg-gray-900 p-3 rounded overflow-x-auto whitespace-pre-wrap">
 {`To: john.smith@acmecorp.com
 Subject: Re: Pricing Inquiry - Custom Enterprise Solution
@@ -206,7 +206,7 @@ Alpha Speed Consulting`}
 
                 {/* Meeting Output */}
                 <div className="text-gray-400 mt-4">
-                  <p className="text-teal mb-2">$ cat ./output/meeting_invite.txt</p>
+                  <p className="text-brand mb-2">$ cat ./output/meeting_invite.txt</p>
                   <pre className="text-xs text-gray-300 bg-gray-900 p-3 rounded overflow-x-auto whitespace-pre-wrap">
 {`CALENDAR INVITE CREATED
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -233,7 +233,7 @@ ATTACHMENTS: Q4_Report.pdf, Strategy_Deck.pptx`}
 
                 {/* Report Output */}
                 <div className="text-gray-400 mt-4">
-                  <p className="text-teal mb-2">$ cat ./output/weekly_report.txt</p>
+                  <p className="text-brand mb-2">$ cat ./output/weekly_report.txt</p>
                   <pre className="text-xs text-gray-300 bg-gray-900 p-3 rounded overflow-x-auto whitespace-pre-wrap">
 {`WEEKLY EXECUTIVE SUMMARY
 Week of January 27 - February 2, 2026
@@ -263,7 +263,7 @@ ACTION ITEMS:
 
                 {/* Competitor Analysis Output */}
                 <div className="text-gray-400 mt-4">
-                  <p className="text-teal mb-2">$ cat ./output/competitor_analysis.txt</p>
+                  <p className="text-brand mb-2">$ cat ./output/competitor_analysis.txt</p>
                   <pre className="text-xs text-gray-300 bg-gray-900 p-3 rounded overflow-x-auto whitespace-pre-wrap">
 {`COMPETITIVE LANDSCAPE ANALYSIS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -304,7 +304,7 @@ Focus sales conversations on:
                 key={task.id}
                 className={`p-3 rounded border font-mono text-xs ${
                   task.status === 'in-progress'
-                    ? 'border-teal/50 bg-teal/10'
+                    ? 'border-brand/50 bg-brand/10'
                     : task.status === 'completed'
                     ? 'border-gray-800 bg-gray-900/50'
                     : 'border-gray-800 bg-gray-900'
@@ -312,10 +312,10 @@ Focus sales conversations on:
               >
                 <div className="flex items-center gap-2 mb-1">
                   {task.status === 'completed' && (
-                    <CheckCircle2 className="h-3 w-3 text-green-500" />
+                    <CheckCircle2 className="h-3 w-3 text-success" />
                   )}
                   {task.status === 'in-progress' && (
-                    <Loader2 className="h-3 w-3 text-teal animate-spin" />
+                    <Loader2 className="h-3 w-3 text-brand animate-spin" />
                   )}
                   {task.status === 'queued' && (
                     <Circle className="h-3 w-3 text-gray-600" />
@@ -326,7 +326,7 @@ Focus sales conversations on:
                   task.status === 'completed'
                     ? 'text-gray-600 line-through'
                     : task.status === 'in-progress'
-                    ? 'text-teal'
+                    ? 'text-brand'
                     : 'text-gray-400'
                 }`}>
                   {task.title}
@@ -334,7 +334,7 @@ Focus sales conversations on:
                 {task.status === 'in-progress' && (
                   <div className="mt-2 h-1 bg-gray-800 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-teal transition-all duration-100"
+                      className="h-full bg-brand transition-all duration-100"
                       style={{ width: `${task.progress}%` }}
                     />
                   </div>
@@ -350,11 +350,11 @@ Focus sales conversations on:
           <div className="border-t border-gray-800 p-3 font-mono text-xs">
             <div className="flex justify-between text-gray-500 mb-1">
               <span>Completed:</span>
-              <span className="text-green-500">{completedCount}</span>
+              <span className="text-success">{completedCount}</span>
             </div>
             <div className="flex justify-between text-gray-500 mb-1">
               <span>Active:</span>
-              <span className="text-teal">{inProgressCount}</span>
+              <span className="text-brand">{inProgressCount}</span>
             </div>
             <div className="flex justify-between text-gray-500">
               <span>Queued:</span>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.jpeg";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,7 +27,7 @@ const Header = () => {
             <img
               src={logo}
               alt="Alpha Speed AI"
-              className="h-16 w-auto invert"
+              className="h-16 w-auto invert logo-img"
             />
           </Link>
 
@@ -41,6 +42,7 @@ const Header = () => {
                 {link.label}
               </a>
             ))}
+            <ThemeToggle />
             <Link to="/assistant">
               <Button variant="heroOutline" size="default">
                 Try the Assistant
@@ -51,14 +53,16 @@ const Header = () => {
             </Button>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden text-foreground p-3"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="lg:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              className="text-foreground p-3"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
