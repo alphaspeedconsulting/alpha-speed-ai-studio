@@ -23,10 +23,12 @@ const Hero = () => {
             <span className="text-sm font-medium text-primary">Built for Small Business Automation</span>
           </div>
 
-          {/* Main Headline */}
+          {/* Main Headline - brand text styled to match logo (height, spacing, weight, slant) */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
             Automate Your Business with{" "}
-            <span className="gradient-text">αlphaspeed AI</span>
+            <span className="gradient-text hero-brand-text">
+              <span className="inline-block text-[1.12em] align-baseline" aria-hidden="true">α</span>LPHA SPEED AI
+            </span>
           </h1>
 
           {/* Subheadline */}

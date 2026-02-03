@@ -180,6 +180,12 @@
     @apply bg-gradient-to-r from-[hsl(var(--brand))] to-[hsl(var(--brand-glow))] bg-clip-text text-transparent;
   }
 
+  /* Hero brand name: match logo typography (height, spacing, weight, slant) */
+  .hero-brand-text {
+    @apply font-extrabold tracking-tighter italic uppercase;
+    letter-spacing: -0.04em;
+  }
+
   .glow-brand {
     box-shadow: 0 0 40px -10px hsl(var(--brand) / calc(0.5 * var(--glow-opacity))),
                 0 0 80px -20px hsl(var(--brand) / calc(0.3 * var(--glow-opacity)));
