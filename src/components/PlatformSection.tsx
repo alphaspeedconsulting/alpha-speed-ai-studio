@@ -58,7 +58,7 @@ const PlatformSection = () => {
             The Backbone of Your Business
           </Badge>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Why <span className="gradient-text">Alpha Speed AI</span>
+            Why <span className="gradient-text">αlphaspeed AI</span>
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
             A unified AI operations platform that brings together 14 AI Product Agents and 8 specialized roofing agents—all on a single control plane you can monitor, extend, and deploy anywhere.

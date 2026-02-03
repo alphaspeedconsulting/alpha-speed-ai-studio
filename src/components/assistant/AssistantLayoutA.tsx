@@ -400,7 +400,7 @@ const AssistantLayoutA = ({
                       <div className="pt-4 text-muted-foreground">
                         <p>Best regards,</p>
                         <p className="font-medium text-foreground">AI Assistant</p>
-                        <p>Alpha Speed Consulting</p>
+                        <p>αlphaspeed Consulting</p>
                       </div>
                     </div>
                   </div>

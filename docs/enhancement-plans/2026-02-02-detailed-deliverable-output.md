@@ -174,7 +174,7 @@ Would Thursday at 2 PM work for a brief call to discuss?
 
 Best regards,
 AI Assistant
-Alpha Speed Consulting
+αlphaspeed Consulting
 ```
 
 ### 2. Meeting Invite

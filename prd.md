@@ -1,6 +1,6 @@
-# PRD: Alpha Speed AI Marketing Site
+# PRD: αlphaspeed AI Marketing Site
 
-**Product:** Alpha Speed AI Marketing Website  
+**Product:** αlphaspeed AI Marketing Website  
 **Status:** Draft  
 **Created:** February 2, 2026  
 **Source:** AI Product Agents PRD pipeline + manual requirements merge  
@@ -10,12 +10,12 @@
 
 ## 1. Overview
 
-**Problem Statement:** Visitors need a clear understanding of the key benefits of the Alpha Speed AI platform to determine if it meets their business needs. The site must: (1) use the existing Alpha AI Website style, (2) highlight Roofing-chatbot flexibility and AI-powered workflows, (3) position the AI ops platform as the backbone, (4) demonstrate the art of the possible for non-technical users and small business, (5) showcase a personal AI assistant/chat interface, (6) present workflow examples visually, and (7) include demo videos.
+**Problem Statement:** Visitors need a clear understanding of the key benefits of the αlphaspeed AI platform to determine if it meets their business needs. The site must: (1) use the existing Alpha AI Website style, (2) highlight Roofing-chatbot flexibility and AI-powered workflows, (3) position the AI ops platform as the backbone, (4) demonstrate the art of the possible for non-technical users and small business, (5) showcase a personal AI assistant/chat interface, (6) present workflow examples visually, and (7) include demo videos.
 
 **Definition of Success:**
 - **Primary KPI:** Increase visitor engagement by 30% within the first quarter post-launch.
 - **Secondary KPI:** 20% increase in demo requests from the website.
-- **Qualitative:** Visitors can articulate “what Alpha Speed AI does” and “what I could automate” after one visit; platform and Roofing-chatbot/Moltbot/Openclaw clearly positioned; chat demo and workflow visuals drive time-on-site and CTAs.
+- **Qualitative:** Visitors can articulate “what αlphaspeed AI does” and “what I could automate” after one visit; platform and Roofing-chatbot/Moltbot/Openclaw clearly positioned; chat demo and workflow visuals drive time-on-site and CTAs.
 
 **Priority:** P0  
 **Owner:** Marketing Team  
@@ -65,7 +65,7 @@ The website **must** utilize the existing style and structure from the Alpha AI 
 - **Flexibility:** Same platform can power roofing, siding, gutters, or other verticals; config-driven workflows (e.g. YAML specs) and extensible agents.
 - **Ease to automate:** Add new workflows in hours, not days; auto-discovery, shared utilities, optional code generation.
 - **AI-powered workflows:** End-to-end automation from lead capture → qualification → scheduling → follow-up; powered by AI Product Agents MCP, roofing agents, openclaw/Moltbot.
-- **Placement:** Hero subhead or badge, “Why Alpha Speed AI” / “Platform” section, and at least one dedicated subsection (e.g. “Built for flexibility”).
+- **Placement:** Hero subhead or badge, “Why αlphaspeed AI” / “Platform” section, and at least one dedicated subsection (e.g. “Built for flexibility”).
 
 ### 4.2 AI Ops Platform
 
@@ -179,7 +179,7 @@ The website **must** utilize the existing style and structure from the Alpha AI 
 
 ## 10. Structure & Pages (Suggested)
 
-- **Home (`/`):** Hero, Platform/Why Alpha Speed AI, Use cases (small business), Workflow examples, Demo videos, Assistant CTA, Services, About, Contact.
+- **Home (`/`):** Hero, Platform/Why αlphaspeed AI, Use cases (small business), Workflow examples, Demo videos, Assistant CTA, Services, About, Contact.
 - **Assistant (`/assistant`):** Keep existing Assistant page and layout selector (A/B/C); optionally add intro copy tying to “Personal AI assistant we build for you.”
 - **Optional:** `/demos` (all demo videos in one place) or `/use-cases` (long-form use case pages). Prefer extending the single-page flow first.
 
@@ -196,7 +196,7 @@ The website **must** utilize the existing style and structure from the Alpha AI 
 
 ## 12. Definition of Done & Acceptance Criteria
 
-**The Destination (Final State):** The marketing site clearly communicates the benefits of the Alpha Speed AI platform, includes interactive elements like the AI assistant chat, and visually demonstrates workflows and platform capabilities using only the existing Alpha AI Website design system.
+**The Destination (Final State):** The marketing site clearly communicates the benefits of the αlphaspeed AI platform, includes interactive elements like the AI assistant chat, and visually demonstrates workflows and platform capabilities using only the existing Alpha AI Website design system.
 
 ### Binary Acceptance Criteria
 
@@ -206,7 +206,7 @@ The website **must** utilize the existing style and structure from the Alpha AI 
 - [ ] 2–4 workflow examples are presented visually (steps or diagrams).
 - [ ] Demo videos are included in a dedicated section; at least one is playable.
 - [ ] At least 3 small-business use cases are listed in plain language.
-- [ ] A non-technical reader can state “what Alpha Speed AI does” and “what I could automate” after reading the site.
+- [ ] A non-technical reader can state “what αlphaspeed AI does” and “what I could automate” after reading the site.
 - [ ] All P0 functional requirements (FR-1–FR-7) are implemented and verified.
 - [ ] Responsive and accessibility checks (NFR-3, NFR-4) are completed.
 - [ ] **Phase 1 deployment:** Site is deployable to and live on GitHub Pages; routes and assets work (including base path if project site).
@@ -238,7 +238,7 @@ The website **must** utilize the existing style and structure from the Alpha AI 
 
 ## Appendix A: Implementation Prompt (from PRD Agent)
 
-**Goal:** Develop a marketing site for Alpha Speed AI that clearly communicates platform benefits, includes interactive elements, and visually demonstrates workflows.
+**Goal:** Develop a marketing site for αlphaspeed AI that clearly communicates platform benefits, includes interactive elements, and visually demonstrates workflows.
 
 **Success criteria:** Every task under 15 minutes; every “Code” task has a “Test”/“Verification” task; no magic steps (specific files/functions); plan ends with Definition of Done.
 
@@ -250,6 +250,8 @@ The website **must** utilize the existing style and structure from the Alpha AI 
 - **Phase 5 (Deployment – GitHub Pages):** Configure build for static output; set base path if project site (`base: '/repo-name/'`, React Router `basename`); add 404 handling for SPA deep links; enable GitHub Pages (branch/folder); verify site live at `https://<username>.github.io/<repo>/`. **Phase 2 (later):** Add custom domain in GitHub Pages settings; configure DNS; enforce HTTPS.
 
 **Definition of Done:** All tests pass; site uses existing style; key benefits highlighted; assistant section present; 2–4 workflow examples visible; demo videos in dedicated section; no new lint errors; site deployable to and live on GitHub Pages (Phase 1); custom domain planned for Phase 2.
+
+**Update (2026-02-03):** All instances of "Alpha Speed" changed to "αlphaspeed" (Greek alpha character + lowercase) throughout the site for branding consistency with the logo.
 
 ---
 

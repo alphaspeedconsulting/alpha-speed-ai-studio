@@ -26,7 +26,7 @@ const About = () => {
           {/* Left Content */}
           <div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-              Why Choose <span className="gradient-text">Alpha Speed AI</span>?
+              Why Choose <span className="gradient-text">αlphaspeed AI</span>?
             </h2>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
               We're not just another automation company. We partner with you to understand 

@@ -25,7 +25,7 @@ const Assistant = () => {
                 Your Personal <span className="gradient-text">AI Assistant</span>
               </h1>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Experience the power of Alpha Speed AI. This is the same intelligent assistant we build and customize for your business—handling lead qualification, scheduling, customer support, and more.
+                Experience the power of αlphaspeed AI. This is the same intelligent assistant we build and customize for your business—handling lead qualification, scheduling, customer support, and more.
               </p>
               <p className="text-sm text-muted-foreground">
                 Try different layouts below to see how the assistant adapts to your preferences.

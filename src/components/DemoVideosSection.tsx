@@ -17,7 +17,7 @@ const DemoVideosSection = () => {
             Watch <span className="gradient-text">Demos</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Real workflows, real results. See Alpha Speed AI in action with these hands-on demonstrations.
+            Real workflows, real results. See αlphaspeed AI in action with these hands-on demonstrations.
           </p>
         </div>
 
@@ -30,7 +30,7 @@ const DemoVideosSection = () => {
             <div className="p-6">
               <h3 className="text-xl font-bold mb-2">Full Platform Walkthrough</h3>
               <p className="text-muted-foreground leading-relaxed">
-                See how Alpha Speed AI handles lead capture, qualification, and scheduling end-to-end in a real roofing business scenario.
+                See how αlphaspeed AI handles lead capture, qualification, and scheduling end-to-end in a real roofing business scenario.
               </p>
             </div>
           </div>
@@ -47,7 +47,7 @@ const DemoVideosSection = () => {
               <div>
                 <h4 className="font-bold mb-1">Request Custom Demo</h4>
                 <p className="text-sm text-muted-foreground">
-                  See Alpha Speed AI tailored to your business
+                  See αlphaspeed AI tailored to your business
                 </p>
               </div>
             </a>

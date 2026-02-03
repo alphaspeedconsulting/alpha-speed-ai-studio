@@ -43,7 +43,7 @@ const UseCasesSection = () => {
             What You Can <span className="gradient-text">Automate</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Real scenarios, real outcomes. See how Alpha Speed AI helps small businesses like yours save time and grow.
+            Real scenarios, real outcomes. See how αlphaspeed AI helps small businesses like yours save time and grow.
           </p>
         </div>
 

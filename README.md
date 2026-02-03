@@ -1,4 +1,4 @@
-# Alpha Speed AI Studio
+# αlphaspeed AI Studio
 
 One flexible AI platform that automates lead follow-up, scheduling, customer chat, and more for small businesses.
 

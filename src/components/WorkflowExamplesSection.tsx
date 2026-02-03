@@ -58,7 +58,7 @@ const WorkflowExamplesSection = () => {
             How <span className="gradient-text">Automation Works</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Visual examples of real workflows running on Alpha Speed AI. See how each step connects to deliver results.
+            Visual examples of real workflows running on αlphaspeed AI. See how each step connects to deliver results.
           </p>
         </div>
 

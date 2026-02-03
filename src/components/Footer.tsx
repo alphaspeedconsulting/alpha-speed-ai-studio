@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "@/assets/logo.jpeg";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const baseUrl = import.meta.env.BASE_URL;
@@ -12,7 +12,7 @@ const Footer = () => {
           <Link to="/" className="flex items-center gap-3">
             <img
               src={logo}
-              alt="Alpha Speed AI"
+              alt="αlphaspeed AI"
               className="h-14 w-auto invert opacity-80 logo-img"
             />
           </Link>
@@ -28,7 +28,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © 2026 Alpha Speed AI. All rights reserved.
+            © 2026 αlphaspeed AI. All rights reserved.
           </p>
         </div>
       </div>

@@ -1,4 +1,4 @@
-# Enhancement Plan: Alpha Speed AI Marketing Site (PRD-Aligned)
+# Enhancement Plan: αlphaspeed AI Marketing Site (PRD-Aligned)
 
 **Created:** 2026-02-02  
 **Status:** Draft  
@@ -25,7 +25,7 @@ For each PRD-driven request, what is being added or changed, which components/pa
 | Request | What Changes | Affected Areas | Justification |
 |--------|--------------|----------------|---------------|
 | **FR-1: Existing style only** | No new design system; extend `index.css`, Tailwind, shadcn only. | Global: `src/index.css`, `tailwind.config.ts`, all section components. | PRD mandates “extend existing only”; avoids drift and maintenance of a second theme. |
-| **FR-2: Roofing-chatbot & platform benefits** | New “Why Alpha Speed AI” / “Platform” section: flexibility, ease of automation, AI-powered workflows; optional “Built for flexibility” subsection. | New section component; `Index.tsx` composition. | Dedicated section gives benefits clear placement (Hero subhead/badge + body) per PRD 4.1. |
+| **FR-2: Roofing-chatbot & platform benefits** | New “Why αlphaspeed AI” / “Platform” section: flexibility, ease of automation, AI-powered workflows; optional “Built for flexibility” subsection. | New section component; `Index.tsx` composition. | Dedicated section gives benefits clear placement (Hero subhead/badge + body) per PRD 4.1. |
 | **FR-3: AI ops platform as backbone** | Same or extended Platform section: unified agents (14+8), single control plane, deployment (Render, Mac Mini), simple diagram/list (“One platform – PRD, architecture, lead qualification, WhatsApp, dashboard”). | New/combined Platform section. | Single “Platform” section satisfies “How it works” and keeps technical depth in one place. |
 | **FR-4: Use cases (3–5)** | New “Use cases” or “What you can automate” section: 3–5 cards (lead follow-up, scheduling, 24/7 chat, estimates/intake, reporting) in plain language. | New `UseCasesSection` (or similar); `Index.tsx`. | Cards match PRD “short scenarios and one-line outcomes” and NFR plain language. |
 | **FR-5: Assistant / chat** | Prominent CTA “Try the assistant” in Header/Hero; keep `/assistant` and existing layouts (A/B/C); optional intro copy on Assistant page. | `Header.tsx`, `Hero.tsx`, `Assistant.tsx`, `Index.tsx`. | Reuse existing route and layouts; CTAs drive traffic without new backend (PRD: no backend for marketing site). |
@@ -38,7 +38,7 @@ For each PRD-driven request, what is being added or changed, which components/pa
 | **FR-12 / Phase 2: Custom domain** | Plan only: GitHub Pages custom domain + DNS + HTTPS. | Docs / runbook; no code in Phase 1. | PRD Phase 2; no implementation in this plan. |
 
 **Summary of net-new sections on Home:**  
-(1) Platform / Why Alpha Speed AI, (2) Use cases, (3) Workflow examples, (4) Demo videos — plus Header/Footer and Assistant refinements.
+(1) Platform / Why αlphaspeed AI, (2) Use cases, (3) Workflow examples, (4) Demo videos — plus Header/Footer and Assistant refinements.
 
 ---
 
@@ -89,7 +89,7 @@ Four new section components (Platform, UseCases, WorkflowExamples, DemoVideos) a
   - Verify vite injects `BASE_URL` correctly in production builds
 - Ensure `index.html` and asset paths work with base (Vite handles this automatically with proper base config).
 - Create placeholder section components in `src/components/`:
-  - `PlatformSection.tsx` - "Why Alpha Speed AI" / platform benefits
+  - `PlatformSection.tsx` - "Why αlphaspeed AI" / platform benefits
   - `UseCasesSection.tsx` - 3-5 use case cards
   - `WorkflowExamplesSection.tsx` - 2-4 visual workflow examples
   - `DemoVideosSection.tsx` - embedded video section
@@ -130,7 +130,7 @@ Four new section components (Platform, UseCases, WorkflowExamples, DemoVideos) a
 ### Phase 3: Platform and Use Cases Content (1–2 days)
 
 **Tasks:**  
-- **PlatformSection:** Implement “Why Alpha Speed AI” / “Platform”: flexibility (Roofing-chatbot, verticals, config-driven), ease of automation, AI-powered workflows (lead → qualification → scheduling → follow-up). Add “One platform” list/diagram (PRD, architecture, security review, lead qualification, WhatsApp, dashboard). Mention deployment: Render, on-prem/Mac Mini, hybrid. Use existing Card/Badge/typography; no new design system.  
+- **PlatformSection:** Implement “Why αlphaspeed AI” / “Platform”: flexibility (Roofing-chatbot, verticals, config-driven), ease of automation, AI-powered workflows (lead → qualification → scheduling → follow-up). Add “One platform” list/diagram (PRD, architecture, security review, lead qualification, WhatsApp, dashboard). Mention deployment: Render, on-prem/Mac Mini, hybrid. Use existing Card/Badge/typography; no new design system.  
 - **UseCasesSection:** Implement 3–5 use cases (lead follow-up, scheduling & reminders, 24/7 chat/WhatsApp, estimates & intake, reporting) as cards with plain-language titles and one-line outcomes. Tone: “you” and “your team”; no jargon.
 
 **Dependencies:** Phase 1.

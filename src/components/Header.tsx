@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/logo.jpeg";
+import logo from "@/assets/logo.png";
 import ThemeToggle from "@/components/ThemeToggle";
 
 const Header = () => {
@@ -26,7 +26,7 @@ const Header = () => {
           <Link to="/" className="flex items-center gap-3">
             <img
               src={logo}
-              alt="Alpha Speed AI"
+              alt="αlphaspeed AI"
               className="h-16 w-auto invert logo-img"
             />
           </Link>
