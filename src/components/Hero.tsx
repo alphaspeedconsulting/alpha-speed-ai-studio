@@ -6,7 +6,7 @@ const Hero = () => {
   const baseUrl = import.meta.env.BASE_URL;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-x-visible overflow-y-hidden pt-20">
       {/* Background Effects */}
       <div className="absolute inset-0 hero-gradient" />
       <div className="absolute inset-0 grid-pattern opacity-30" />
@@ -15,19 +15,20 @@ const Hero = () => {
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-glow" />
       <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse-glow delay-1000" />
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="w-full max-w-[min(100%,1400px)] mx-auto px-6 sm:px-10 lg:px-16 relative z-10 overflow-visible">
+        <div className="max-w-5xl mx-auto text-center overflow-visible pl-0 pr-20 sm:pr-28 lg:pr-36">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-8">
             <Zap className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">Built for Small Business Automation</span>
           </div>
 
-          {/* Main Headline - brand text styled to match logo (height, spacing, weight, slant) */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+          {/* Main Headline - Greek α (U+03B1), no space αLPHA+SPEED, only αLPHA bold; SPEED & AI normal */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight overflow-visible pr-4 sm:pr-6">
             Automate Your Business with{" "}
-            <span className="gradient-text hero-brand-text">
-              <span className="inline-block text-[1.12em] align-baseline" aria-hidden="true">α</span>LPHA SPEED AI
+            <span className="gradient-text hero-brand-text inline-block pr-2">
+              <span className="hero-brand-alpha font-medium inline-block text-[1.3em] align-baseline leading-none" aria-hidden="true">{"\u03B1"}</span>LPHA
+              <span className="font-normal">SPEED AI</span>
             </span>
           </h1>
 

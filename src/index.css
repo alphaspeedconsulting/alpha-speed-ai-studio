@@ -160,8 +160,12 @@
     @apply border-border;
   }
 
+  html {
+    overflow-x: visible;
+  }
+
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased overflow-x-visible;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -184,6 +188,10 @@
   .hero-brand-text {
     @apply font-extrabold tracking-tighter italic uppercase;
     letter-spacing: -0.04em;
+  }
+  /* Keep Greek alpha (α) lowercase so it isn’t turned into capital Α (looks like Latin A) */
+  .hero-brand-text .hero-brand-alpha {
+    text-transform: none;
   }
 
   .glow-brand {
