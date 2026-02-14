@@ -4,6 +4,7 @@ import Services from "@/components/Services";
 import HowWeWorkSection from "@/components/HowWeWorkSection";
 import PortfolioSection from "@/components/PortfolioSection";
 import PlatformSection from "@/components/PlatformSection";
+import AgentsAsServiceSection from "@/components/AgentsAsServiceSection";
 import UseCasesSection from "@/components/UseCasesSection";
 import WorkflowExamplesSection from "@/components/WorkflowExamplesSection";
 import DemoVideosSection from "@/components/DemoVideosSection";
@@ -21,6 +22,7 @@ const Index = () => {
         <HowWeWorkSection />
         <PortfolioSection />
         <PlatformSection />
+        <AgentsAsServiceSection />
         <UseCasesSection />
         <WorkflowExamplesSection />
         <DemoVideosSection />
