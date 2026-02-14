@@ -16,7 +16,7 @@ const Services = () => {
             What We <span className="gradient-text">Do</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Five core services designed to meet you wherever you are on your AI journey — from first conversation to fully autonomous agents.
+            Six core services designed to meet you wherever you are on your AI journey — from first conversation to always-on AI agents.
           </p>
         </div>
 

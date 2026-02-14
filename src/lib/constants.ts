@@ -4,6 +4,7 @@ import {
   User,
   Cpu,
   Globe,
+  Bot,
   Sparkles,
   MessageSquare,
   BarChart,
@@ -55,6 +56,14 @@ export const SERVICE_PILLARS: ServicePillar[] = [
       "Autonomous AI agents that handle complex tasks end-to-end — from code generation to data analysis to multi-step business processes. Always-on, always learning.",
     idealFor: "Businesses ready for autonomous AI operations",
     proofPoint: "AlphaAI — our Mac Mini-powered agent running 24/7",
+  },
+  {
+    icon: Bot,
+    title: "AI Agents as a Service",
+    description:
+      "Always-on AI team members that work for your business 24/7. From content generation to customer service to sales intelligence — subscribe, deploy, and scale without hiring.",
+    idealFor: "Businesses wanting AI capabilities without building in-house",
+    proofPoint: "Subscription AI agents powered by MCP servers and custom tooling",
   },
   {
     icon: Globe,
