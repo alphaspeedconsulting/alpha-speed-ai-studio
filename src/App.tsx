@@ -9,7 +9,7 @@ import Index from "./pages/Index";
 import Assistant from "./pages/Assistant";
 import NotFound from "./pages/NotFound";
 
-// AlphaAI — single lazy import; all routes self-contained in ai-assistant-local
+// AlphaAI — lazy import; stubbed to noop when ai-assistant-local is absent (CI)
 const AlphaAIRoutes = lazy(() => import("@alphaai/AlphaAIRoutes"));
 
 const queryClient = new QueryClient();
