@@ -16,7 +16,7 @@ const Hero = () => {
       <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse-glow delay-1000" />
 
       <div className="w-full max-w-[min(100%,1400px)] mx-auto px-6 sm:px-10 lg:px-16 relative z-10 overflow-visible">
-        <div className="max-w-5xl mx-auto text-center overflow-visible pl-0 pr-20 sm:pr-28 lg:pr-36">
+        <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-8">
             <Zap className="w-4 h-4 text-primary" />
@@ -24,7 +24,7 @@ const Hero = () => {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight overflow-visible pr-4 sm:pr-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
             AI That Works For{" "}
             <span className="gradient-text">Your Business</span>
           </h1>
