@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlphaAI - Workflows</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: hsl(220,20%,6%); --bg-card: hsl(220,20%,8%); --bg-card-alt: hsl(220,20%,10%);
+      --fg: hsl(0,0%,98%); --fg-muted: hsl(220,10%,60%); --border: hsl(220,14%,18%);
+      --brand: hsl(174,72%,46%); --brand-glow: hsl(174,72%,56%);
+      --brand-dim: hsla(174,72%,46%,0.15); --brand-dim2: hsla(174,72%,46%,0.08);
+      --success: hsl(142,76%,36%); --warning: hsl(38,92%,50%);
+      --danger: hsl(0,84%,60%); --info: hsl(210,60%,50%);
+      --radius: 0.75rem; --font: 'Inter',system-ui,sans-serif; --mono: 'JetBrains Mono',monospace;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);background:var(--bg);color:var(--fg);min-height:100vh;-webkit-font-smoothing:antialiased}
+    .gradient-text{background:linear-gradient(135deg,var(--brand),var(--brand-glow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+    /* Shared UI (same as other tabs) */
+    .header{position:sticky;top:0;z-index:50;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:hsla(220,20%,6%,0.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .header-left{display:flex;align-items:center;gap:16px}
+    .header-logo{font-size:1.15rem;font-weight:700;letter-spacing:-0.04em;display:flex;align-items:center;gap:6px}
+    .header-logo .alpha{font-style:italic;text-transform:uppercase}
+    .header-logo .separator{color:var(--fg-muted);font-weight:300;margin:0 4px}
+    .header-logo .ai-label{color:var(--brand);font-weight:600}
+    .header-nav{display:flex;gap:4px}
+    .header-nav a{color:var(--fg-muted);text-decoration:none;font-size:0.875rem;font-weight:500;padding:6px 14px;border-radius:calc(var(--radius) - 2px);transition:color 0.2s,background 0.2s}
+    .header-nav a:hover{color:var(--fg);background:hsla(220,14%,16%,0.6)}
+    .header-nav a.active{color:var(--brand)}
+    .header-right{display:flex;align-items:center;gap:12px}
+    .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:calc(var(--radius) - 2px);font-size:0.875rem;font-weight:500;font-family:var(--font);cursor:pointer;border:none;transition:all 0.2s}
+    .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-glow));color:hsl(220,20%,6%);font-weight:600;box-shadow:0 0 20px -5px hsla(174,72%,46%,0.4)}
+    .btn-outline{background:transparent;color:var(--fg);border:1px solid var(--border)}
+    .btn-outline:hover{border-color:var(--brand);color:var(--brand)}
+    .btn-ghost{background:transparent;color:var(--fg-muted)}
+    .btn-ghost:hover{background:hsla(220,14%,16%,0.6);color:var(--fg)}
+    .btn-sm{padding:5px 10px;font-size:0.8rem}
+    .btn-success{background:hsla(142,76%,36%,0.15);color:var(--success);border:1px solid hsla(142,76%,36%,0.3)}
+    .btn-success:hover{background:hsla(142,76%,36%,0.25)}
+    .badge{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:9999px;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.03em}
+    .badge-brand{background:var(--brand-dim);color:var(--brand)}
+    .badge-success{background:hsla(142,76%,36%,0.15);color:var(--success)}
+    .badge-warning{background:hsla(38,92%,50%,0.15);color:var(--warning)}
+    .badge-danger{background:hsla(0,84%,60%,0.15);color:var(--danger)}
+    .badge-muted{background:hsla(220,14%,16%,0.6);color:var(--fg-muted)}
+    .badge-dot{width:6px;height:6px;border-radius:50%}
+    .badge-dot.pulse{animation:pulse-glow 2s infinite}
+    .badge-dot.teal{background:var(--brand)}
+    .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:box-shadow 0.3s}
+    .card:hover{box-shadow:0 0 30px -10px hsla(174,72%,46%,0.08)}
+    .card-header{padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between}
+    .card-title{font-size:0.9rem;font-weight:600;letter-spacing:-0.01em;display:flex;align-items:center;gap:8px}
+    .card-title svg{width:16px;height:16px;color:var(--brand)}
+    .card-body{padding:0 20px 20px}
+    .card-brand{border-color:hsla(174,72%,46%,0.3);background:linear-gradient(135deg,var(--bg-card),var(--brand-dim2))}
+    .bg-effects{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+    .bg-orb{position:absolute;border-radius:50%;filter:blur(100px)}
+    .bg-orb-1{width:400px;height:400px;top:-100px;right:-50px;background:hsla(174,72%,46%,0.06);animation:pulse-glow 6s ease-in-out infinite}
+    .bg-orb-2{width:300px;height:300px;bottom:-80px;left:-40px;background:hsla(174,72%,46%,0.04);animation:pulse-glow 6s ease-in-out infinite 3s}
+    .bg-grid{position:absolute;inset:0;background-image:linear-gradient(hsla(220,14%,18%,0.15) 1px,transparent 1px),linear-gradient(90deg,hsla(220,14%,18%,0.15) 1px,transparent 1px);background-size:60px 60px;opacity:0.3}
+    @keyframes pulse-glow{0%,100%{opacity:0.85;transform:scale(1)}50%{opacity:1;transform:scale(1.03)}}
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+    /* ── Page ── */
+    .page{padding:24px;min-height:calc(100vh - 64px)}
+    .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+    .page-title{font-size:1.5rem;font-weight:700;letter-spacing:-0.02em;display:flex;align-items:center;gap:12px}
+    .page-title svg{width:24px;height:24px;color:var(--brand)}
+    .page-subtitle{font-size:0.85rem;color:var(--fg-muted);margin-top:4px}
+
+    /* ── Workflow Cards Grid ── */
+    .wf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px}
+
+    /* ── Workflow Card ── */
+    .wf-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all 0.2s;position:relative;overflow:hidden}
+    .wf-card:hover{box-shadow:0 0 30px -10px hsla(174,72%,46%,0.1);border-color:hsla(174,72%,46%,0.2)}
+    .wf-card.active{border-color:hsla(174,72%,46%,0.4)}
+    .wf-card.active::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--brand),var(--brand-glow))}
+    .wf-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+    .wf-icon-wrap{width:44px;height:44px;border-radius:calc(var(--radius) - 2px);display:flex;align-items:center;justify-content:center;background:var(--brand-dim)}
+    .wf-icon-wrap svg{width:20px;height:20px;color:var(--brand)}
+    .wf-icon-wrap.success{background:hsla(142,76%,36%,0.15)}
+    .wf-icon-wrap.success svg{color:var(--success)}
+    .wf-icon-wrap.warning{background:hsla(38,92%,50%,0.15)}
+    .wf-icon-wrap.warning svg{color:var(--warning)}
+    .wf-icon-wrap.danger{background:hsla(0,84%,60%,0.15)}
+    .wf-icon-wrap.danger svg{color:var(--danger)}
+    .wf-name{font-size:1rem;font-weight:600;margin-bottom:4px}
+    .wf-desc{font-size:0.8rem;color:var(--fg-muted);line-height:1.5;margin-bottom:14px}
+    .wf-meta{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+    .wf-meta-item{font-size:0.75rem;color:var(--fg-muted);display:flex;align-items:center;gap:5px}
+    .wf-meta-item svg{width:12px;height:12px}
+    .wf-meta-item strong{color:var(--fg);font-weight:600}
+    .wf-actions-row{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid hsla(220,14%,18%,0.5)}
+    .wf-toggle{position:relative;width:40px;height:22px;background:hsla(220,14%,16%,0.8);border-radius:11px;cursor:pointer;transition:background 0.2s;border:none}
+    .wf-toggle.on{background:var(--brand)}
+    .wf-toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--fg);transition:transform 0.2s}
+    .wf-toggle.on::after{transform:translateX(18px)}
+
+    /* ── Steps visualization ── */
+    .wf-steps{display:flex;align-items:center;gap:0;margin-bottom:14px}
+    .wf-step{display:flex;align-items:center;gap:0}
+    .wf-step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;font-family:var(--mono)}
+    .wf-step-dot.done{background:hsla(142,76%,36%,0.2);color:var(--success);border:1px solid hsla(142,76%,36%,0.4)}
+    .wf-step-dot.active{background:var(--brand-dim);color:var(--brand);border:1px solid hsla(174,72%,46%,0.4);box-shadow:0 0 10px hsla(174,72%,46%,0.2)}
+    .wf-step-dot.pending{background:hsla(220,14%,16%,0.6);color:var(--fg-muted);border:1px solid var(--border)}
+    .wf-step-line{width:24px;height:2px;background:var(--border)}
+    .wf-step-line.done{background:hsla(142,76%,36%,0.4)}
+    .wf-step-line.active{background:linear-gradient(90deg,var(--brand),var(--border))}
+
+    /* ── Execution History ── */
+    .history-table{width:100%;border-collapse:collapse}
+    .history-table th{font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--fg-muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border)}
+    .history-table td{font-size:0.82rem;padding:12px;border-bottom:1px solid hsla(220,14%,18%,0.4);vertical-align:middle}
+    .history-table tr:hover td{background:hsla(220,14%,16%,0.2)}
+    .history-wf-name{font-weight:500;display:flex;align-items:center;gap:8px}
+    .history-wf-name svg{width:14px;height:14px;color:var(--brand)}
+    .history-duration{font-family:var(--mono);font-size:0.75rem;color:var(--fg-muted)}
+    .history-time{font-family:var(--mono);font-size:0.75rem;color:var(--fg-muted)}
+
+    /* ── Next Runs ── */
+    .next-run{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid hsla(220,14%,18%,0.4)}
+    .next-run:last-child{border-bottom:none}
+    .next-run-left{display:flex;align-items:center;gap:12px}
+    .next-run-icon{width:36px;height:36px;border-radius:calc(var(--radius) - 2px);display:flex;align-items:center;justify-content:center;background:var(--brand-dim)}
+    .next-run-icon svg{width:16px;height:16px;color:var(--brand)}
+    .next-run-name{font-size:0.85rem;font-weight:500}
+    .next-run-time{font-size:0.75rem;color:var(--fg-muted);font-family:var(--mono)}
+    .next-run-countdown{font-family:var(--mono);font-size:0.82rem;color:var(--brand);font-weight:600}
+
+    @media(max-width:900px){.wf-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<div class="bg-effects"><div class="bg-orb bg-orb-1"></div><div class="bg-orb bg-orb-2"></div><div class="bg-grid"></div></div>
+
+<header class="header">
+  <div class="header-left">
+    <div class="header-logo">
+      <span class="alpha gradient-text">&#945;lphaspeed</span>
+      <span class="separator">/</span>
+      <span class="ai-label">AlphaAI</span>
+    </div>
+    <nav class="header-nav">
+      <a href="alphaai-dashboard-mockup.html">Dashboard</a>
+      <a href="alphaai-memory-mockup.html">Memory</a>
+      <a href="alphaai-workflows-mockup.html" class="active">Workflows</a>
+      <a href="alphaai-settings-mockup.html">Settings</a>
+    </nav>
+  </div>
+  <div class="header-right">
+    <div class="badge badge-brand"><span class="badge-dot pulse teal"></span> Running</div>
+  </div>
+</header>
+
+<main class="page">
+
+  <div class="page-header">
+    <div>
+      <div class="page-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Workflows
+      </div>
+      <div class="page-subtitle">Automated and manual workflows that AlphaAI runs on your behalf</div>
+    </div>
+    <button class="btn btn-primary btn-sm">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      New Workflow
+    </button>
+  </div>
+
+  <!-- Workflow Cards -->
+  <div class="wf-grid">
+
+    <!-- Morning Briefing -->
+    <div class="wf-card active">
+      <div class="wf-top">
+        <div class="wf-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </div>
+        <span class="badge badge-success">Completed</span>
+      </div>
+      <div class="wf-name">Morning Briefing</div>
+      <div class="wf-desc">Summarizes overnight news, pending emails, calendar for the day, and surfaces top 3 priorities.</div>
+      <div class="wf-steps">
+        <div class="wf-step"><div class="wf-step-dot done">1</div></div>
+        <div class="wf-step-line done"></div>
+        <div class="wf-step"><div class="wf-step-dot done">2</div></div>
+        <div class="wf-step-line done"></div>
+        <div class="wf-step"><div class="wf-step-dot done">3</div></div>
+        <div class="wf-step-line done"></div>
+        <div class="wf-step"><div class="wf-step-dot done">4</div></div>
+      </div>
+      <div class="wf-meta">
+        <div class="wf-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <strong>Daily @ 7:00 AM</strong>
+        </div>
+        <div class="wf-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Last run: <strong>3h ago</strong>
+        </div>
+        <div class="wf-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <strong style="color:var(--success)">98% success</strong>
+        </div>
+      </div>
+      <div class="wf-actions-row">
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Run Now
+          </button>
+          <button class="btn btn-ghost btn-sm">Configure</button>
+        </div>
+        <button class="wf-toggle on" title="Enabled"></button>
+      </div>
+    </div>
+
+    <!-- Task Review -->
+    <div class="wf-card active">
+      <div class="wf-top">
+        <div class="wf-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <span class="badge badge-brand"><span class="badge-dot pulse teal"></span> Running</span>
+      </div>
+      <div class="wf-name">Task Review</div>
+      <div class="wf-desc">Organizes task queue by priority, flags blockers, identifies stale items, and re-sequences based on deadlines.</div>
+      <div class="wf-steps">
+        <div class="wf-step"><div class="wf-step-dot done">1</div></div>
+        <div class="wf-step-line done"></div>
+        <div class="wf-step"><div class="wf-step-dot done">2</div></div>
+        <div class="wf-step-line active"></div>
+        <div class="wf-step"><div class="wf-step-dot active">3</div></div>
+        <div class="wf-step-line"></div>
+        <div class="wf-step"><div class="wf-step-dot pending">4</div></div>
+      </div>
+      <div class="wf-meta">
+        <div class="wf-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <strong>Daily @ 8:00 AM</strong>
+        </div>
+        <div class="wf-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Step <strong>3/4</strong>
+        </div>
+        <div class="wf-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <strong style="color:var(--success)">100% success</strong>
+        </div>
+      </div>
+      <div class="wf-actions-row">
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm" style="border-color:var(--warning);color:var(--warning)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            Pause
+          </button>
+          <button class="btn btn-ghost btn-sm">Configure</button>
+        </div>
+        <button class="wf-toggle on"></button>
+      </div>
+    </div>
+
+    <!-- Security Audit -->
+    <div class="wf-card">
+      <div class="wf-top">
+        <div class="wf-icon-wrap danger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span class="badge badge-muted">Scheduled</span>
+      </div>
+      <div class="wf-name">Security Audit</div>
+      <div class="wf-desc">Checks access logs, reviews configuration changes, scans for exposed secrets, and generates compliance report.</div>
+      <div class="wf-steps">
+        <div class="wf-step"><div class="wf-step-dot pending">1</div></div>
+        <div class="wf-step-line"></div>
+        <div class="wf-step"><div class="wf-step-dot pending">2</div></div>
+        <div class="wf-step-line"></div>
+        <div class="wf-step"><div class="wf-step-dot pending">3</div></div>
+        <div class="wf-step-line"></div>
+        <div class="wf-step"><div class="wf-step-dot pending">4</div></div>
+        <div class="wf-step-line"></div>
+        <div class="wf-step"><div class="wf-step-dot pending">5</div></div>
+      </div>
+      <div class="wf-meta">
+        <div class="wf-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <strong>Monday @ 2:00 PM</strong>
+        </div>
+        <div class="wf-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Last run: <strong>5 days ago</strong>
+        </div>
+        <div class="wf-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <strong style="color:var(--success)">100% success</strong>
+        </div>
+      </div>
+      <div class="wf-actions-row">
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Run Now
+          </button>
+          <button class="btn btn-ghost btn-sm">Configure</button>
+        </div>
+        <button class="wf-toggle on"></button>
+      </div>
+    </div>
+
+    <!-- Weekly Report -->
+    <div class="wf-card">
+      <div class="wf-top">
+        <div class="wf-icon-wrap warning">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <span class="badge badge-muted">Scheduled</span>
+      </div>
+      <div class="wf-name">Weekly Report</div>
+      <div class="wf-desc">Generates KPI summary, task completion metrics, key decisions made, and blockers for the upcoming week.</div>
+      <div class="wf-steps">
+        <div class="wf-step"><div class="wf-step-dot pending">1</div></div>
+        <div class="wf-step-line"></div>
+        <div class="wf-step"><div class="wf-step-dot pending">2</div></div>
+        <div class="wf-step-line"></div>
+        <div class="wf-step"><div class="wf-step-dot pending">3</div></div>
+      </div>
+      <div class="wf-meta">
+        <div class="wf-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <strong>Friday @ 5:00 PM</strong>
+        </div>
+        <div class="wf-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Last run: <strong>3 days ago</strong>
+        </div>
+        <div class="wf-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <strong style="color:var(--warning)">90% success</strong>
+        </div>
+      </div>
+      <div class="wf-actions-row">
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-outline btn-sm">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Run Now
+          </button>
+          <button class="btn btn-ghost btn-sm">Configure</button>
+        </div>
+        <button class="wf-toggle on"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two-Column: Upcoming + History -->
+  <div style="display:grid;grid-template-columns:1fr 2fr;gap:16px">
+
+    <!-- Next Scheduled Runs -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Upcoming Runs
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="next-run">
+          <div class="next-run-left">
+            <div class="next-run-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="next-run-name">Security Audit</div>
+              <div class="next-run-time">Mon, Feb 5 @ 2:00 PM</div>
+            </div>
+          </div>
+          <div class="next-run-countdown">in 1d 4h</div>
+        </div>
+        <div class="next-run">
+          <div class="next-run-left">
+            <div class="next-run-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/></svg>
+            </div>
+            <div>
+              <div class="next-run-name">Morning Briefing</div>
+              <div class="next-run-time">Wed, Feb 5 @ 7:00 AM</div>
+            </div>
+          </div>
+          <div class="next-run-countdown">in 20h 15m</div>
+        </div>
+        <div class="next-run">
+          <div class="next-run-left">
+            <div class="next-run-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <div class="next-run-name">Task Review</div>
+              <div class="next-run-time">Wed, Feb 5 @ 8:00 AM</div>
+            </div>
+          </div>
+          <div class="next-run-countdown">in 21h 15m</div>
+        </div>
+        <div class="next-run">
+          <div class="next-run-left">
+            <div class="next-run-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <div>
+              <div class="next-run-name">Weekly Report</div>
+              <div class="next-run-time">Fri, Feb 7 @ 5:00 PM</div>
+            </div>
+          </div>
+          <div class="next-run-countdown">in 3d 7h</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Execution History -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          Execution History
+        </div>
+        <span class="badge badge-muted">Last 7 days</span>
+      </div>
+      <div class="card-body">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>Workflow</th>
+              <th>Status</th>
+              <th>Started</th>
+              <th>Duration</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="history-wf-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Task Review</div></td>
+              <td><span class="badge badge-brand" style="font-size:0.65rem"><span class="badge-dot pulse teal"></span>Running</span></td>
+              <td class="history-time">10:30 AM</td>
+              <td class="history-duration">15m (active)</td>
+              <td><button class="btn btn-ghost btn-sm" style="font-size:0.7rem">View</button></td>
+            </tr>
+            <tr>
+              <td><div class="history-wf-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/></svg>Morning Briefing</div></td>
+              <td><span class="badge badge-success" style="font-size:0.65rem">Success</span></td>
+              <td class="history-time">7:00 AM</td>
+              <td class="history-duration">4m 12s</td>
+              <td><button class="btn btn-ghost btn-sm" style="font-size:0.7rem">View</button></td>
+            </tr>
+            <tr>
+              <td><div class="history-wf-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Task Review</div></td>
+              <td><span class="badge badge-success" style="font-size:0.65rem">Success</span></td>
+              <td class="history-time">Yesterday 8:00 AM</td>
+              <td class="history-duration">6m 34s</td>
+              <td><button class="btn btn-ghost btn-sm" style="font-size:0.7rem">View</button></td>
+            </tr>
+            <tr>
+              <td><div class="history-wf-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/></svg>Morning Briefing</div></td>
+              <td><span class="badge badge-success" style="font-size:0.65rem">Success</span></td>
+              <td class="history-time">Yesterday 7:00 AM</td>
+              <td class="history-duration">3m 58s</td>
+              <td><button class="btn btn-ghost btn-sm" style="font-size:0.7rem">View</button></td>
+            </tr>
+            <tr>
+              <td><div class="history-wf-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Weekly Report</div></td>
+              <td><span class="badge badge-warning" style="font-size:0.65rem">Partial</span></td>
+              <td class="history-time">Fri 5:00 PM</td>
+              <td class="history-duration">8m 22s</td>
+              <td><button class="btn btn-ghost btn-sm" style="font-size:0.7rem">View</button></td>
+            </tr>
+            <tr>
+              <td><div class="history-wf-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Security Audit</div></td>
+              <td><span class="badge badge-success" style="font-size:0.65rem">Success</span></td>
+              <td class="history-time">Mon 2:00 PM</td>
+              <td class="history-duration">12m 05s</td>
+              <td><button class="btn btn-ghost btn-sm" style="font-size:0.7rem">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>

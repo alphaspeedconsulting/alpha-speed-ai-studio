@@ -43,7 +43,7 @@ const UseCasesSection = () => {
             What You Can <span className="gradient-text">Automate</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Real scenarios, real outcomes. See how αlphaspeed AI helps small businesses like yours save time and grow.
+            Real scenarios, real outcomes across any service industry. See how αlphaspeed AI helps small businesses like yours save time and grow.
           </p>
         </div>
 
@@ -65,9 +65,12 @@ const UseCasesSection = () => {
               <p className="text-muted-foreground leading-relaxed mb-4">
                 {useCase.description}
               </p>
-              <div className="pt-4 border-t border-border">
+              <div className="pt-4 border-t border-border flex flex-col gap-2">
                 <p className="text-sm font-medium text-primary">
                   → {useCase.outcome}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Works for: Roofing, HVAC, Landscaping, Professional Services & more
                 </p>
               </div>
             </div>

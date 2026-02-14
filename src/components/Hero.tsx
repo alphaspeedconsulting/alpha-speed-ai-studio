@@ -10,7 +10,7 @@ const Hero = () => {
       {/* Background Effects */}
       <div className="absolute inset-0 hero-gradient" />
       <div className="absolute inset-0 grid-pattern opacity-30" />
-      
+
       {/* Animated Orb */}
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-glow" />
       <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse-glow delay-1000" />
@@ -20,21 +20,18 @@ const Hero = () => {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-8">
             <Zap className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Built for Small Business Automation</span>
+            <span className="text-sm font-medium text-primary">AI Consulting · Automation · Custom Agents</span>
           </div>
 
-          {/* Main Headline - Greek α (U+03B1), no space αLPHA+SPEED, only αLPHA bold; SPEED & AI normal */}
+          {/* Main Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight overflow-visible pr-4 sm:pr-6">
-            Automate Your Business with{" "}
-            <span className="gradient-text hero-brand-text inline-block pr-2">
-              <span className="hero-brand-alpha font-medium inline-block text-[1.3em] align-baseline leading-none" aria-hidden="true">{"\u03B1"}</span>LPHA
-              <span className="font-normal">SPEED AI</span>
-            </span>
+            AI That Works For{" "}
+            <span className="gradient-text">Your Business</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto text-balance">
-            One flexible platform that automates lead follow-up, scheduling, customer chat, and more—so you can focus on growing your business.
+            From workflow automation to custom AI agents — we help small businesses save time, reduce costs, and grow with AI-powered solutions.
           </p>
 
           {/* CTA Buttons */}
@@ -51,15 +48,11 @@ const Hero = () => {
             </Button>
           </div>
 
-          {/* Trust Indicators */}
+          {/* Honest tagline replacing fake logos */}
           <div className="mt-16 pt-8 border-t border-border/50">
-            <p className="text-sm text-muted-foreground mb-6">Trusted by forward-thinking companies</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-              <div className="text-xl font-bold tracking-wider">TECHCORP</div>
-              <div className="text-xl font-bold tracking-wider">INNOVATE</div>
-              <div className="text-xl font-bold tracking-wider">NEXGEN</div>
-              <div className="text-xl font-bold tracking-wider">VELOCITY</div>
-            </div>
+            <p className="text-sm text-muted-foreground">
+              Helping small businesses automate and grow with AI since 2025
+            </p>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 const workflows = [
   {
     title: "Roofing Lead Flow",
+    industry: "Construction",
     description: "From inquiry to appointment in minutes",
     steps: [
       { label: "Lead submits form or sends message", status: "trigger" },
@@ -13,31 +14,34 @@ const workflows = [
     ],
   },
   {
-    title: "Estimate Request",
+    title: "Service Business Intake",
+    industry: "Any Service Business",
     description: "Automated quote generation and delivery",
     steps: [
-      { label: "Customer requests estimate via chat", status: "trigger" },
-      { label: "AI collects project details & photos", status: "active" },
-      { label: "System generates estimate & PDF", status: "active" },
-      { label: "Estimate sent & follow-up scheduled", status: "complete" },
+      { label: "Customer requests a quote via chat or form", status: "trigger" },
+      { label: "AI collects project details & requirements", status: "active" },
+      { label: "System generates estimate & sends proposal", status: "active" },
+      { label: "Follow-up scheduled & CRM updated", status: "complete" },
     ],
   },
   {
-    title: "Appointment Confirmation",
-    description: "Smart reminders that reduce no-shows",
+    title: "Smart Scheduling & Reminders",
+    industry: "Professional Services",
+    description: "Reduce no-shows and keep your calendar full",
     steps: [
       { label: "Appointment scheduled in system", status: "trigger" },
-      { label: "24hr reminder sent via SMS/WhatsApp", status: "active" },
-      { label: "2hr reminder with directions & contact", status: "active" },
+      { label: "24hr reminder sent via SMS/WhatsApp/email", status: "active" },
+      { label: "2hr reminder with directions & prep info", status: "active" },
       { label: "Post-visit follow-up & feedback request", status: "complete" },
     ],
   },
   {
-    title: "Follow-Up Automation",
+    title: "Client Nurture & Re-engagement",
+    industry: "Any Business",
     description: "Stay top of mind without manual effort",
     steps: [
       { label: "Lead goes cold or doesn't respond", status: "trigger" },
-      { label: "AI sends personalized follow-up", status: "active" },
+      { label: "AI sends personalized follow-up sequence", status: "active" },
       { label: "System tracks engagement & adjusts timing", status: "active" },
       { label: "Lead re-engages or gets archived", status: "complete" },
     ],
@@ -71,7 +75,12 @@ const WorkflowExamplesSection = () => {
             >
               {/* Workflow Header */}
               <div className="mb-6">
-                <h3 className="text-2xl font-bold mb-2">{workflow.title}</h3>
+                <div className="flex items-center gap-3 mb-2">
+                  <h3 className="text-2xl font-bold">{workflow.title}</h3>
+                  <Badge variant="outline" className="text-xs border-primary/50 text-primary">
+                    {workflow.industry}
+                  </Badge>
+                </div>
                 <p className="text-muted-foreground">{workflow.description}</p>
               </div>
 
@@ -109,7 +118,7 @@ const WorkflowExamplesSection = () => {
               {/* Optional Demo Link */}
               <div className="mt-6 pt-6 border-t border-border">
                 <a
-                  href={`${baseUrl}#demos`}
+                  href={`${baseUrl}#contact`}
                   className="text-sm font-medium text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-2"
                 >
                   See this workflow in action <ArrowRight className="w-4 h-4" />
