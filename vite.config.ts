@@ -3,6 +3,30 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import fs from "fs";
 
+const alphaAISrcExists = fs.existsSync(
+  path.resolve(__dirname, "./ai-assistant-local/src")
+);
+
+/**
+ * When ai-assistant-local is not present (e.g. CI / clean clone),
+ * resolve @alphaai/* imports to a stub that exports a noop component.
+ */
+function alphaAIStub(): Plugin {
+  const prefix = "@alphaai";
+  const stubId = "\0alphaai-stub";
+  return {
+    name: "alphaai-stub",
+    enforce: "pre",
+    resolveId(id) {
+      if (!alphaAISrcExists && id.startsWith(prefix)) return stubId;
+    },
+    load(id) {
+      if (id === stubId)
+        return 'export default function(){return null}';
+    },
+  };
+}
+
 /** Serve & copy ai-assistant-local/public as an additional public dir */
 function alphaAIPublic(): Plugin {
   const extraPublic = path.resolve(__dirname, "./ai-assistant-local/public");
@@ -83,7 +107,7 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), alphaAIPublic()],
+  plugins: [alphaAIStub(), react(), alphaAIPublic()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
