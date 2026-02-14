@@ -111,7 +111,10 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "@alphaai": path.resolve(__dirname, "./ai-assistant-local/src"),
+      // Only register @alphaai alias when the directory exists (not on CI)
+      ...(alphaAISrcExists
+        ? { "@alphaai": path.resolve(__dirname, "./ai-assistant-local/src") }
+        : {}),
     },
   },
 }));
