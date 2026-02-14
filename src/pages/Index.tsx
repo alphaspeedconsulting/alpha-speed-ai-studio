@@ -21,8 +21,8 @@ const Index = () => {
         <Services />
         <HowWeWorkSection />
         <PortfolioSection />
-        <PlatformSection />
         <AgentsAsServiceSection />
+        <PlatformSection />
         <UseCasesSection />
         <WorkflowExamplesSection />
         <DemoVideosSection />

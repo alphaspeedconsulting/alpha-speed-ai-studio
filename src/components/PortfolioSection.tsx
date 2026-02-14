@@ -59,17 +59,17 @@ const PortfolioSection = () => {
                   </div>
                 )}
 
-                {/* No-image fallback — gradient placeholder */}
+                {/* No-image fallback — compact gradient placeholder (e.g. AI Studio card) */}
                 {!hasImages && (
-                  <div className="aspect-[3/1] bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 flex items-center justify-center">
-                    <span className="text-4xl font-bold gradient-text opacity-40">
+                  <div className="aspect-[6/1] max-h-28 bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 flex items-center justify-center">
+                    <span className="text-2xl font-bold gradient-text opacity-40">
                       αlphaspeed
                     </span>
                   </div>
                 )}
 
                 {/* Info */}
-                <div className="p-6 sm:p-8">
+                <div className={`p-6 sm:p-8 ${!hasImages ? "py-4 sm:py-5" : ""}`}>
                   <div className="flex items-center gap-3 mb-3">
                     <h3 className="text-xl font-bold">{item.title}</h3>
                     <Badge variant="outline" className="text-xs border-primary/50 text-primary">

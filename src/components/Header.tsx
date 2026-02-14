@@ -13,6 +13,7 @@ const Header = () => {
     { label: "Services", href: `${baseUrl}#services` },
     { label: "How It Works", href: `${baseUrl}#how-we-work` },
     { label: "Portfolio", href: `${baseUrl}#portfolio` },
+    { label: "Agents", href: `${baseUrl}#agents` },
     { label: "Platform", href: `${baseUrl}#platform` },
     { label: "About", href: `${baseUrl}#about` },
     { label: "Contact", href: `${baseUrl}#contact` },

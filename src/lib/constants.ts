@@ -124,7 +124,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "αlphaspeed AI Studio",
     category: "Rapid Website Development",
     description:
-      "This very site — a modern React marketing site with interactive AI assistant demo, three theme options, and a full AlphaAI subsystem. Built in days using our AI-accelerated workflow.",
+      "This site: React marketing site with AI assistant demo, three themes, and AlphaAI. Built in days with our AI-accelerated workflow.",
     images: [],
   },
   {
