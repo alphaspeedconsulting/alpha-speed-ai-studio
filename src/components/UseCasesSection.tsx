@@ -1,35 +1,54 @@
-import { MessageCircle, Calendar, Clock, FileText, BarChart } from "lucide-react";
+import { Workflow, Bot, Mail, Brain, Code, BarChart } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const useCases = [
   {
-    icon: MessageCircle,
-    title: "Lead Follow-Up That Never Sleeps",
-    description: "Every new lead gets an instant response—day or night. Your AI assistant qualifies them, answers questions, and schedules next steps automatically.",
-    outcome: "Turn more inquiries into appointments without lifting a finger.",
+    icon: Workflow,
+    title: "Multi-Step Workflow Automation",
+    description:
+      "We built a production workflow engine that manages 11-step construction processes end-to-end — from project creation through scheduling, daily completion reports, invoicing, and payment. Each step triggers the next automatically with built-in email notifications and status tracking.",
+    outcome: "Projects that used to take hours of manual coordination now run themselves.",
+    builtWith: "DCR Portal",
   },
   {
-    icon: Calendar,
-    title: "Scheduling & Reminders",
-    description: "Your team stays on track with smart scheduling that handles bookings, sends reminders, and reschedules when plans change.",
-    outcome: "Fewer no-shows and a calendar that manages itself.",
+    icon: Bot,
+    title: "Multi-Agent AI Systems",
+    description:
+      "Our roofing chatbot runs 6 specialized AI agents — customer, roof, gutter, email, status, and scheduling — all coordinated by a supervisor that routes requests to the right agent. It handles lead qualification, project creation, workflow advancement, and customer communication autonomously.",
+    outcome: "One AI system replaces an entire operations coordinator.",
+    builtWith: "DCR Agent System",
   },
   {
-    icon: Clock,
-    title: "24/7 Customer Chat",
-    description: "Whether it's text, WhatsApp, or web chat, your customers get helpful answers instantly—even outside business hours.",
-    outcome: "Happy customers and more time for your team to focus on high-value work.",
+    icon: Mail,
+    title: "Intelligent Email Processing",
+    description:
+      "We built email automation that reads inbound messages, detects intent using keyword analysis (measurements, invoices, completion confirmations), and automatically advances workflow steps. It generates context-aware replies, manages drafts, and handles multi-channel communication via Gmail and WhatsApp.",
+    outcome: "Emails that trigger real business actions — not just auto-replies.",
+    builtWith: "DCR Portal",
   },
   {
-    icon: FileText,
-    title: "Estimates & Intake Automation",
-    description: "Collect project details, generate estimates, and gather documents automatically—no more back-and-forth emails.",
-    outcome: "Faster quotes and a smoother customer experience.",
+    icon: Brain,
+    title: "Personal AI Executive Assistant",
+    description:
+      "AlphaAI runs 24/7 on a Mac Mini with persistent memory, a task board, and a workflow engine. It remembers context across sessions, tracks deliverables, and manages daily operations — all with hard-stop safety rules and a privacy-first architecture.",
+    outcome: "An always-on AI team member that actually knows your business.",
+    builtWith: "AlphaAI",
+  },
+  {
+    icon: Code,
+    title: "AI-Powered Development Tools",
+    description:
+      "Our MCP server gives Claude the ability to generate PRDs, analyze architecture options across 8 platforms, create sales pitches from company research, and batch-process leads from CSV files. Custom slash commands handle code review, production debugging, and deployment — all from the terminal.",
+    outcome: "Development and sales workflows that run in minutes instead of days.",
+    builtWith: "AI Product Agents + Claude Skills",
   },
   {
     icon: BarChart,
-    title: "Reporting You Can Trust",
-    description: "Get real-time insights into leads, appointments, and workflow status—all in one dashboard you can check anytime.",
-    outcome: "Make better decisions with data that's always up to date.",
+    title: "Real-Time Dashboards & Project Tracking",
+    description:
+      "Live dashboards showing workflow status, pending items, team assignments, and project timelines. Filter by workflow type, track daily completion reports, and monitor agent health — all updating in real time as work moves through the system.",
+    outcome: "Complete visibility into every project without asking anyone for updates.",
+    builtWith: "DCR Portal",
   },
 ];
 
@@ -40,10 +59,10 @@ const UseCasesSection = () => {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            What You Can <span className="gradient-text">Automate</span>
+            What We've <span className="gradient-text">Built</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Real scenarios, real outcomes across any service industry. See how αlphaspeed AI helps small businesses like yours save time and grow.
+            Real capabilities from production systems we've shipped. Not mockups — working software running in businesses today.
           </p>
         </div>
 
@@ -59,18 +78,18 @@ const UseCasesSection = () => {
                   <useCase.icon className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-2">{useCase.title}</h3>
+                  <h3 className="text-xl font-bold mb-1">{useCase.title}</h3>
+                  <Badge variant="outline" className="text-xs border-primary/50 text-primary">
+                    {useCase.builtWith}
+                  </Badge>
                 </div>
               </div>
               <p className="text-muted-foreground leading-relaxed mb-4">
                 {useCase.description}
               </p>
-              <div className="pt-4 border-t border-border flex flex-col gap-2">
+              <div className="pt-4 border-t border-border">
                 <p className="text-sm font-medium text-primary">
                   → {useCase.outcome}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  Works for: Roofing, HVAC, Landscaping, Professional Services & more
                 </p>
               </div>
             </div>
