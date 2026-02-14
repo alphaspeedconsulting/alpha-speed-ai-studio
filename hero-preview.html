@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hero headline preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: hsl(220 20% 6%);
+      font-family: 'Inter', system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .preview {
+      text-align: center;
+      max-width: 42rem;
+    }
+    .headline {
+      font-size: clamp(2.25rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: #fafafa;
+    }
+    .brand {
+      background: linear-gradient(to right, hsl(174 72% 46%), hsl(174 72% 56%));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+    }
+    .brand .alpha {
+      display: inline-block;
+      font-size: 1.12em;
+      vertical-align: baseline;
+    }
+    .brand .speed {
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview">
+    <h1 class="headline">
+      Automate Your Business with
+      <span class="brand">
+        <span class="alpha" aria-hidden="true">α</span>LPHA<span class="speed">SPEED</span> AI
+      </span>
+    </h1>
+    <p style="color: hsl(220 10% 60%); margin-top: 1rem; font-size: 1rem;">
+      Same styling as the live hero: α = Greek alpha, no space between αLPHA and SPEED, SPEED in normal weight.
+    </p>
+  </div>
+</body>
+</html>

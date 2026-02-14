@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlphaAI Dashboard - Mockup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── Design Tokens ── */
+    :root {
+      --bg:          hsl(220, 20%, 6%);
+      --bg-card:     hsl(220, 20%, 8%);
+      --bg-card-alt: hsl(220, 20%, 10%);
+      --fg:          hsl(0, 0%, 98%);
+      --fg-muted:    hsl(220, 10%, 60%);
+      --border:      hsl(220, 14%, 18%);
+      --brand:       hsl(174, 72%, 46%);
+      --brand-glow:  hsl(174, 72%, 56%);
+      --brand-dim:   hsla(174, 72%, 46%, 0.15);
+      --brand-dim2:  hsla(174, 72%, 46%, 0.08);
+      --success:     hsl(142, 76%, 36%);
+      --warning:     hsl(38, 92%, 50%);
+      --danger:      hsl(0, 84%, 60%);
+      --info:        hsl(210, 60%, 50%);
+      --radius:      0.75rem;
+      --font:        'Inter', system-ui, sans-serif;
+      --mono:        'JetBrains Mono', monospace;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Utility ── */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--brand), var(--brand-glow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Header ── */
+    .header {
+      position: sticky; top: 0; z-index: 50;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+      background: hsla(220, 20%, 6%, 0.8);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-left { display: flex; align-items: center; gap: 16px; }
+    .header-logo {
+      font-size: 1.15rem; font-weight: 700;
+      letter-spacing: -0.04em;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .header-logo .alpha { font-style: italic; text-transform: uppercase; }
+    .header-logo .separator { color: var(--fg-muted); font-weight: 300; margin: 0 4px; }
+    .header-logo .ai-label { color: var(--brand); font-weight: 600; }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .header-nav { display: flex; gap: 4px; }
+    .header-nav a {
+      color: var(--fg-muted); text-decoration: none; font-size: 0.875rem; font-weight: 500;
+      padding: 6px 14px; border-radius: calc(var(--radius) - 2px);
+      transition: color 0.2s, background 0.2s;
+    }
+    .header-nav a:hover { color: var(--fg); background: hsla(220, 14%, 16%, 0.6); }
+    .header-nav a.active { color: var(--brand); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: calc(var(--radius) - 2px);
+      font-size: 0.875rem; font-weight: 500; font-family: var(--font);
+      cursor: pointer; border: none; transition: all 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand), var(--brand-glow));
+      color: hsl(220, 20%, 6%); font-weight: 600;
+      box-shadow: 0 0 20px -5px hsla(174, 72%, 46%, 0.4);
+    }
+    .btn-primary:hover { filter: brightness(1.1); box-shadow: 0 0 30px -5px hsla(174, 72%, 46%, 0.5); }
+    .btn-outline {
+      background: transparent; color: var(--fg);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--brand); color: var(--brand); }
+    .btn-ghost {
+      background: transparent; color: var(--fg-muted);
+    }
+    .btn-ghost:hover { background: hsla(220, 14%, 16%, 0.6); color: var(--fg); }
+    .btn-sm { padding: 5px 10px; font-size: 0.8rem; }
+    .btn-icon { padding: 8px; width: 36px; height: 36px; justify-content: center; }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 2px 10px; border-radius: 9999px;
+      font-size: 0.75rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.03em;
+    }
+    .badge-brand { background: var(--brand-dim); color: var(--brand); }
+    .badge-success { background: hsla(142, 76%, 36%, 0.15); color: var(--success); }
+    .badge-warning { background: hsla(38, 92%, 50%, 0.15); color: var(--warning); }
+    .badge-danger { background: hsla(0, 84%, 60%, 0.15); color: var(--danger); }
+    .badge-muted { background: hsla(220, 14%, 16%, 0.6); color: var(--fg-muted); }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .badge-dot.pulse { animation: pulse-glow 2s infinite; }
+    .badge-dot.green { background: var(--success); }
+    .badge-dot.teal { background: var(--brand); }
+    .badge-dot.orange { background: var(--warning); }
+
+    /* ── Card ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    .card:hover { box-shadow: 0 0 30px -10px hsla(174, 72%, 46%, 0.08); }
+    .card-header {
+      padding: 16px 20px 12px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-title {
+      font-size: 0.9rem; font-weight: 600; letter-spacing: -0.01em;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .card-title svg { width: 16px; height: 16px; color: var(--brand); }
+    .card-body { padding: 0 20px 20px; }
+    .card-brand {
+      border-color: hsla(174, 72%, 46%, 0.3);
+      background: linear-gradient(135deg, var(--bg-card), var(--brand-dim2));
+    }
+
+    /* ── Dashboard Layout ── */
+    .dashboard { display: flex; flex-direction: column; min-height: calc(100vh - 64px); }
+    .dash-top { padding: 20px 24px 0; }
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr 320px;
+      gap: 16px;
+      padding: 16px 24px;
+      flex: 1;
+      min-height: 0;
+    }
+    .dash-bottom { padding: 0 24px 20px; }
+
+    /* ── Status Panel (Left Column) ── */
+    .status-panel { display: flex; flex-direction: column; gap: 16px; }
+
+    /* Orb */
+    .orb-container {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 24px 20px;
+    }
+    .orb-wrapper { position: relative; width: 120px; height: 120px; margin-bottom: 16px; }
+    .orb {
+      width: 120px; height: 120px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, var(--brand-glow), var(--brand), hsl(174, 72%, 30%));
+      box-shadow: 0 0 60px -10px var(--brand), 0 0 120px -20px hsla(174, 72%, 46%, 0.3);
+      animation: pulse-glow 3s ease-in-out infinite;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .orb svg { width: 40px; height: 40px; color: hsl(220, 20%, 6%); }
+    .orb-ring {
+      position: absolute; inset: -8px;
+      border: 2px solid hsla(174, 72%, 46%, 0.2);
+      border-radius: 50%;
+      animation: spin 8s linear infinite;
+    }
+    .orb-ring::after {
+      content: ''; position: absolute; top: -3px; left: 50%;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--brand); transform: translateX(-50%);
+    }
+    .orb-status-label {
+      font-size: 0.875rem; font-weight: 600; color: var(--brand);
+      margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .orb-task-label { font-size: 0.8rem; color: var(--fg-muted); text-align: center; }
+
+    /* ── Workflow List ── */
+    .workflow-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid hsla(220, 14%, 18%, 0.5);
+    }
+    .workflow-item:last-child { border-bottom: none; }
+    .workflow-left { display: flex; align-items: center; gap: 10px; }
+    .workflow-icon {
+      width: 32px; height: 32px; border-radius: calc(var(--radius) - 4px);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--brand-dim);
+    }
+    .workflow-icon svg { width: 14px; height: 14px; color: var(--brand); }
+    .workflow-name { font-size: 0.8rem; font-weight: 500; }
+    .workflow-schedule { font-size: 0.7rem; color: var(--fg-muted); }
+    .workflow-trigger { cursor: pointer; }
+
+    /* ── Memory Stats ── */
+    .mem-stat {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 0;
+    }
+    .mem-label { font-size: 0.8rem; color: var(--fg-muted); }
+    .mem-value { font-size: 0.8rem; font-weight: 600; font-family: var(--mono); }
+
+    /* ── Center Column ── */
+    .center-col { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
+
+    /* ── Task Board ── */
+    .task-board {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    .task-column-header {
+      font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--fg-muted);
+      padding: 0 0 8px; display: flex; align-items: center; gap: 6px;
+    }
+    .task-column-header .count {
+      background: hsla(220, 14%, 16%, 0.8);
+      padding: 1px 7px; border-radius: 9999px; font-size: 0.7rem;
+    }
+    .task-card {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) - 2px);
+      padding: 12px;
+      margin-bottom: 8px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .task-card:hover {
+      border-color: hsla(174, 72%, 46%, 0.3);
+      box-shadow: 0 0 16px -8px hsla(174, 72%, 46%, 0.15);
+    }
+    .task-card-title { font-size: 0.8rem; font-weight: 500; margin-bottom: 6px; }
+    .task-card-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.7rem; color: var(--fg-muted);
+    }
+    .task-progress {
+      width: 100%; height: 3px; background: hsla(220, 14%, 18%, 0.6);
+      border-radius: 2px; margin-top: 8px; overflow: hidden;
+    }
+    .task-progress-fill {
+      height: 100%; border-radius: 2px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-glow));
+      transition: width 0.5s;
+    }
+    .task-card.priority-high { border-left: 3px solid var(--danger); }
+    .task-card.priority-medium { border-left: 3px solid var(--warning); }
+    .task-card.priority-low { border-left: 3px solid var(--info); }
+
+    /* ── Thinking Display ── */
+    .thinking-box {
+      background: hsl(220, 20%, 5%);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) - 2px);
+      padding: 14px 16px;
+      font-family: var(--mono); font-size: 0.8rem;
+      color: var(--brand-glow);
+      display: flex; align-items: flex-start; gap: 10px;
+      min-height: 48px;
+    }
+    .thinking-cursor {
+      display: inline-block; width: 2px; height: 14px;
+      background: var(--brand); animation: blink 1s step-end infinite;
+      margin-left: 2px; vertical-align: middle;
+    }
+    .thinking-prefix { color: var(--fg-muted); font-weight: 500; white-space: nowrap; }
+
+    /* ── Right Column ── */
+    .right-col { display: flex; flex-direction: column; gap: 16px; }
+
+    /* ── Notes Panel ── */
+    .note-input-wrap {
+      position: relative;
+    }
+    .note-input {
+      width: 100%;
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) - 2px);
+      padding: 12px 14px;
+      padding-right: 40px;
+      font-family: var(--font); font-size: 0.8rem;
+      color: var(--fg); resize: vertical; min-height: 72px;
+      transition: border-color 0.2s;
+    }
+    .note-input::placeholder { color: var(--fg-muted); }
+    .note-input:focus { outline: none; border-color: var(--brand); }
+    .note-send {
+      position: absolute; bottom: 10px; right: 10px;
+      background: var(--brand); color: var(--bg);
+      border: none; border-radius: 50%; width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: filter 0.2s;
+    }
+    .note-send:hover { filter: brightness(1.15); }
+    .note-send svg { width: 14px; height: 14px; }
+    .note-item {
+      display: flex; gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid hsla(220, 14%, 18%, 0.4);
+    }
+    .note-item:last-child { border-bottom: none; }
+    .note-avatar {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 600;
+    }
+    .note-avatar.user { background: hsla(220, 14%, 16%, 0.8); color: var(--fg-muted); }
+    .note-avatar.ai { background: var(--brand-dim); color: var(--brand); }
+    .note-content { font-size: 0.8rem; line-height: 1.45; }
+    .note-time { font-size: 0.65rem; color: var(--fg-muted); margin-top: 3px; }
+
+    /* ── Deliverables ── */
+    .deliverable-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 10px;
+      border-radius: calc(var(--radius) - 4px);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .deliverable-item:hover { background: hsla(220, 14%, 16%, 0.4); }
+    .deliverable-icon {
+      width: 32px; height: 32px; border-radius: calc(var(--radius) - 4px);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+    }
+    .deliverable-icon.pdf { background: hsla(0, 84%, 60%, 0.15); color: var(--danger); }
+    .deliverable-icon.doc { background: hsla(210, 60%, 50%, 0.15); color: var(--info); }
+    .deliverable-icon.csv { background: hsla(142, 76%, 36%, 0.15); color: var(--success); }
+    .deliverable-name { font-size: 0.8rem; font-weight: 500; }
+    .deliverable-meta { font-size: 0.65rem; color: var(--fg-muted); }
+
+    /* ── Activity Log ── */
+    .activity-log {
+      max-height: 180px; overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: hsla(220, 14%, 18%, 0.6) transparent;
+    }
+    .activity-log::-webkit-scrollbar { width: 4px; }
+    .activity-log::-webkit-scrollbar-track { background: transparent; }
+    .activity-log::-webkit-scrollbar-thumb { background: hsla(220, 14%, 18%, 0.6); border-radius: 2px; }
+    .log-entry {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 7px 0;
+      font-size: 0.78rem;
+      border-bottom: 1px solid hsla(220, 14%, 18%, 0.3);
+    }
+    .log-entry:last-child { border-bottom: none; }
+    .log-time {
+      font-family: var(--mono); font-size: 0.7rem;
+      color: var(--fg-muted); white-space: nowrap; min-width: 58px;
+    }
+    .log-tag {
+      font-family: var(--mono); font-size: 0.65rem; font-weight: 600;
+      padding: 1px 6px; border-radius: 3px; white-space: nowrap;
+    }
+    .log-tag.success { background: hsla(142, 76%, 36%, 0.15); color: var(--success); }
+    .log-tag.task { background: var(--brand-dim); color: var(--brand); }
+    .log-tag.info { background: hsla(210, 60%, 50%, 0.15); color: var(--info); }
+    .log-tag.warn { background: hsla(38, 92%, 50%, 0.15); color: var(--warning); }
+    .log-msg { color: var(--fg); line-height: 1.4; }
+
+    /* ── Stats Bar ── */
+    .stats-bar {
+      display: flex; gap: 24px; padding: 12px 0;
+    }
+    .stat-item { display: flex; align-items: center; gap: 8px; }
+    .stat-number { font-size: 1.4rem; font-weight: 700; font-family: var(--mono); }
+    .stat-number.teal { color: var(--brand); }
+    .stat-number.green { color: var(--success); }
+    .stat-number.orange { color: var(--warning); }
+    .stat-label { font-size: 0.7rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* ── Animations ── */
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* ── Background Effects ── */
+    .bg-effects {
+      position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+    }
+    .bg-orb {
+      position: absolute; border-radius: 50%; filter: blur(100px);
+    }
+    .bg-orb-1 {
+      width: 400px; height: 400px; top: -100px; right: -50px;
+      background: hsla(174, 72%, 46%, 0.06);
+      animation: pulse-glow 6s ease-in-out infinite;
+    }
+    .bg-orb-2 {
+      width: 300px; height: 300px; bottom: -80px; left: -40px;
+      background: hsla(174, 72%, 46%, 0.04);
+      animation: pulse-glow 6s ease-in-out infinite 3s;
+    }
+    .bg-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(hsla(220, 14%, 18%, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, hsla(220, 14%, 18%, 0.15) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.3;
+    }
+
+    /* ── SVG Icons (inline) ── */
+    .icon { display: inline-flex; align-items: center; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1100px) {
+      .dash-grid { grid-template-columns: 1fr 1fr; }
+      .status-panel { grid-column: span 2; flex-direction: row; flex-wrap: wrap; }
+      .status-panel .card { flex: 1; min-width: 240px; }
+    }
+    @media (max-width: 768px) {
+      .dash-grid { grid-template-columns: 1fr; }
+      .status-panel { flex-direction: column; grid-column: span 1; }
+      .task-board { grid-template-columns: 1fr; }
+      .header-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background Effects -->
+<div class="bg-effects">
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-grid"></div>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-left">
+    <div class="header-logo">
+      <span class="alpha gradient-text">&#945;lphaspeed</span>
+      <span class="separator">/</span>
+      <span class="ai-label">AlphaAI</span>
+    </div>
+    <nav class="header-nav">
+      <a href="alphaai-dashboard-mockup.html" class="active">Dashboard</a>
+      <a href="alphaai-memory-mockup.html">Memory</a>
+      <a href="alphaai-workflows-mockup.html">Workflows</a>
+      <a href="alphaai-settings-mockup.html">Settings</a>
+    </nav>
+  </div>
+  <div class="header-right">
+    <div class="badge badge-brand">
+      <span class="badge-dot pulse teal"></span>
+      Running
+    </div>
+    <button class="btn btn-outline btn-sm">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+      Pause
+    </button>
+    <button class="btn btn-ghost btn-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Dashboard -->
+<main class="dashboard">
+
+  <!-- Stats Bar -->
+  <div class="dash-top">
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-number teal">12</div>
+        <div class="stat-label">Total Tasks</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number green">7</div>
+        <div class="stat-label">Completed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number orange">3</div>
+        <div class="stat-label">In Progress</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" style="color: var(--fg-muted)">2</div>
+        <div class="stat-label">Queued</div>
+      </div>
+      <div style="flex:1"></div>
+      <div class="stat-item">
+        <div class="stat-label" style="font-family: var(--mono); font-size: 0.85rem; color: var(--fg-muted);">Session: <span style="color:var(--fg)">14:23</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3-Column Grid -->
+  <div class="dash-grid">
+
+    <!-- LEFT: Status & Workflows -->
+    <div class="status-panel">
+
+      <!-- Status Orb Card -->
+      <div class="card card-brand">
+        <div class="orb-container">
+          <div class="orb-wrapper">
+            <div class="orb">
+              <!-- Brain icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9.5 2A5.5 5.5 0 0 0 5 7.5c0 .59.11 1.15.31 1.66A3.5 3.5 0 0 0 2 12.5a3.5 3.5 0 0 0 3.23 3.49A4 4 0 0 0 9 20h.5"/>
+                <path d="M14.5 2A5.5 5.5 0 0 1 19 7.5c0 .59-.11 1.15-.31 1.66A3.5 3.5 0 0 1 22 12.5a3.5 3.5 0 0 1-3.23 3.49A4 4 0 0 1 15 20h-.5"/>
+                <path d="M12 2v20"/>
+              </svg>
+            </div>
+            <div class="orb-ring"></div>
+          </div>
+          <div class="orb-status-label">Active</div>
+          <div class="orb-task-label">Analyzing email patterns...</div>
+        </div>
+      </div>
+
+      <!-- Workflows Card -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Workflows
+          </div>
+          <span class="badge badge-muted">3 active</span>
+        </div>
+        <div class="card-body">
+          <div class="workflow-item">
+            <div class="workflow-left">
+              <div class="workflow-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <div class="workflow-name">Morning Briefing</div>
+                <div class="workflow-schedule">Daily @ 7:00 AM</div>
+              </div>
+            </div>
+            <span class="badge badge-success" style="font-size:0.65rem">Done</span>
+          </div>
+          <div class="workflow-item">
+            <div class="workflow-left">
+              <div class="workflow-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <div>
+                <div class="workflow-name">Task Review</div>
+                <div class="workflow-schedule">Daily @ 8:00 AM</div>
+              </div>
+            </div>
+            <span class="badge badge-brand" style="font-size:0.65rem">Running</span>
+          </div>
+          <div class="workflow-item">
+            <div class="workflow-left">
+              <div class="workflow-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <div class="workflow-name">Security Audit</div>
+                <div class="workflow-schedule">Monday @ 2:00 PM</div>
+              </div>
+            </div>
+            <span class="badge badge-muted" style="font-size:0.65rem">Scheduled</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Memory Card -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            Memory
+          </div>
+          <button class="btn btn-ghost btn-sm" style="font-size:0.7rem">View All</button>
+        </div>
+        <div class="card-body">
+          <div class="mem-stat">
+            <span class="mem-label">Long-term facts</span>
+            <span class="mem-value">24</span>
+          </div>
+          <div class="mem-stat">
+            <span class="mem-label">Daily logs</span>
+            <span class="mem-value">12</span>
+          </div>
+          <div class="mem-stat">
+            <span class="mem-label">Project contexts</span>
+            <span class="mem-value">3</span>
+          </div>
+          <div class="mem-stat">
+            <span class="mem-label">Last updated</span>
+            <span class="mem-value" style="color: var(--brand)">2m ago</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER: Task Board + Thinking -->
+    <div class="center-col">
+
+      <!-- Task Board Card -->
+      <div class="card" style="flex:1; display:flex; flex-direction:column;">
+        <div class="card-header">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Task Board
+          </div>
+          <button class="btn btn-primary btn-sm">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Task
+          </button>
+        </div>
+        <div class="card-body" style="flex:1;">
+          <div class="task-board">
+            <!-- TO DO Column -->
+            <div>
+              <div class="task-column-header">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+                To Do <span class="count">2</span>
+              </div>
+              <div class="task-card priority-high">
+                <div class="task-card-title">Review Q4 financial projections</div>
+                <div class="task-card-meta">
+                  <span class="badge badge-danger" style="font-size:0.6rem; padding:1px 6px;">High</span>
+                  <span>Due: Today</span>
+                </div>
+              </div>
+              <div class="task-card priority-medium">
+                <div class="task-card-title">Draft client proposal for Acme Corp</div>
+                <div class="task-card-meta">
+                  <span class="badge badge-warning" style="font-size:0.6rem; padding:1px 6px;">Medium</span>
+                  <span>Due: Tomorrow</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- IN PROGRESS Column -->
+            <div>
+              <div class="task-column-header">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                In Progress <span class="count">3</span>
+              </div>
+              <div class="task-card priority-high">
+                <div class="task-card-title">Analyze email inbox patterns</div>
+                <div class="task-card-meta">
+                  <span class="badge badge-brand" style="font-size:0.6rem; padding:1px 6px;">Active</span>
+                  <span>65%</span>
+                </div>
+                <div class="task-progress"><div class="task-progress-fill" style="width:65%"></div></div>
+              </div>
+              <div class="task-card priority-medium">
+                <div class="task-card-title">Competitive landscape research</div>
+                <div class="task-card-meta">
+                  <span class="badge badge-brand" style="font-size:0.6rem; padding:1px 6px;">Active</span>
+                  <span>40%</span>
+                </div>
+                <div class="task-progress"><div class="task-progress-fill" style="width:40%"></div></div>
+              </div>
+              <div class="task-card priority-low">
+                <div class="task-card-title">Update team meeting notes</div>
+                <div class="task-card-meta">
+                  <span class="badge badge-brand" style="font-size:0.6rem; padding:1px 6px;">Active</span>
+                  <span>20%</span>
+                </div>
+                <div class="task-progress"><div class="task-progress-fill" style="width:20%"></div></div>
+              </div>
+            </div>
+
+            <!-- DONE Column -->
+            <div>
+              <div class="task-column-header">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Done <span class="count">7</span>
+              </div>
+              <div class="task-card" style="opacity:0.7;">
+                <div class="task-card-title" style="text-decoration: line-through;">Morning briefing summary</div>
+                <div class="task-card-meta">
+                  <span class="badge badge-success" style="font-size:0.6rem; padding:1px 6px;">Complete</span>
+                  <span>10:23 AM</span>
+                </div>
+              </div>
+              <div class="task-card" style="opacity:0.7;">
+                <div class="task-card-title" style="text-decoration: line-through;">Calendar optimization</div>
+                <div class="task-card-meta">
+                  <span class="badge badge-success" style="font-size:0.6rem; padding:1px 6px;">Complete</span>
+                  <span>9:45 AM</span>
+                </div>
+              </div>
+              <div class="task-card" style="opacity:0.7;">
+                <div class="task-card-title" style="text-decoration: line-through;">Priority inbox sort</div>
+                <div class="task-card-meta">
+                  <span class="badge badge-success" style="font-size:0.6rem; padding:1px 6px;">Complete</span>
+                  <span>8:30 AM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thinking Display -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            Current Thought
+          </div>
+          <span class="badge badge-brand" style="font-size:0.6rem">
+            <span class="badge-dot pulse teal"></span>
+            Processing
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="thinking-box">
+            <span class="thinking-prefix">&gt;_</span>
+            <span>Analyzing email frequency patterns across the last 30 days to identify peak communication windows and suggest optimal response batching schedule<span class="thinking-cursor"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Notes & Deliverables -->
+    <div class="right-col">
+
+      <!-- Notes Panel -->
+      <div class="card" style="flex:1; display:flex; flex-direction:column;">
+        <div class="card-header">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Notes
+          </div>
+          <span class="badge badge-muted">4 messages</span>
+        </div>
+        <div class="card-body" style="flex:1; display:flex; flex-direction:column;">
+          <div class="note-input-wrap" style="margin-bottom:12px;">
+            <textarea class="note-input" placeholder="Leave a note for AlphaAI..."></textarea>
+            <button class="note-send">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+          <div style="flex:1; overflow-y:auto;">
+            <div class="note-item">
+              <div class="note-avatar user">MF</div>
+              <div>
+                <div class="note-content">Prioritize the Acme Corp proposal - they moved the deadline to Thursday</div>
+                <div class="note-time">10:15 AM</div>
+              </div>
+            </div>
+            <div class="note-item">
+              <div class="note-avatar ai">AI</div>
+              <div>
+                <div class="note-content">Acknowledged. Moving Acme Corp proposal to high priority. I'll draft an outline based on the last RFP template and have it ready by EOD.</div>
+                <div class="note-time">10:16 AM</div>
+              </div>
+            </div>
+            <div class="note-item">
+              <div class="note-avatar user">MF</div>
+              <div>
+                <div class="note-content">Also check if we have the latest competitive analysis for their sector</div>
+                <div class="note-time">10:18 AM</div>
+              </div>
+            </div>
+            <div class="note-item">
+              <div class="note-avatar ai">AI</div>
+              <div>
+                <div class="note-content">Found competitive analysis from Jan 15. Scheduling a refresh as part of the research task. Will cross-reference with proposal draft.</div>
+                <div class="note-time">10:19 AM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deliverables Card -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+            Deliverables
+          </div>
+          <span class="badge badge-muted">3 files</span>
+        </div>
+        <div class="card-body">
+          <div class="deliverable-item">
+            <div class="deliverable-icon pdf">PDF</div>
+            <div>
+              <div class="deliverable-name">Morning Briefing Report</div>
+              <div class="deliverable-meta">Generated today @ 7:15 AM</div>
+            </div>
+          </div>
+          <div class="deliverable-item">
+            <div class="deliverable-icon doc">DOC</div>
+            <div>
+              <div class="deliverable-name">Email Analysis Summary</div>
+              <div class="deliverable-meta">Generated today @ 9:30 AM</div>
+            </div>
+          </div>
+          <div class="deliverable-item">
+            <div class="deliverable-icon csv">CSV</div>
+            <div>
+              <div class="deliverable-name">Task Priority Matrix</div>
+              <div class="deliverable-meta">Generated today @ 8:00 AM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom: Activity Log -->
+  <div class="dash-bottom">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Activity Log
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-ghost btn-sm" style="font-size:0.7rem;color:var(--brand)">All</button>
+          <button class="btn btn-ghost btn-sm" style="font-size:0.7rem">Tasks</button>
+          <button class="btn btn-ghost btn-sm" style="font-size:0.7rem">System</button>
+          <button class="btn btn-ghost btn-sm" style="font-size:0.7rem">Errors</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="activity-log">
+          <div class="log-entry">
+            <span class="log-time">10:45:23</span>
+            <span class="log-tag task">TASK</span>
+            <span class="log-msg">Started: Analyzing email inbox patterns (65% complete)</span>
+          </div>
+          <div class="log-entry">
+            <span class="log-time">10:44:12</span>
+            <span class="log-tag success">SUCCESS</span>
+            <span class="log-msg">Completed: Morning briefing summary - report generated</span>
+          </div>
+          <div class="log-entry">
+            <span class="log-time">10:43:05</span>
+            <span class="log-tag info">INFO</span>
+            <span class="log-msg">Memory updated: Added 3 new facts from briefing analysis</span>
+          </div>
+          <div class="log-entry">
+            <span class="log-time">10:40:18</span>
+            <span class="log-tag task">TASK</span>
+            <span class="log-msg">Started: Competitive landscape research for Acme Corp sector</span>
+          </div>
+          <div class="log-entry">
+            <span class="log-time">10:38:42</span>
+            <span class="log-tag success">SUCCESS</span>
+            <span class="log-msg">Completed: Calendar optimization - freed 2.5 hours this week</span>
+          </div>
+          <div class="log-entry">
+            <span class="log-time">10:35:10</span>
+            <span class="log-tag warn">WARN</span>
+            <span class="log-msg">Note received: User changed Acme Corp deadline to Thursday - reprioritizing</span>
+          </div>
+          <div class="log-entry">
+            <span class="log-time">10:30:00</span>
+            <span class="log-tag info">INFO</span>
+            <span class="log-msg">Workflow triggered: Task Review (daily @ 8:00 AM - delayed start)</span>
+          </div>
+          <div class="log-entry">
+            <span class="log-time">10:23:44</span>
+            <span class="log-tag success">SUCCESS</span>
+            <span class="log-msg">Completed: Priority inbox sort - 47 emails categorized, 12 flagged urgent</span>
+          </div>
+          <div class="log-entry">
+            <span class="log-time">10:00:00</span>
+            <span class="log-tag info">INFO</span>
+            <span class="log-msg">Session initialized - AlphaAI v1.0 ready</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+</body>
+</html>

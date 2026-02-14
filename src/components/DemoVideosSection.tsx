@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-import { Play, ExternalLink } from "lucide-react";
+import { ExternalLink, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { CONTACT_MAILTO } from "@/lib/constants";
 
 const DemoVideosSection = () => {
-  const baseUrl = import.meta.env.BASE_URL;
-
   return (
     <section id="demos" className="py-12 md:py-24 relative">
       <div className="container mx-auto px-6">
@@ -14,61 +13,41 @@ const DemoVideosSection = () => {
             See It In Action
           </Badge>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            Watch <span className="gradient-text">Demos</span>
+            Experience <span className="gradient-text">αlphaspeed AI</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Real workflows, real results. See αlphaspeed AI in action with these hands-on demonstrations.
+            Try our interactive AI assistant or get in touch for a custom demo tailored to your business.
           </p>
         </div>
 
-        {/* Video Placeholder - Coming Soon */}
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div className="group rounded-2xl bg-card border border-border card-hover overflow-hidden">
-            <div className="relative aspect-video bg-muted flex items-center justify-center">
-              <p className="text-xl font-medium text-muted-foreground">Coming soon</p>
+        {/* Demo Cards */}
+        <div className="max-w-3xl mx-auto grid sm:grid-cols-2 gap-6">
+          <Link
+            to="/assistant"
+            className="group p-8 rounded-2xl bg-card border border-border card-hover flex flex-col items-center text-center hover:border-primary/50 transition-all"
+          >
+            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+              <ExternalLink className="w-8 h-8 text-primary" />
             </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-2">Full Platform Walkthrough</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                See how αlphaspeed AI handles lead capture, qualification, and scheduling end-to-end in a real roofing business scenario.
-              </p>
+            <h3 className="text-xl font-bold mb-2">Try the Assistant</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Interactive demo showing our AI assistant handling tasks in real time. See the dashboard, terminal, and minimal layouts.
+            </p>
+          </Link>
+
+          <a
+            href={CONTACT_MAILTO}
+            className="group p-8 rounded-2xl bg-card border border-border card-hover flex flex-col items-center text-center hover:border-primary/50 transition-all"
+          >
+            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+              <Mail className="w-8 h-8 text-primary" />
             </div>
-          </div>
-
-          {/* Additional Demo Links (Optional) */}
-          <div className="grid sm:grid-cols-2 gap-6 mt-8">
-            <a
-              href={`${baseUrl}#contact`}
-              className="group p-6 rounded-xl bg-card border border-border card-hover flex items-center gap-4 hover:border-primary/50 transition-all"
-            >
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                <Play className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <h4 className="font-bold mb-1">Request Custom Demo</h4>
-                <p className="text-sm text-muted-foreground">
-                  See αlphaspeed AI tailored to your business
-                </p>
-              </div>
-            </a>
-
-            <Link
-              to="/assistant"
-              className="group p-6 rounded-xl bg-card border border-border card-hover flex items-center gap-4 hover:border-primary/50 transition-all"
-            >
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                <ExternalLink className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <h4 className="font-bold mb-1">Try the Assistant</h4>
-                <p className="text-sm text-muted-foreground">
-                  Interactive chat experience with our AI
-                </p>
-              </div>
-            </Link>
-          </div>
+            <h3 className="text-xl font-bold mb-2">Request Custom Demo</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              We'll walk you through how αlphaspeed AI can be tailored to your specific business and workflows.
+            </p>
+          </a>
         </div>
-
       </div>
     </section>
   );

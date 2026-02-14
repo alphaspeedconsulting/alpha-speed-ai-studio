@@ -38,6 +38,8 @@
     /* Brand (teal across all themes) */
     --brand: 174 72% 46%;
     --brand-glow: 174 72% 56%;
+    --brand-dim: 174 72% 46%;  /* For backgrounds at 15% opacity */
+    --brand-dim2: 174 72% 46%; /* For backgrounds at 8% opacity */
 
     /* Semantic status colors */
     --success: 142 76% 36%;
@@ -228,3 +230,4 @@
     text-wrap: balance;
   }
 }
+

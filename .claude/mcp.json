@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "ai-product-agents": {
+      "command": "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+      "args": ["-m", "ai_product_agents_mcp.server"],
+      "env": {
+        "PYTHONPATH": "/Users/miguelfranco/Development_agents/src",
+        "PYTHONUNBUFFERED": "1"
+      },
+      "cwd": "/Users/miguelfranco/Development_agents"
+    }
+  }
+}

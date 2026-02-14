@@ -5,7 +5,7 @@ const platformFeatures = [
   {
     icon: Settings,
     title: "Built for Flexibility",
-    description: "One platform powers roofing, siding, gutters, or any vertical. Config-driven workflows let you extend and customize without rebuilding from scratch.",
+    description: "One platform powers any service business — roofing, landscaping, HVAC, professional services, and more. Config-driven workflows let you extend and customize without rebuilding from scratch.",
   },
   {
     icon: Zap,
@@ -61,7 +61,7 @@ const PlatformSection = () => {
             Why <span className="gradient-text">αlphaspeed AI</span>
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            A unified AI operations platform that brings together 14 AI Product Agents and 8 specialized roofing agents—all on a single control plane you can monitor, extend, and deploy anywhere.
+            A unified AI operations platform that brings together specialized agent teams for any industry—all on a single control plane you can monitor, extend, and deploy anywhere.
           </p>
         </div>
 

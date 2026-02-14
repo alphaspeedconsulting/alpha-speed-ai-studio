@@ -24,8 +24,9 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@alphaai/*": ["./ai-assistant-local/src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "ai-assistant-local/src"]
 }

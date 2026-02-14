@@ -10,10 +10,10 @@ const Header = () => {
   const baseUrl = import.meta.env.BASE_URL;
 
   const navLinks = [
-    { label: "Platform", href: `${baseUrl}#platform` },
-    { label: "Use Cases", href: `${baseUrl}#use-cases` },
-    { label: "Demos", href: `${baseUrl}#demos` },
     { label: "Services", href: `${baseUrl}#services` },
+    { label: "How It Works", href: `${baseUrl}#how-we-work` },
+    { label: "Portfolio", href: `${baseUrl}#portfolio` },
+    { label: "Platform", href: `${baseUrl}#platform` },
     { label: "About", href: `${baseUrl}#about` },
     { label: "Contact", href: `${baseUrl}#contact` },
   ];

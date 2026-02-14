@@ -19,9 +19,9 @@ const Footer = () => {
 
           {/* Links */}
           <nav className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-            <a href={`${baseUrl}#platform`} className="hover:text-foreground transition-colors">Platform</a>
-            <a href={`${baseUrl}#use-cases`} className="hover:text-foreground transition-colors">Use Cases</a>
             <a href={`${baseUrl}#services`} className="hover:text-foreground transition-colors">Services</a>
+            <a href={`${baseUrl}#how-we-work`} className="hover:text-foreground transition-colors">How It Works</a>
+            <a href={`${baseUrl}#portfolio`} className="hover:text-foreground transition-colors">Portfolio</a>
             <a href={`${baseUrl}#about`} className="hover:text-foreground transition-colors">About</a>
             <a href={`${baseUrl}#contact`} className="hover:text-foreground transition-colors">Contact</a>
           </nav>
