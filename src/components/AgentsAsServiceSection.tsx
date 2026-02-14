@@ -39,15 +39,18 @@ const mcpServers = [
 ];
 
 const tools = [
-  { name: "generate_prd", server: "ai-product-agents", description: "Generate PRD from feature request; saves to projects/[workflow]/prd.md" },
-  { name: "analyze_architecture", server: "ai-product-agents", description: "Score 8+ implementation options; workflow design, cost, recommendation" },
-  { name: "generate_pitch", server: "ai-product-agents", description: "Research company and generate customized pitch (markdown, email, deck)" },
-  { name: "batch_generate_pitches", server: "ai-product-agents", description: "Generate pitches for multiple companies from CSV/Excel" },
-  { name: "review_code_security", server: "ai-product-agents", description: "OWASP Top 10, dependency scan, LLM code review" },
-  { name: "validate_best_practices", server: "ai-product-agents", description: "Agent Overlay Architecture and tool contract compliance" },
-  { name: "orchestrate_pipeline", server: "ai-product-agents", description: "Full pipeline: PRD → Architect → Developer → Security → Deployment" },
-  { name: "list_services / get_service", server: "Render", description: "List and get Render web services, cron jobs, Postgres" },
-  { name: "browser_navigate / browser_snapshot", server: "Browser", description: "Navigate and capture accessibility snapshot of pages" },
+  { name: "draft_reply", server: "Email", description: "Draft email replies from context; supports tone and length options" },
+  { name: "triage_inbox", server: "Email", description: "Summarize threads, flag urgent, and suggest priority" },
+  { name: "find_slots", server: "Calendar", description: "Find available meeting times across attendees and time zones" },
+  { name: "create_event", server: "Calendar", description: "Create and send calendar invites with location and reminders" },
+  { name: "send_reminder", server: "Scheduling", description: "Send SMS or email reminders before appointments" },
+  { name: "generate_pitch", server: "Sales", description: "Research company and generate customized pitch (markdown, email, deck)" },
+  { name: "batch_generate_pitches", server: "Sales", description: "Generate pitches for multiple companies from CSV/Excel" },
+  { name: "suggest_reply", server: "Support", description: "Suggest replies from knowledge base and past resolutions" },
+  { name: "route_ticket", server: "Support", description: "Route support tickets by topic, urgency, and team capacity" },
+  { name: "draft_post", server: "Content", description: "Draft social and blog posts; match brand voice and calendar" },
+  { name: "web_search", server: "Research", description: "Search the web and return summarized, cited results" },
+  { name: "lead_score", server: "CRM", description: "Score and prioritize leads from behavior and fit" },
 ];
 
 const AgentsAsServiceSection = () => {
