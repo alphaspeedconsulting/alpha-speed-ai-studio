@@ -98,8 +98,10 @@ function alphaAIPublic(): Plugin {
 }
 
 // https://vitejs.dev/config/
+// Use base "/" for root domain (e.g. alphaspeedai.com). For GitHub Pages subpath
+// use: base: process.env.VITE_BASE_PATH || (mode === "production" ? "/alpha-speed-ai-studio/" : "/")
 export default defineConfig(({ mode }) => ({
-  base: mode === "production" ? "/alpha-speed-ai-studio/" : "/",
+  base: "/",
   server: {
     host: "::",
     port: 8080,
