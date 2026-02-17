@@ -19,7 +19,7 @@ const agents: Agent[] = [
     description:
       "Translates business goals into structured PRDs, user stories, and acceptance criteria. Prioritizes the backlog and keeps every sprint aligned with what matters.",
     tools: ["generate_prd", "prioritize_backlog", "write_user_stories"],
-    image: "/agents/product-owner.png",
+    image: "/placeholder.svg",
   },
   {
     name: "Architect",
@@ -27,7 +27,7 @@ const agents: Agent[] = [
     description:
       "Designs scalable system architectures, evaluates technology choices, and enforces design patterns across the codebase.",
     tools: ["architecture_review", "diagram_generate", "tech_stack_evaluate"],
-    image: "/agents/architect.png",
+    image: "/placeholder.svg",
   },
   {
     name: "Developer",
@@ -35,7 +35,7 @@ const agents: Agent[] = [
     description:
       "Writes production-quality code, implements features end-to-end, and handles refactoring, migrations, and integrations.",
     tools: ["code_generate", "refactor", "write_tests"],
-    image: "/agents/developer.png",
+    image: "/placeholder.svg",
   },
   {
     name: "Quality",
@@ -43,7 +43,7 @@ const agents: Agent[] = [
     description:
       "Validates code against best practices, runs automated test suites, and ensures architecture compliance before anything ships.",
     tools: ["validate_best_practices", "run_tests", "security_scan"],
-    image: "/agents/quality.png",
+    image: "/placeholder.svg",
   },
   {
     name: "Brainstormer",
@@ -51,7 +51,7 @@ const agents: Agent[] = [
     description:
       "Generates creative solutions, explores alternatives, and facilitates structured brainstorming sessions to unblock teams.",
     tools: ["brainstorm_session", "swot_analysis", "idea_rank"],
-    image: "/agents/brainstormer.png",
+    image: "/placeholder.svg",
   },
   {
     name: "Schedule Optimizer",
@@ -59,7 +59,7 @@ const agents: Agent[] = [
     description:
       "Optimizes calendars, resolves scheduling conflicts, and finds the best meeting times across time zones and busy schedules.",
     tools: ["optimize_schedule", "find_slots", "resolve_conflicts"],
-    image: "/agents/schedule-optimizer.png",
+    image: "/placeholder.svg",
   },
   {
     name: "Content Generator",
@@ -67,7 +67,7 @@ const agents: Agent[] = [
     description:
       "Drafts blog posts, social content, email campaigns, and marketing copy — all consistent with your brand voice and tone.",
     tools: ["draft_post", "content_calendar", "brand_voice_check"],
-    image: "/agents/content-generator.png",
+    image: "/placeholder.svg",
   },
   {
     name: "Operations Manager",
@@ -75,7 +75,7 @@ const agents: Agent[] = [
     description:
       "Monitors deployments, manages infrastructure, automates repetitive ops tasks, and keeps systems running smoothly.",
     tools: ["deploy_monitor", "incident_triage", "automate_workflow"],
-    image: "/agents/operations-manager.png",
+    image: "/placeholder.svg",
   },
   {
     name: "Customer Relationships",
@@ -83,7 +83,7 @@ const agents: Agent[] = [
     description:
       "Tracks client interactions, scores leads, manages follow-ups, and ensures no relationship falls through the cracks.",
     tools: ["lead_score", "follow_up_remind", "client_summary"],
-    image: "/agents/customer-relationships.png",
+    image: "/placeholder.svg",
   },
   {
     name: "Personal Assistant",
@@ -91,7 +91,7 @@ const agents: Agent[] = [
     description:
       "Manages your inbox, prepares daily briefings, drafts replies, and handles the small tasks that eat up your day.",
     tools: ["daily_briefing", "draft_reply", "task_prioritize"],
-    image: "/agents/personal-assistant.png",
+    image: "/placeholder.svg",
   },
 ];
 

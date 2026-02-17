@@ -4,11 +4,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
-import { Suspense } from "react";
 import Index from "./pages/Index";
 import Assistant from "./pages/Assistant";
 import AgentRoster from "./pages/AgentRoster";
 import NotFound from "./pages/NotFound";
+import { SPAPathRestore } from "@/components/SPAPathRestore";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +19,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter basename={import.meta.env.BASE_URL}>
+          <SPAPathRestore />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/assistant" element={<Assistant />} />
