@@ -4,14 +4,19 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, type ComponentType } from "react";
 import Index from "./pages/Index";
 import Assistant from "./pages/Assistant";
 import AgentRoster from "./pages/AgentRoster";
 import NotFound from "./pages/NotFound";
 
-// AlphaAI — lazy import; stubbed to noop when ai-assistant-local is absent (CI)
-const AlphaAIRoutes = lazy(() => import("@alphaai/AlphaAIRoutes"));
+// AlphaAI — lazy import with runtime fallback so the app never white-screens
+// if the chunk 404s (e.g. on GitHub Pages where the stub chunk may be missing).
+const AlphaAIRoutes = lazy(() =>
+  import("@alphaai/AlphaAIRoutes").catch(
+    () => ({ default: (() => null) as unknown as ComponentType })
+  )
+);
 
 const queryClient = new QueryClient();
 
