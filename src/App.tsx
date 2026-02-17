@@ -9,9 +9,13 @@ import Index from "./pages/Index";
 import Assistant from "./pages/Assistant";
 import AgentRoster from "./pages/AgentRoster";
 import NotFound from "./pages/NotFound";
+import { dynamicImportWithFallback } from "@/lib/dynamicImportWithFallback";
 
-// Lazy load AlphaAI routes only when /alphaai/* is accessed
-const AlphaAIRoutes = lazy(() => import("@alphaai/AlphaAIRoutes"));
+// Lazy load AlphaAI routes only when /alphaai/* is accessed.
+// Use dynamicImportWithFallback to gracefully handle missing ai-assistant-local module.
+const AlphaAIRoutes = lazy(() =>
+  dynamicImportWithFallback(() => import("@alphaai/AlphaAIRoutes"))
+);
 
 const queryClient = new QueryClient();
 

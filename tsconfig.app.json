@@ -28,5 +28,5 @@
       "@alphaai/*": ["./ai-assistant-local/src/*"]
     }
   },
-  "include": ["src", "ai-assistant-local/src"]
+  "include": ["src"]
 }
