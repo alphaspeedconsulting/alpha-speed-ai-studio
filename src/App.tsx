@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import { lazy, Suspense } from "react";
 import Index from "./pages/Index";
 import Assistant from "./pages/Assistant";
+import AgentRoster from "./pages/AgentRoster";
 import NotFound from "./pages/NotFound";
 
 // AlphaAI — lazy import; stubbed to noop when ai-assistant-local is absent (CI)
@@ -25,6 +26,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/assistant" element={<Assistant />} />
+              <Route path="/agents" element={<AgentRoster />} />
               <Route path="/alphaai/*" element={<AlphaAIRoutes />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
