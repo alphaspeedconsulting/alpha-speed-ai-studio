@@ -109,6 +109,20 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Prevent separate chunk for virtual @alphaai modules.
+        // When ai-assistant-local is missing, Vite creates a stub chunk
+        // that GitHub Pages refuses to serve. Inline it instead.
+        manualChunks: (id) => {
+          if (id.includes("\0alphaai-stub")) {
+            return "index"; // Inline stub into main bundle
+          }
+        },
+      },
+    },
+  },
   plugins: [alphaAIStub(), react(), alphaAIPublic()],
   resolve: {
     alias: {
