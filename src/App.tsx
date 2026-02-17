@@ -4,18 +4,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import Index from "./pages/Index";
 import Assistant from "./pages/Assistant";
 import AgentRoster from "./pages/AgentRoster";
 import NotFound from "./pages/NotFound";
-import { dynamicImportWithFallback } from "@/lib/dynamicImportWithFallback";
-
-// Lazy load AlphaAI routes only when /alphaai/* is accessed.
-// Use dynamicImportWithFallback to gracefully handle missing ai-assistant-local module.
-const AlphaAIRoutes = lazy(() =>
-  dynamicImportWithFallback(() => import("@alphaai/AlphaAIRoutes"))
-);
 
 const queryClient = new QueryClient();
 
@@ -26,16 +19,13 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter basename={import.meta.env.BASE_URL}>
-          <Suspense fallback={<div className="min-h-screen bg-background" />}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/assistant" element={<Assistant />} />
-              <Route path="/agents" element={<AgentRoster />} />
-              <Route path="/alphaai/*" element={<AlphaAIRoutes />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/assistant" element={<Assistant />} />
+            <Route path="/agents" element={<AgentRoster />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
