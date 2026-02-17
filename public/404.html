@@ -16,15 +16,17 @@
       })();
 
       // Store the current pathname for SPA routing
-      // This runs when a user directly navigates to a deep link (e.g., /assistant)
+      // This runs when a user directly navigates to a deep link (e.g., /assistant, /alphaai)
       var path = location.pathname;
       if (path && path !== '/') {
         sessionStorage.redirect = location.href;
       }
 
-      // Redirect to index.html
-      var base = '/alpha-speed-ai-studio/';
-      var redirect = base + '?path=' + encodeURIComponent(path);
+      // Redirect to index.html at the correct base path.
+      // Custom domain (alphaspeedai.com) = root; GitHub Pages project site = /alpha-speed-ai-studio/
+      var base = path.indexOf('/alpha-speed-ai-studio') === 0 ? '/alpha-speed-ai-studio/' : '/';
+      var isRoot = path === '/' || path === '/alpha-speed-ai-studio' || path === '/alpha-speed-ai-studio/';
+      var redirect = base + (isRoot ? '' : '?path=' + encodeURIComponent(path));
       location.replace(redirect);
     </script>
   </head>
