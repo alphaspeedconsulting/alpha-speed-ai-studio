@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import Assistant from "./pages/Assistant";
 import AgentRoster from "./pages/AgentRoster";
+import AlphaAIDashboard from "./pages/AlphaAIDashboard";
 import NotFound from "./pages/NotFound";
 import { SPAPathRestore } from "@/components/SPAPathRestore";
 
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/assistant" element={<Assistant />} />
             <Route path="/agents" element={<AgentRoster />} />
+            <Route path="/alphaai" element={<AlphaAIDashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
