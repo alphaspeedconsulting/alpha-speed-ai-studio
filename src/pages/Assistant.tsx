@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import AssistantLayoutB from "@/components/assistant/AssistantLayoutB";
 import AssistantLayoutC from "@/components/assistant/AssistantLayoutC";
 
 const Assistant = () => {
+  useScrollToTop();
   const [selectedLayout, setSelectedLayout] = useState<"A" | "B" | "C">("A");
 
   // Shared simulation state - persists across layout switches

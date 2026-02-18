@@ -1,4 +1,5 @@
 import { useScrollToAnchor } from "@/hooks/useScrollToAnchor";
+import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import WhyAgentsSection from "@/components/WhyAgentsSection";
@@ -15,6 +16,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 const Index = () => {
+  useScrollToTop();
   useScrollToAnchor();
 
   return (
