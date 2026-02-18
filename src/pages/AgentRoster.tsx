@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WhyAgentsSection from "@/components/WhyAgentsSection";
 import { Badge } from "@/components/ui/badge";
 import { Wrench, Bot } from "lucide-react";
 
@@ -9,7 +10,7 @@ interface Agent {
   role: string;
   description: string;
   tools: string[];
-  image: string; // path relative to public/
+  image: string;
 }
 
 const agents: Agent[] = [
@@ -18,7 +19,7 @@ const agents: Agent[] = [
     role: "Vision & Requirements",
     description:
       "Translates business goals into structured PRDs, user stories, and acceptance criteria. Prioritizes the backlog and keeps every sprint aligned with what matters.",
-    tools: ["generate_prd", "prioritize_backlog", "write_user_stories"],
+    tools: ["Write PRDs", "Prioritize Backlog", "Create User Stories"],
     image: "/agents/product-owner.png",
   },
   {
@@ -26,7 +27,7 @@ const agents: Agent[] = [
     role: "System Design & Standards",
     description:
       "Designs scalable system architectures, evaluates technology choices, and enforces design patterns across the codebase.",
-    tools: ["architecture_review", "diagram_generate", "tech_stack_evaluate"],
+    tools: ["Review Architecture", "Generate Diagrams", "Evaluate Tech Stack"],
     image: "/agents/architect.png",
   },
   {
@@ -34,7 +35,7 @@ const agents: Agent[] = [
     role: "Code Generation & Implementation",
     description:
       "Writes production-quality code, implements features end-to-end, and handles refactoring, migrations, and integrations.",
-    tools: ["code_generate", "refactor", "write_tests"],
+    tools: ["Write Code", "Refactor", "Write Tests"],
     image: "/agents/developer.png",
   },
   {
@@ -42,7 +43,7 @@ const agents: Agent[] = [
     role: "Testing & Compliance",
     description:
       "Validates code against best practices, runs automated test suites, and ensures architecture compliance before anything ships.",
-    tools: ["validate_best_practices", "run_tests", "security_scan"],
+    tools: ["Enforce Best Practices", "Run Test Suites", "Security Scanning"],
     image: "/agents/quality.png",
   },
   {
@@ -50,7 +51,7 @@ const agents: Agent[] = [
     role: "Ideation & Strategy",
     description:
       "Generates creative solutions, explores alternatives, and facilitates structured brainstorming sessions to unblock teams.",
-    tools: ["brainstorm_session", "swot_analysis", "idea_rank"],
+    tools: ["Run Brainstorms", "SWOT Analysis", "Rank Ideas"],
     image: "/agents/brainstormer.png",
   },
   {
@@ -58,7 +59,7 @@ const agents: Agent[] = [
     role: "Planning & Coordination",
     description:
       "Optimizes calendars, resolves scheduling conflicts, and finds the best meeting times across time zones and busy schedules.",
-    tools: ["optimize_schedule", "find_slots", "resolve_conflicts"],
+    tools: ["Optimize Calendars", "Find Open Slots", "Resolve Conflicts"],
     image: "/agents/schedule-optimizer.png",
   },
   {
@@ -66,7 +67,7 @@ const agents: Agent[] = [
     role: "Writing & Brand Voice",
     description:
       "Drafts blog posts, social content, email campaigns, and marketing copy — all consistent with your brand voice and tone.",
-    tools: ["draft_post", "content_calendar", "brand_voice_check"],
+    tools: ["Draft Posts", "Plan Content Calendar", "Check Brand Voice"],
     image: "/agents/content-generator.png",
   },
   {
@@ -74,7 +75,7 @@ const agents: Agent[] = [
     role: "Workflows & Automation",
     description:
       "Monitors deployments, manages infrastructure, automates repetitive ops tasks, and keeps systems running smoothly.",
-    tools: ["deploy_monitor", "incident_triage", "automate_workflow"],
+    tools: ["Monitor Deploys", "Triage Incidents", "Automate Workflows"],
     image: "/agents/operations-manager.png",
   },
   {
@@ -82,7 +83,7 @@ const agents: Agent[] = [
     role: "CRM & Client Success",
     description:
       "Tracks client interactions, scores leads, manages follow-ups, and ensures no relationship falls through the cracks.",
-    tools: ["lead_score", "follow_up_remind", "client_summary"],
+    tools: ["Score Leads", "Send Follow-Ups", "Summarize Clients"],
     image: "/agents/customer-relationships.png",
   },
   {
@@ -90,7 +91,7 @@ const agents: Agent[] = [
     role: "Daily Briefings & Inbox",
     description:
       "Manages your inbox, prepares daily briefings, drafts replies, and handles the small tasks that eat up your day.",
-    tools: ["daily_briefing", "draft_reply", "task_prioritize"],
+    tools: ["Daily Briefings", "Draft Replies", "Prioritize Tasks"],
     image: "/agents/personal-assistant.png",
   },
 ];
@@ -101,9 +102,7 @@ const AgentImage = ({ src, alt }: { src: string; alt: string }) => {
 
   if (failed) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-primary/5">
-        <Bot className="w-16 h-16 text-primary/30" />
-      </div>
+      <Bot className="w-12 h-12 text-primary/30" />
     );
   }
 
@@ -147,41 +146,39 @@ const AgentRoster = () => {
         {/* Agent Grid */}
         <section className="pb-16 md:pb-24">
           <div className="container mx-auto px-6">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
               {agents.map((agent) => (
                 <div
                   key={agent.name}
                   className="group rounded-2xl bg-card border border-border card-hover overflow-hidden flex flex-col"
                 >
-                  {/* Agent Photo */}
-                  <div className="relative aspect-[3/4] bg-muted overflow-hidden">
-                    <AgentImage src={agent.image} alt={agent.name} />
-
-                    {/* Name overlay at bottom of image */}
-                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-12 pb-4 px-5">
-                      <h3 className="text-xl font-bold text-white">
-                        {agent.name}
-                      </h3>
-                      <p className="text-sm text-primary font-medium">
-                        {agent.role}
-                      </p>
+                  {/* Agent Avatar — circular crop with white bg */}
+                  <div className="flex justify-center pt-8 pb-3 bg-primary/5">
+                    <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-primary/20 bg-white">
+                      <AgentImage src={agent.image} alt={agent.name} />
                     </div>
                   </div>
 
                   {/* Card Body */}
-                  <div className="p-5 flex flex-col flex-1">
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
+                  <div className="p-5 flex flex-col flex-1 text-center">
+                    <h3 className="text-base font-bold text-foreground">
+                      {agent.name}
+                    </h3>
+                    <p className="text-sm text-primary font-medium mb-2">
+                      {agent.role}
+                    </p>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-3 flex-1">
                       {agent.description}
                     </p>
 
                     {/* Tools */}
-                    <div className="flex flex-wrap gap-1.5 items-start">
+                    <div className="flex flex-wrap gap-1.5 justify-center">
                       <Wrench className="w-3.5 h-3.5 text-muted-foreground mt-0.5 flex-shrink-0" />
                       {agent.tools.map((tool) => (
                         <Badge
                           key={tool}
                           variant="secondary"
-                          className="text-xs font-mono"
+                          className="text-xs"
                         >
                           {tool}
                         </Badge>
@@ -193,6 +190,9 @@ const AgentRoster = () => {
             </div>
           </div>
         </section>
+
+        {/* Why Agents vs ChatGPT comparison */}
+        <WhyAgentsSection />
       </main>
 
       <Footer />
