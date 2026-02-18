@@ -1,3 +1,4 @@
+import { useScrollToAnchor } from "@/hooks/useScrollToAnchor";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import WhyAgentsSection from "@/components/WhyAgentsSection";
@@ -14,6 +15,8 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 const Index = () => {
+  useScrollToAnchor();
+
   return (
     <div className="min-h-screen bg-background overflow-x-visible">
       <Header />
