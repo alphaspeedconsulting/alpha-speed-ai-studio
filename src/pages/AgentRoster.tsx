@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhyAgentsSection from "@/components/WhyAgentsSection";
@@ -117,6 +118,8 @@ const AgentImage = ({ src, alt }: { src: string; alt: string }) => {
 };
 
 const AgentRoster = () => {
+  useScrollToTop();
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
