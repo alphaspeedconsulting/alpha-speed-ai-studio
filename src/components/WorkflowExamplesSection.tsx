@@ -52,7 +52,7 @@ const WorkflowExamplesSection = () => {
   const baseUrl = import.meta.env.BASE_URL;
 
   return (
-    <section id="workflows" className="py-12 md:py-24 relative">
+    <section id="workflows" className="py-10 md:py-16 relative">
       <div className="absolute inset-0 hero-gradient rotate-180 opacity-30" />
 
       <div className="container mx-auto px-6 relative z-10">
