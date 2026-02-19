@@ -54,7 +54,7 @@ const useCases = [
 
 const UseCasesSection = () => {
   return (
-    <section id="use-cases" className="py-12 md:py-24 relative">
+    <section id="use-cases" className="py-10 md:py-16 relative">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">

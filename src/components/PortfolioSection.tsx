@@ -17,7 +17,7 @@ const imageMap: Record<string, string> = {
 
 const PortfolioSection = () => {
   return (
-    <section id="portfolio" className="py-12 md:py-24 relative">
+    <section id="portfolio" className="py-10 md:py-16 relative">
       <div className="absolute inset-0 hero-gradient opacity-30" />
 
       <div className="container mx-auto px-6 relative z-10">

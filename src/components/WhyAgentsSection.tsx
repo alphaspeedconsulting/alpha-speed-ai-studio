@@ -145,7 +145,7 @@ const WhyAgentsSection = () => {
   const proRows = comparisonRows.filter((r) => r.pro);
 
   return (
-    <section className="py-12 md:py-24 relative">
+    <section className="py-10 md:py-16 relative">
       <div className="absolute inset-0 hero-gradient rotate-180 opacity-50" />
 
       <div className="container mx-auto px-6 relative z-10">
