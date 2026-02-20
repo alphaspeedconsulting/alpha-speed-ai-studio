@@ -179,6 +179,15 @@
   [data-theme="corporate"] .logo-img {
     filter: none;
   }
+
+  /* New header logo (ALPHA SPEED AI): designed for dark bg, invert for light themes */
+  .logo-header-img {
+    filter: none;
+  }
+  [data-theme="soft"] .logo-header-img,
+  [data-theme="corporate"] .logo-header-img {
+    filter: invert(1);
+  }
 }
 
 @layer components {
