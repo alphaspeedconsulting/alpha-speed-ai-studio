@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import logoAlphaspeedAI from "@/assets/logo-alphaspeed-ai.png";
+import bannerLogo from "@/assets/bannerlogo.jpg";
 import ThemeToggle from "@/components/ThemeToggle";
 
 const Header = () => {
@@ -31,9 +31,9 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img
-              src={logoAlphaspeedAI}
+              src={bannerLogo}
               alt="ALPHA SPEED AI"
-              className="h-16 w-auto logo-header-img"
+              className="h-16 w-auto logo-header-img object-contain"
             />
           </Link>
 
