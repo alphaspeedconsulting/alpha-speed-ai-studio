@@ -28,17 +28,18 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center shrink-0">
-            <img
-              src={bannerLogo}
-              alt="ALPHA SPEED AI"
-              className="h-16 w-auto logo-header-img object-contain opacity-90"
-            />
-          </Link>
+          {/* Logo + Nav (grouped left) */}
+          <div className="flex items-center gap-8 lg:gap-10">
+            <Link to="/" className="flex items-center shrink-0">
+              <img
+                src={bannerLogo}
+                alt="ALPHA SPEED AI"
+                className="h-16 w-auto logo-header-img object-contain opacity-90"
+              />
+            </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6">
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               link.href ? (
                 <Link
@@ -58,6 +59,11 @@ const Header = () => {
                 </button>
               )
             ))}
+            </nav>
+          </div>
+
+          {/* Right: Theme toggle + CTA buttons */}
+          <div className="hidden lg:flex items-center gap-6">
             <ThemeToggle />
             <Link to="/assistant">
               <Button variant="heroOutline" size="default">
@@ -67,7 +73,7 @@ const Header = () => {
             <Button variant="hero" size="default" asChild>
               <button onClick={() => handleHashNavigation("contact")}>Get Started</button>
             </Button>
-          </nav>
+          </div>
 
           <div className="lg:hidden flex items-center gap-2">
             <ThemeToggle />
