@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import bannerLogo from "@/assets/bannerlogo.jpg";
+import bannerLogo from "@/assets/bannerlogo.png";
 import ThemeToggle from "@/components/ThemeToggle";
 
 const Header = () => {
@@ -33,7 +33,7 @@ const Header = () => {
             <img
               src={bannerLogo}
               alt="ALPHA SPEED AI"
-              className="h-16 w-auto logo-header-img object-contain"
+              className="h-16 w-auto logo-header-img object-contain opacity-90"
             />
           </Link>
 
