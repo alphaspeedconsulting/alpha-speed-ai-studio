@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import bannerLogo from "@/assets/bannerlogo.jpg";
+import logo from "@/assets/logo.jpeg";
 
 const Footer = () => {
   const baseUrl = import.meta.env.BASE_URL;
@@ -11,9 +11,9 @@ const Footer = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img
-              src={bannerLogo}
+              src={logo}
               alt="αlphaspeed AI"
-              className="h-14 w-auto object-contain logo-img"
+              className="h-14 w-auto invert opacity-80 logo-img"
             />
           </Link>
 
