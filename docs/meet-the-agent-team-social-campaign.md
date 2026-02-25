@@ -1,10 +1,12 @@
 # Meet the Agent Team — Social Media Campaign Reference
 
-Comprehensive reference table for the **Agent Roster** used in the "Meet the Agent team" social media campaign. Source: `/agents` page roster.
+Comprehensive reference table for the **Agent Roster** used in the "Meet the Agent team" social media campaign. Source: `/agents` page roster. Includes agents from the website roster and additional agents from the Development_agents MCP (AI Product Agents).
 
 ---
 
 ## Agent Roster — Full Reference Table
+
+### Core Roster (Website)
 
 | Agent | Role | What it can do | Questions it can answer | Tools it can use |
 |-------|------|----------------|-------------------------|------------------|
@@ -18,6 +20,32 @@ Comprehensive reference table for the **Agent Roster** used in the "Meet the Age
 | **Operations Manager** | Workflows & Automation | Monitors deployments; manages infrastructure; automates repetitive ops tasks; keeps systems running smoothly. | *Is the deployment healthy? How do we triage this incident? What can we automate? How do we keep systems running smoothly?* | Monitor Deploys, Triage Incidents, Automate Workflows |
 | **Customer Relationships** | CRM & Client Success | Tracks client interactions; scores leads; manages follow-ups; ensures no relationship falls through the cracks. | *Which leads should we prioritize? Who needs a follow-up? What’s the summary for this client? Are we missing any touchpoints?* | Score Leads, Send Follow-Ups, Summarize Clients |
 | **Personal Assistant** | Daily Briefings & Inbox | Manages inbox; prepares daily briefings; drafts replies; handles the small tasks that eat up your day. | *What’s on my plate today? How should I reply to this email? What should I prioritize? What’s in my briefing?* | Daily Briefings, Draft Replies, Prioritize Tasks |
+
+### Additional Agents (Development_agents / AI Product Agents) — Recommended for Roster Expansion
+
+| Agent | Role | What it can do | Questions it can answer | Tools it can use |
+|-------|------|----------------|-------------------------|------------------|
+| **Security Reviewer** | Security & OWASP Compliance | Performs 3-pass code review with OWASP Top 10 checks; scans dependencies for CVEs; analyzes middleware and route auth; validates against security policies. | *Are there hardcoded secrets? Is this endpoint protected? What OWASP risks exist? Are dependencies vulnerable?* | OWASP Checks, Dependency Scan, Middleware Analysis, 3-Pass Review |
+| **Integration Testing** | API Test Generation | Discovers API endpoints; generates integration test scenarios; produces executable pytest files; identifies coverage gaps. | *Which endpoints need tests? What scenarios should we cover? Are we missing auth tests? What's our API coverage?* | Discover Endpoints, Generate Test Scenarios, Create Pytest Files |
+| **Deployment** | Container & Production Readiness | Generates production-ready Dockerfiles, docker-compose, and .dockerignore; detects framework and dependencies; provides deployment instructions and health checks. | *How do we containerize this? What's the production setup? Does this need Postgres or Redis? How do we deploy?* | Generate Dockerfile, Docker Compose, Health Checks, Deployment Instructions |
+| **Dependency Audit** | CVE & Package Security | Scans requirements for CVEs via pip-audit and OSV.dev; identifies outdated packages; recommends upgrades with fix versions and rollback plans. | *Are our dependencies vulnerable? Which packages need upgrading? What's our security grade? What CVEs affect us?* | Scan Dependencies, CVE Check, Upgrade Recommendations |
+| **Refactoring Workflow** | Code Quality & Safe Refactors | Detects code smells (long methods, large classes); suggests safe refactorings; ensures test coverage before changes; creates refactoring plans. | *What code smells exist? How do we refactor safely? What's the impact? Do we have enough tests?* | Detect Code Smells, Generate Suggestions, Safety Checks, Refactoring Plan |
+| **Tech Debt Tracker** | Technical Debt Management | Identifies and quantifies technical debt; calculates cyclomatic complexity; prioritizes remediation; produces trend analysis and debt scores. | *How much tech debt do we have? What should we fix first? Is complexity increasing? What's our debt score?* | Detect Debt Items, Complexity Metrics, Remediation Plan, Trend Analysis |
+| **Architecture Review** | Design & SOLID Compliance | Analyzes dependency graphs; detects design smells and coupling issues; identifies SOLID violations; evaluates architecture health. | *Are we violating SOLID? Where's the coupling? What design smells exist? Is our dependency graph healthy?* | Dependency Graph, Design Smell Detection, SOLID Analysis, Coupling Review |
+| **Database Migration** | Schema & Migration Safety | Analyzes schema changes; generates safe migration scripts; creates rollback plans; assesses data-loss risk and backward compatibility. | *How do we migrate this schema? Is it backward compatible? What's the rollback plan? What's the data-loss risk?* | Schema Diff, Migration Scripts, Backup Strategy, Rollback Plan |
+| **Performance Profiler** | Bottleneck & Optimization | Profiles code execution; identifies bottlenecks; provides optimization recommendations; uses cProfile and subprocess sandboxing. | *Where are the bottlenecks? What's slow? How do we optimize? What's the hot path?* | Profile Code, Identify Bottlenecks, Optimization Recommendations |
+| **UI/UX** | Frontend & Accessibility | Analyzes frontend code; audits WCAG 2.1 accessibility; validates responsive design; evaluates user experience and design patterns. | *Is this accessible? Does it work on mobile? What UX issues exist? Does it meet WCAG?* | Frontend Analysis, Accessibility Audit, Responsive Design Check, UX Evaluation |
+| **Pitch** | Sales & Consultative Outreach | Researches companies; generates customized AI/automation pitches; performs workflow audits; creates consultative strategies and POC proposals. | *How do we pitch to this company? What's their workflow? What objections might they have? What's the ROI story?* | Company Research, Workflow Audit, Pitch Generation, Objection Handling |
+
+### Skills Agents (OpenClaw / skills_agents)
+
+| Agent | Role | What it can do | Questions it can answer | Tools it can use |
+|-------|------|----------------|-------------------------|------------------|
+| **Debug Analyst** | Systematic Debugging | Performs four-phase debug analysis: root cause investigation, pattern analysis, hypothesis testing, implementation. No fixes before root cause. | *What's the root cause? Why did this break? How do we reproduce? What's the hypothesis?* | Root Cause Analysis, Pattern Analysis, Hypothesis Testing |
+| **Bug Reporter** | QA & Documentation | Generates structured bug reports with severity, steps to reproduce, expected vs actual, environment. | *How do we document this bug? What's the severity? What are the steps?* | Bug Reports, Steps to Reproduce, Severity Classification |
+| **MCP Builder** | Tool & Server Scaffolding | Generates MCP tool/server scaffolding: schema, handler logic, error handling, integration notes. | *How do we build this MCP tool? What's the schema? How do we integrate?* | Tool Schema, Handler Logic, Integration Notes |
+| **TDD Specialist** | Test-Driven Development | Generates TDD test cases following Red-Green-Refactor. Supports pytest, jest, edge cases. | *What tests should we write first? What edge cases? What framework?* | Test Cases, Red-Green-Refactor, Edge Cases |
+| **Web QA Planner** | Web Test Planning | Generates web QA test plans and test cases: scope, scenarios, smoke tests, regression. | *What should we test? What's the smoke suite? What could break?* | Test Plan, Test Scenarios, Smoke Tests |
 
 ---
 
@@ -34,14 +62,36 @@ Comprehensive reference table for the **Agent Roster** used in the "Meet the Age
 - **Customer Relationships** — *Scores leads, tracks clients, never drops a follow-up.*
 - **Personal Assistant** — *Briefings, inbox, and priorities so you can focus.*
 
+### Additional agents (Development_agents)
+
+- **Security Reviewer** — *OWASP checks, dependency scans, and 3-pass review so nothing vulnerable ships.*
+- **Integration Testing** — *Discovers endpoints, generates tests, and closes API coverage gaps.*
+- **Deployment** — *Dockerfiles, compose, and production instructions so you can ship.*
+- **Dependency Audit** — *Scans for CVEs, recommends upgrades, and keeps your supply chain secure.*
+- **Refactoring Workflow** — *Detects code smells, suggests safe refactors, and plans the work.*
+- **Tech Debt Tracker** — *Quantifies debt, prioritizes remediation, and tracks the trend.*
+- **Architecture Review** — *SOLID, coupling, and design smells so the architecture stays healthy.*
+- **Database Migration** — *Schema diffs, migration scripts, and rollback plans so migrations are safe.*
+- **Performance Profiler** — *Profiles code, finds bottlenecks, and recommends optimizations.*
+- **UI/UX** — *Accessibility, responsive design, and UX so the frontend works for everyone.*
+- **Pitch** — *Company research, workflow audits, and consultative pitches so sales close.*
+
+### Skills agents (OpenClaw / skills_agents)
+
+- **Debug Analyst** — *Root cause first, then fix. Four-phase systematic debugging so you don't guess.*
+- **Bug Reporter** — *Structured bug reports with severity, steps, and environment so QA can act.*
+- **MCP Builder** — *MCP tool scaffolding so you can extend the agent stack.*
+- **TDD Specialist** — *Red-Green-Refactor test cases so behavior drives the code.*
+- **Web QA Planner** — *Test plans, scenarios, and smoke suites so web QA is covered.*
+
 ---
 
 ## Suggested social angles
 
 1. **Single-agent spotlights** — One post per agent: name, role, one thing they’re great at, one example question they answer.
-2. **Role pairings** — e.g. “Product Owner + Architect: from requirements to system design.”
-3. **By workflow** — “From idea to ship: Brainstormer → Product Owner → Architect → Developer → Quality.”
-4. **By persona** — “For founders: Product Owner, Brainstormer, Personal Assistant. For ops: Operations Manager, Schedule Optimizer, Customer Relationships.”
+2. **Role pairings** — e.g. “Product Owner + Architect: from requirements to system design.” / “Security Reviewer + Dependency Audit: secure before you ship.” / “Debug Analyst + Bug Reporter: from bug to ticket.”
+3. **By workflow** — “From idea to ship: Brainstormer → Product Owner → Architect → Developer → Quality.” / “From code to production: Developer → Security Reviewer → Integration Testing → Deployment.” / “From bug to fix: Bug Reporter → Debug Analyst → TDD Specialist.”
+4. **By persona** — “For founders: Product Owner, Brainstormer, Personal Assistant. For ops: Operations Manager, Schedule Optimizer, Customer Relationships. For eng: Security Reviewer, Tech Debt Tracker, Performance Profiler, Debug Analyst, TDD Specialist. For QA: Bug Reporter, Web QA Planner. For sales: Pitch, Customer Relationships.”
 
 ---
 
@@ -239,6 +289,168 @@ Not a chatbot. An agent that clears the deck for you.
 
 ---
 
+### 11. Security Reviewer  
+**Role:** Security & OWASP Compliance
+
+**Caption:**  
+Meet the Security Reviewer — the agent that makes sure nothing vulnerable ships. OWASP Top 10 checks, dependency CVE scans, middleware auth analysis, 3-pass code review. It doesn’t just flag issues; it validates against security policies and tells you exactly what to fix.  
+Ask it: *Are there hardcoded secrets? Is this endpoint protected? What OWASP risks exist?*  
+Not a chatbot. An agent that owns the security gate.
+
+**Bullets for carousel/copy:**  
+- OWASP Top 10 checks  
+- Dependency CVE scanning  
+- Middleware & route auth analysis  
+- 3-pass security review  
+
+**CTA:** Meet the full team → link in bio
+
+---
+
+### 12. Integration Testing  
+**Role:** API Test Generation
+
+**Caption:**  
+Meet the Integration Testing agent — the one that discovers your API endpoints and generates executable tests. Coverage gaps, auth tests, pytest files. It doesn’t just suggest scenarios; it writes the tests so you can run them.  
+Ask it: *Which endpoints need tests? What scenarios should we cover? What’s our API coverage?*  
+Not a chatbot. An agent that closes the integration test gap.
+
+**Bullets for carousel/copy:**  
+- Discovers API endpoints  
+- Generates test scenarios  
+- Creates executable pytest files  
+- Identifies coverage gaps  
+
+**CTA:** Meet the full team → link in bio
+
+---
+
+### 13. Deployment  
+**Role:** Container & Production Readiness
+
+**Caption:**  
+Meet the Deployment agent — the one that turns your code into production-ready containers. Dockerfile, docker-compose, .dockerignore, deployment instructions. It detects your framework and dependencies so you get the right setup.  
+Ask it: *How do we containerize this? What’s the production setup? Does this need Postgres or Redis?*  
+Not a chatbot. An agent that does the deployment prep.
+
+**Bullets for carousel/copy:**  
+- Generates Dockerfile & docker-compose  
+- Detects framework & dependencies  
+- Health checks & deployment instructions  
+- Production-ready defaults  
+
+**CTA:** Meet the full team → link in bio
+
+---
+
+### 14. Pitch  
+**Role:** Sales & Consultative Outreach
+
+**Caption:**  
+Meet the Pitch agent — the one that researches companies and generates customized AI/automation pitches. Workflow audits, consultative strategies, POC proposals, objection handling. It doesn’t just draft; it builds the ROI story.  
+Ask it: *How do we pitch to this company? What’s their workflow? What objections might they have?*  
+Not a chatbot. An agent that owns the sales narrative.
+
+**Bullets for carousel/copy:**  
+- Company research  
+- Workflow audit offers  
+- Consultative pitch strategies  
+- Objection handling  
+
+**CTA:** Meet the full team → link in bio
+
+---
+
+### 15. Debug Analyst  
+**Role:** Systematic Debugging
+
+**Caption:**  
+Meet the Debug Analyst — the agent that never guesses. Four-phase framework: root cause investigation, pattern analysis, hypothesis testing, implementation. No fixes before root cause. It doesn't just suggest; it structures the investigation so you find the real bug.  
+Ask it: *What's the root cause? Why did this break? How do we reproduce?*  
+Not a chatbot. An agent that debugs systematically.
+
+**Bullets for carousel/copy:**  
+- Root cause investigation  
+- Pattern analysis  
+- Hypothesis testing  
+- No fixes before root cause  
+
+**CTA:** Meet the full team → link in bio
+
+---
+
+### 16. Bug Reporter  
+**Role:** QA & Documentation
+
+**Caption:**  
+Meet the Bug Reporter — the agent that turns messy descriptions into structured bug reports. Severity, steps to reproduce, expected vs actual, environment. It doesn't just summarize; it formats so QA can act.  
+Ask it: *How do we document this bug? What's the severity? What are the steps?*  
+Not a chatbot. An agent that owns the bug report.
+
+**Bullets for carousel/copy:**  
+- Structured bug reports  
+- Steps to reproduce  
+- Severity classification  
+- Environment capture  
+
+**CTA:** Meet the full team → link in bio
+
+---
+
+### 17. MCP Builder  
+**Role:** Tool & Server Scaffolding
+
+**Caption:**  
+Meet the MCP Builder — the agent that scaffolds MCP tools and servers. Schema, handler logic, error handling, integration notes. It doesn't just suggest; it generates the scaffolding so you can extend the agent stack.  
+Ask it: *How do we build this MCP tool? What's the schema? How do we integrate?*  
+Not a chatbot. An agent that builds the tools.
+
+**Bullets for carousel/copy:**  
+- Tool schema generation  
+- Handler logic  
+- Error handling  
+- Integration notes  
+
+**CTA:** Meet the full team → link in bio
+
+---
+
+### 18. TDD Specialist  
+**Role:** Test-Driven Development
+
+**Caption:**  
+Meet the TDD Specialist — the agent that writes tests first. Red-Green-Refactor, pytest, jest, edge cases. It doesn't just suggest tests; it generates the cases so behavior drives the code.  
+Ask it: *What tests should we write first? What edge cases? What framework?*  
+Not a chatbot. An agent that does TDD.
+
+**Bullets for carousel/copy:**  
+- Test cases first  
+- Red-Green-Refactor  
+- Edge cases  
+- pytest, jest support  
+
+**CTA:** Meet the full team → link in bio
+
+---
+
+### 19. Web QA Planner  
+**Role:** Web Test Planning
+
+**Caption:**  
+Meet the Web QA Planner — the agent that plans web QA. Scope, test cases, smoke suite, regression considerations. It doesn't just list; it structures so manual or automated testing is covered.  
+Ask it: *What should we test? What's the smoke suite? What could break?*  
+Not a chatbot. An agent that plans the QA.
+
+**Bullets for carousel/copy:**  
+- Test plan generation  
+- Test scenarios  
+- Smoke tests  
+- Regression considerations  
+
+**CTA:** Meet the full team → link in bio
+
+---
+
 ## Image slugs (for assets)
 
 | Agent | Image path |
@@ -253,6 +465,22 @@ Not a chatbot. An agent that clears the deck for you.
 | Operations Manager | `/agents/operations-manager.png` |
 | Customer Relationships | `/agents/customer-relationships.png` |
 | Personal Assistant | `/agents/personal-assistant.png` |
+| Security Reviewer | `/agents/security-reviewer.png` |
+| Integration Testing | `/agents/integration-testing.png` |
+| Deployment | `/agents/deployment.png` |
+| Dependency Audit | `/agents/dependency-audit.png` |
+| Refactoring Workflow | `/agents/refactoring-workflow.png` |
+| Tech Debt Tracker | `/agents/tech-debt-tracker.png` |
+| Architecture Review | `/agents/architecture-review.png` |
+| Database Migration | `/agents/database-migration.png` |
+| Performance Profiler | `/agents/performance-profiler.png` |
+| UI/UX | `/agents/ui-ux.png` |
+| Pitch | `/agents/pitch.png` |
+| Debug Analyst | `/agents/debug-analyst.png` |
+| Bug Reporter | `/agents/bug-reporter.png` |
+| MCP Builder | `/agents/mcp-builder.png` |
+| TDD Specialist | `/agents/tdd-specialist.png` |
+| Web QA Planner | `/agents/web-qa-planner.png` |
 
 ---
 

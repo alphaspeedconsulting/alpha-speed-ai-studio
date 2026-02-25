@@ -11,6 +11,7 @@ import AgentsAsServiceSection from "@/components/AgentsAsServiceSection";
 import UseCasesSection from "@/components/UseCasesSection";
 import WorkflowExamplesSection from "@/components/WorkflowExamplesSection";
 import DemoVideosSection from "@/components/DemoVideosSection";
+import InstagramFeed from "@/components/InstagramFeed";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -33,6 +34,7 @@ const Index = () => {
         <UseCasesSection />
         <WorkflowExamplesSection />
         <DemoVideosSection />
+        <InstagramFeed />
         <About />
         <Contact />
       </main>
