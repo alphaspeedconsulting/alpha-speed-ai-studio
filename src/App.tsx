@@ -8,8 +8,10 @@ import Index from "./pages/Index";
 import Assistant from "./pages/Assistant";
 import AgentRoster from "./pages/AgentRoster";
 import AlphaAIDashboard from "./pages/AlphaAIDashboard";
+import TrafficMetricsDashboard from "./pages/TrafficMetricsDashboard";
 import NotFound from "./pages/NotFound";
 import { SPAPathRestore } from "@/components/SPAPathRestore";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 
 const queryClient = new QueryClient();
 
@@ -21,11 +23,14 @@ const App = () => (
         <Sonner />
         <BrowserRouter basename={import.meta.env.BASE_URL}>
           <SPAPathRestore />
+          <AnalyticsTracker />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/assistant" element={<Assistant />} />
             <Route path="/agents" element={<AgentRoster />} />
             <Route path="/alphaai" element={<AlphaAIDashboard />} />
+            <Route path="/traffic" element={<TrafficMetricsDashboard />} />
+            <Route path="/production-fix" element={<TrafficMetricsDashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

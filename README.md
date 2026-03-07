@@ -24,6 +24,21 @@ npm i
 npm run dev
 ```
 
+## Traffic Tracking
+
+This site includes a quick internal traffic dashboard at:
+
+- `/production-fix` (alias: `/traffic`)
+
+It tracks page views and lead CTA events locally in-browser for fast validation.
+To also forward events to GA4, set this environment variable:
+
+```sh
+VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+With UTM-tagged links, source/medium/campaign metrics will appear in the dashboard table.
+
 ## Deployment
 
 Deployed to GitHub Pages via the production build:
