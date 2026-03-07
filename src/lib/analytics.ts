@@ -122,6 +122,15 @@ const injectGtagScript = (measurementId: string) => {
     return;
   }
 
+  if (typeof win.gtag === "function") {
+    return;
+  }
+
+  const srcMatch = document.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${measurementId}"]`);
+  if (srcMatch) {
+    return;
+  }
+
   const existing = document.querySelector(`script[data-ga-id="${measurementId}"]`);
   if (existing) {
     return;
@@ -172,7 +181,7 @@ export const trackEvent = (type: AnalyticsEventType, name: string, params: Event
   };
   persistEvent(event);
 
-  if (win.gtag && import.meta.env.VITE_GA_MEASUREMENT_ID) {
+  if (win.gtag) {
     win.gtag("event", name, {
       ...params,
       event_category: type,
@@ -199,7 +208,7 @@ export const trackPageView = (path: string, title: string) => {
     ...attribution,
   });
 
-  if (win.gtag && import.meta.env.VITE_GA_MEASUREMENT_ID) {
+  if (win.gtag) {
     win.gtag("event", "page_view", {
       page_path: path,
       page_title: title,
