@@ -9,17 +9,35 @@ export function useScrollToAnchor() {
   const { hash, pathname } = useLocation();
 
   useEffect(() => {
-    // Add small delay to allow DOM to settle after route change
-    const timer = setTimeout(() => {
-      if (hash) {
-        const id = hash.substring(1); // Remove the '#'
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    }, 0);
+    if (!hash) return;
 
-    return () => clearTimeout(timer);
+    const id = hash.substring(1);
+    const headerOffset = 96; // Fixed header + breathing room
+    const behavior: ScrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "auto"
+      : "smooth";
+
+    const scrollToAnchor = () => {
+      const element = document.getElementById(id);
+      if (!element) return false;
+
+      const y = element.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top: Math.max(0, y), behavior });
+      return true;
+    };
+
+    // Try immediately, then retry briefly while sections finish rendering.
+    if (scrollToAnchor()) return;
+
+    let attempts = 0;
+    const maxAttempts = 10;
+    const interval = window.setInterval(() => {
+      attempts += 1;
+      if (scrollToAnchor() || attempts >= maxAttempts) {
+        window.clearInterval(interval);
+      }
+    }, 100);
+
+    return () => window.clearInterval(interval);
   }, [hash, pathname]);
 }
