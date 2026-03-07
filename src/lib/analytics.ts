@@ -85,7 +85,36 @@ const persistEvent = (event: AnalyticsEvent) => {
   const events = readStoredEvents();
   events.push(event);
   writeStoredEvents(events);
+  sendEventToSupabase(event);
 };
+
+function sendEventToSupabase(event: AnalyticsEvent) {
+  const url = import.meta.env.VITE_SUPABASE_URL;
+  const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  if (!url || !key) return;
+  const body = {
+    type: event.type,
+    name: event.name,
+    path: event.path,
+    source: event.source ?? null,
+    medium: event.medium ?? null,
+    campaign: event.campaign ?? null,
+    content: event.content ?? null,
+    term: event.term ?? null,
+    referrer: event.referrer ?? null,
+    created_at: new Date(event.timestamp).toISOString(),
+  };
+  fetch(`${url.replace(/\/$/, "")}/rest/v1/analytics_events`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: key,
+      Authorization: `Bearer ${key}`,
+      Prefer: "return=minimal",
+    },
+    body: JSON.stringify(body),
+  }).catch(() => {});
+}
 
 const injectGtagScript = (measurementId: string) => {
   const win = safeWindow();

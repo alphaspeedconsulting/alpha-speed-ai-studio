@@ -1,10 +1,12 @@
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { AnalyticsEvent, clearStoredAnalyticsEvents, getStoredAnalyticsEvents } from "@/lib/analytics";
+import { fetchAnalyticsSummary, supabaseConfigured } from "@/lib/supabase";
 import { BarChart, Bar, CartesianGrid, LineChart, Line, XAxis, YAxis } from "recharts";
 
 type DailyRollup = {
@@ -87,14 +89,29 @@ const buildSourceRollup = (events: AnalyticsEvent[]): SourceRollup[] => {
 
 const TrafficMetricsDashboard = () => {
   const [refreshKey, setRefreshKey] = useState(0);
+  const {
+    data: siteWide,
+    isLoading: siteWideLoading,
+    isError: siteWideError,
+    error,
+  } = useQuery({
+    queryKey: ["analytics-summary", refreshKey],
+    queryFn: () => fetchAnalyticsSummary(90),
+    enabled: supabaseConfigured,
+    staleTime: 60 * 1000,
+  });
   const events = useMemo(() => getStoredAnalyticsEvents(), [refreshKey]);
 
-  const totalPageViews = useMemo(() => events.filter((e) => e.type === "page_view").length, [events]);
-  const totalLeads = useMemo(() => events.filter((e) => e.type === "lead_event").length, [events]);
+  const useSiteWide = supabaseConfigured && siteWide != null;
+  const totalPageViews = useSiteWide
+    ? siteWide.totals.pageViews
+    : events.filter((e) => e.type === "page_view").length;
+  const totalLeads = useSiteWide ? siteWide.totals.leads : events.filter((e) => e.type === "lead_event").length;
   const cvr = totalPageViews > 0 ? (totalLeads / totalPageViews) * 100 : 0;
 
-  const daily = useMemo(() => buildDailyRollup(events), [events]);
-  const sources = useMemo(() => buildSourceRollup(events), [events]);
+  const daily =
+    useSiteWide && siteWide.daily?.length ? siteWide.daily : buildDailyRollup(events);
+  const sources = useSiteWide && siteWide.bySource?.length ? siteWide.bySource : buildSourceRollup(events);
 
   const gaConnected = Boolean(import.meta.env.VITE_GA_MEASUREMENT_ID);
 
@@ -114,13 +131,22 @@ const TrafficMetricsDashboard = () => {
                 Traffic <span className="gradient-text">Dashboard</span>
               </h1>
               <p className="text-muted-foreground mt-2">
-                Quick on-site metrics for launch monitoring. Data below is stored in your browser; GA4 sync is
-                {gaConnected ? " active." : " not configured yet."}
+                {useSiteWide
+                  ? "Site-wide traffic from all visitors (Supabase)."
+                  : "Data is stored in your browser only."}
+                {!useSiteWide && supabaseConfigured && !siteWideLoading && " Configure Supabase and run the migration for site-wide data."}
+                {siteWideError && ` Supabase error: ${(error as Error)?.message || "failed to load summary"}.`}
+                {gaConnected && " GA4 sync is active."}
               </p>
             </div>
-            <div className="flex gap-2">
-              <Button variant="heroOutline" onClick={() => setRefreshKey((n) => n + 1)}>
-                Refresh
+            <div className="flex items-center gap-2">
+              {useSiteWide && (
+                <span className="text-xs font-medium text-primary rounded-full bg-primary/10 px-2.5 py-1">
+                  Site-wide
+                </span>
+              )}
+              <Button variant="heroOutline" onClick={() => setRefreshKey((n) => n + 1)} disabled={siteWideLoading}>
+                {siteWideLoading ? "Loading…" : "Refresh"}
               </Button>
               <Button
                 variant="destructive"
