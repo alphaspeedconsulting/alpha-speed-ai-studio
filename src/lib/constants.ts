@@ -188,21 +188,21 @@ export const DEMO_VIDEOS: DemoVideo[] = [
   {
     title: "Alpha Speed AI Solution",
     description: "See how αlphaspeed AI brings intelligent automation to your business end-to-end.",
-    src: "/Videos/Alpha_Speed_AI_Solution.mp4",
+    src: "Videos/Alpha_Speed_AI_Solution.mp4",
   },
   {
     title: "AI Agents: The Future of Automation",
     description: "Why AI agents are transforming how businesses automate workflows and operations.",
-    src: "/Videos/AI_Agents__The_Future_of_Automation.mp4",
+    src: "Videos/AI_Agents__The_Future_of_Automation.mp4",
   },
   {
     title: "AI Agents: Workflow Automation",
     description: "How our agents automate multi-step workflows and reduce manual coordination.",
-    src: "/Videos/AI_Agents__Workflow_Automation.mp4",
+    src: "Videos/AI_Agents__Workflow_Automation.mp4",
   },
   {
     title: "Agents as a Service",
     description: "Subscribe to always-on AI team members that work for your business 24/7.",
-    src: "/Videos/Agents_as_a_Service.mp4",
+    src: "Videos/Agents_as_a_Service.mp4",
   },
 ];
