@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import bannerLogo from "@/assets/bannerlogo.png";
@@ -8,7 +8,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const baseUrl = import.meta.env.BASE_URL;
+  const { pathname } = useLocation();
 
   const navLinks = [
     { label: "Services", hash: "services" },
@@ -22,6 +22,17 @@ const Header = () => {
   ];
 
   const handleHashNavigation = (hash: string) => {
+    if (pathname === "/") {
+      const element = document.getElementById(hash);
+      if (element) {
+        const headerOffset = 96; // Fixed header + breathing room
+        const y = element.getBoundingClientRect().top + window.scrollY - headerOffset;
+        window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+        window.history.replaceState(null, "", `#${hash}`);
+        return;
+      }
+    }
+
     navigate(`/#${hash}`);
   };
 
