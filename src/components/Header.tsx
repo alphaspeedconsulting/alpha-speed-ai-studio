@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -36,13 +36,27 @@ const Header = () => {
     navigate(`/#${hash}`);
   };
 
+  const handleLogoClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    setIsMenuOpen(false);
+
+    if (pathname === "/") {
+      // On home, force top scroll even when already on the same route/hash.
+      event.preventDefault();
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    navigate("/");
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo + Nav (grouped left) */}
           <div className="flex items-center gap-8 lg:gap-10">
-            <Link to="/" className="flex items-center shrink-0">
+            <Link to="/" onClick={handleLogoClick} className="flex items-center shrink-0">
               <img
                 src={bannerLogo}
                 alt="ALPHA SPEED AI"
