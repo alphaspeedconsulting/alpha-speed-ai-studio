@@ -186,6 +186,11 @@ export interface DemoVideo {
 
 export const DEMO_VIDEOS: DemoVideo[] = [
   {
+    title: "Alpha Speed AI",
+    description: "Introducing αlphaspeed AI — intelligent automation for your business.",
+    src: "Videos/Alpha_Speed_AI.mp4",
+  },
+  {
     title: "Alpha Speed AI Solution",
     description: "See how αlphaspeed AI brings intelligent automation to your business end-to-end.",
     src: "Videos/Alpha_Speed_AI_Solution.mp4",
