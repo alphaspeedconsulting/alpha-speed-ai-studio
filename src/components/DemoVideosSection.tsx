@@ -29,7 +29,7 @@ const DemoVideosSection = () => {
             >
               <div className="relative aspect-video bg-muted overflow-hidden rounded-t-2xl">
                 <video
-                  src={video.src}
+                  src={`${import.meta.env.BASE_URL}${video.src}`}
                   controls
                   playsInline
                   preload="metadata"
