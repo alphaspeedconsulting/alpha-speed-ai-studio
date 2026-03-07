@@ -28,7 +28,7 @@ npm run dev
 
 This site includes a quick internal traffic dashboard at:
 
-- `/production-fix` (alias: `/traffic`)
+- `/traffic`
 
 It tracks page views and lead CTA events locally in-browser for fast validation.
 To also forward events to GA4, set this environment variable:
