@@ -26,18 +26,39 @@ npm run dev
 
 ## Traffic Tracking
 
-This site includes a quick internal traffic dashboard at:
+The traffic dashboard at **`/traffic`** shows launch metrics (page views, leads, source/campaign).
 
-- `/traffic`
+- **Browser-only:** If you don’t configure a backend, the dashboard shows only this device’s activity (localStorage).
+- **Site-wide (all visitors):** Use Supabase so every visitor’s events are stored and the dashboard shows real site-wide traffic.
 
-It tracks page views and lead CTA events locally in-browser for fast validation.
-To also forward events to GA4, set this environment variable:
+### Site-wide setup (Supabase)
+
+1. Create a project at [supabase.com](https://supabase.com).
+2. In the dashboard, open **SQL Editor** and run the contents of `supabase/migrations/001_analytics_events.sql`.
+3. In **Settings → API** copy the project URL and the `anon` public key.
+4. Add to your env (e.g. `.env` or your host’s config):
+
+```sh
+VITE_SUPABASE_URL=https://xxxxx.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
+```
+
+If deploying with GitHub Pages Actions, add the same keys as repository secrets:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+- `VITE_GA_MEASUREMENT_ID` (optional)
+
+Rebuild and deploy. The `/traffic` dashboard will then show site-wide data.
+
+### Optional: Google Analytics 4
+
+To also send events to GA4, set:
 
 ```sh
 VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
-With UTM-tagged links, source/medium/campaign metrics will appear in the dashboard table.
+Use UTM parameters on campaign links (`utm_source`, `utm_medium`, `utm_campaign`) so source/campaign breakdown is accurate.
 
 ## Deployment
 
