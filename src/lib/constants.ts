@@ -205,4 +205,14 @@ export const DEMO_VIDEOS: DemoVideo[] = [
     description: "Subscribe to always-on AI team members that work for your business 24/7.",
     src: "Videos/Agents_as_a_Service.mp4",
   },
+  {
+    title: "From Insight to Outreach",
+    description: "Turn data and insights into targeted outreach and engagement with AI-powered workflows.",
+    src: "Videos/From_Insight_to_Outreach.mp4",
+  },
+  {
+    title: "Recon Scout",
+    description: "AI-powered reconnaissance and scouting for leads, opportunities, and market intelligence.",
+    src: "Videos/Recon_Scout.mp4",
+  },
 ];
