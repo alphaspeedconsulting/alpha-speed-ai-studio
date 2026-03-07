@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, MessageSquare } from "lucide-react";
+import { trackEvent, trackLead } from "@/lib/analytics";
 
 const Hero = () => {
   const baseUrl = import.meta.env.BASE_URL;
@@ -37,14 +38,24 @@ const Hero = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/assistant">
-              <Button variant="hero" size="xl" className="group">
+              <Button
+                variant="hero"
+                size="xl"
+                className="group"
+                onClick={() => trackEvent("cta_click", "hero_assistant_click", { placement: "hero" })}
+              >
                 <MessageSquare className="w-5 h-5" />
                 Try the Assistant
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
             <Button variant="heroOutline" size="xl" asChild>
-              <a href={`${baseUrl}#contact`}>Schedule a Consultation</a>
+              <a
+                href={`${baseUrl}#contact`}
+                onClick={() => trackLead("hero_schedule_consultation_click", { placement: "hero" })}
+              >
+                Schedule a Consultation
+              </a>
             </Button>
           </div>
 

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Mail } from "lucide-react";
+import { trackLead } from "@/lib/analytics";
 
 const Contact = () => {
   return (
@@ -19,7 +20,10 @@ const Contact = () => {
             </p>
             
             <Button variant="hero" size="xl" className="group" asChild>
-              <a href="mailto:alpha.speed.consulting@gmail.com?subject=Free%20Consultation%20Request">
+              <a
+                href="mailto:alpha.speed.consulting@gmail.com?subject=Free%20Consultation%20Request"
+                onClick={() => trackLead("contact_consultation_email_click", { placement: "contact_section" })}
+              >
                 Schedule Your Free Consultation
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </a>
@@ -28,7 +32,11 @@ const Contact = () => {
             {/* Contact Info */}
             <div className="mt-12 pt-8 border-t border-border/50">
               <div className="flex justify-center text-muted-foreground">
-                <a href="mailto:alpha.speed.consulting@gmail.com" className="flex items-center gap-2 hover:text-primary transition-colors">
+                <a
+                  href="mailto:alpha.speed.consulting@gmail.com"
+                  className="flex items-center gap-2 hover:text-primary transition-colors"
+                  onClick={() => trackLead("contact_email_click", { placement: "contact_section" })}
+                >
                   <Mail className="w-5 h-5" />
                   <span>alpha.speed.consulting@gmail.com</span>
                 </a>

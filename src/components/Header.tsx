@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import bannerLogo from "@/assets/bannerlogo.png";
 import ThemeToggle from "@/components/ThemeToggle";
+import { trackEvent, trackLead } from "@/lib/analytics";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,6 +17,7 @@ const Header = () => {
     { label: "Portfolio", hash: "portfolio" },
     { label: "Demos", hash: "demos" },
     { label: "Agents", href: "/agents" },
+    { label: "Traffic", href: "/production-fix" },
     { label: "Platform", hash: "platform" },
     { label: "About", hash: "about" },
     { label: "Contact", hash: "contact" },
@@ -92,12 +94,23 @@ const Header = () => {
           <div className="hidden lg:flex items-center gap-6">
             <ThemeToggle />
             <Link to="/assistant">
-              <Button variant="heroOutline" size="default">
+              <Button
+                variant="heroOutline"
+                size="default"
+                onClick={() => trackEvent("cta_click", "header_assistant_click", { placement: "header" })}
+              >
                 Try the Assistant
               </Button>
             </Link>
             <Button variant="hero" size="default" asChild>
-              <button onClick={() => handleHashNavigation("contact")}>Get Started</button>
+              <button
+                onClick={() => {
+                  trackLead("header_get_started_click", { placement: "header" });
+                  handleHashNavigation("contact");
+                }}
+              >
+                Get Started
+              </button>
             </Button>
           </div>
 
@@ -141,12 +154,18 @@ const Header = () => {
                 )
               ))}
               <Link to="/assistant" onClick={() => setIsMenuOpen(false)}>
-                <Button variant="heroOutline" size="default" className="w-full mt-2">
+                <Button
+                  variant="heroOutline"
+                  size="default"
+                  className="w-full mt-2"
+                  onClick={() => trackEvent("cta_click", "mobile_header_assistant_click", { placement: "mobile_header" })}
+                >
                   Try the Assistant
                 </Button>
               </Link>
               <Button variant="hero" size="default" className="w-full" asChild>
                 <button onClick={() => {
+                  trackLead("mobile_header_get_started_click", { placement: "mobile_header" });
                   handleHashNavigation("contact");
                   setIsMenuOpen(false);
                 }}>Get Started</button>
