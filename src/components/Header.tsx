@@ -16,6 +16,7 @@ const Header = () => {
     { label: "How It Works", hash: "how-we-work" },
     { label: "Portfolio", hash: "portfolio" },
     { label: "Demos", hash: "demos" },
+    { label: "Reels", href: "/reels" },
     { label: "Agents", href: "/agents" },
     { label: "Platform", hash: "platform" },
     { label: "About", hash: "about" },

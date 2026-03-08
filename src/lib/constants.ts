@@ -231,3 +231,6 @@ export const DEMO_VIDEOS: DemoVideo[] = [
     src: "Videos/DCR/DCR_Portal__AI_Command_Center.mp4",
   },
 ];
+
+// ── Reels (short-form videos from Alpha) ─────────────────────────────
+export const REELS_VIDEOS: DemoVideo[] = [];
