@@ -220,4 +220,14 @@ export const DEMO_VIDEOS: DemoVideo[] = [
     description: "AI-powered reconnaissance and scouting for leads, opportunities, and market intelligence.",
     src: "Videos/Recon_Scout.mp4",
   },
+  {
+    title: "Agent Vault: Governance Layer",
+    description: "Governance and control layer for AI agents — policies, compliance, and safe deployment.",
+    src: "Videos/AgentVault_Governance_Layer.mp4",
+  },
+  {
+    title: "DCR Portal: AI Command Center",
+    description: "The DCR Portal AI command center — central control for workflows, automation, and operations.",
+    src: "Videos/DCR/DCR_Portal__AI_Command_Center.mp4",
+  },
 ];
