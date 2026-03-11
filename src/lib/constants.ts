@@ -230,6 +230,11 @@ export const DEMO_VIDEOS: DemoVideo[] = [
     description: "The DCR Portal AI command center — central control for workflows, automation, and operations.",
     src: "Videos/DCR/DCR_Portal__AI_Command_Center.mp4",
   },
+  {
+    title: "The AI Content Studio",
+    description: "Create and manage content with AI — your studio for copy, visuals, and campaigns.",
+    src: "Videos/The_AI_Content_Studio.mp4",
+  },
 ];
 
 // ── Reels (short-form videos from Alpha) ─────────────────────────────
