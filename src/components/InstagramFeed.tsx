@@ -29,7 +29,8 @@ const InstagramFeed = () => {
       .eq("platform", "instagram")
       .order("posted_at", { ascending: false })
       .limit(9)
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        if (error) console.error("[InstagramFeed] Supabase query failed:", error.message);
         if (data) setPosts(data);
         setLoading(false);
       });
