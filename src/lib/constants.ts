@@ -15,10 +15,8 @@ import {
 export const CONTACT_EMAIL = "alpha.speed.consulting@gmail.com";
 export const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}?subject=Free%20Consultation%20Request`;
 
-// ── Instagram Feed (Behold.so) ───────────────────────────────────────
-// Replace with your Behold.so feed ID after connecting your Instagram account
-// Get your feed ID at: https://behold.so → Create Feed → Embed Code
-export const INSTAGRAM_FEED_ID = "YOUR_FEED_ID_HERE";
+// ── Instagram Feed ────────────────────────────────────────────────────
+// Posts are loaded from Supabase published_posts table (written by content gen flow)
 export const INSTAGRAM_PROFILE_URL = "https://www.instagram.com/alphaspeedai";
 
 // ── Service Pillars ──────────────────────────────────────────────────

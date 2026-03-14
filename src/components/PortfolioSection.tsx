@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import { ArrowRight } from "lucide-react";
 import { PORTFOLIO_ITEMS } from "@/lib/constants";
 
 // Import product screenshots
@@ -32,6 +34,12 @@ const PortfolioSection = () => {
           <p className="text-muted-foreground text-lg">
             See what we've built for businesses like yours.
           </p>
+          <Link
+            to="/case-studies"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors mt-2"
+          >
+            Read the full case studies <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
 
         {/* Portfolio Grid */}

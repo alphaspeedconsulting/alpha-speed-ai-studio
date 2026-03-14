@@ -1,21 +1,39 @@
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { Instagram } from "lucide-react";
-import { INSTAGRAM_FEED_ID, INSTAGRAM_PROFILE_URL } from "@/lib/constants";
-import "@behold/widget";
+import { Instagram, ExternalLink } from "lucide-react";
+import { getSupabase } from "@/lib/supabase";
+import { INSTAGRAM_PROFILE_URL } from "@/lib/constants";
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      "behold-widget": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement> & { "feed-id": string },
-        HTMLElement
-      >;
-    }
-  }
-}
+type PublishedPost = {
+  id: string;
+  image_url: string | null;
+  caption: string | null;
+  post_url: string | null;
+  posted_at: string;
+};
 
 const InstagramFeed = () => {
-  const isConfigured = INSTAGRAM_FEED_ID !== "YOUR_FEED_ID_HERE";
+  const [posts, setPosts] = useState<PublishedPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const supabase = getSupabase();
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+
+    supabase
+      .from("published_posts")
+      .select("id, image_url, caption, post_url, posted_at")
+      .eq("platform", "instagram")
+      .order("posted_at", { ascending: false })
+      .limit(9)
+      .then(({ data }) => {
+        if (data) setPosts(data);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <section id="instagram" className="py-10 md:py-16 relative">
@@ -37,31 +55,66 @@ const InstagramFeed = () => {
         </div>
 
         {/* Feed Content */}
-        {isConfigured ? (
+        {!loading && posts.length > 0 ? (
           <div className="max-w-5xl mx-auto">
-            <behold-widget feed-id={INSTAGRAM_FEED_ID} />
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+              {posts.map((post) => (
+                <a
+                  key={post.id}
+                  href={post.post_url ?? INSTAGRAM_PROFILE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative aspect-square rounded-xl overflow-hidden bg-card border border-border"
+                >
+                  {post.image_url ? (
+                    <img
+                      src={post.image_url}
+                      alt={post.caption ?? "Instagram post"}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-primary/5">
+                      <Instagram className="w-8 h-8 text-primary/30" />
+                    </div>
+                  )}
+                  {/* Caption overlay on hover */}
+                  <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-3">
+                    {post.caption && (
+                      <p className="text-xs line-clamp-3 text-foreground leading-relaxed">
+                        {post.caption}
+                      </p>
+                    )}
+                    <ExternalLink className="w-3.5 h-3.5 text-primary mt-1.5 shrink-0" />
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
         ) : (
-          <div className="max-w-md mx-auto text-center">
-            <a
-              href={INSTAGRAM_PROFILE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group p-8 rounded-2xl bg-card border border-border card-hover flex flex-col items-center text-center hover:border-primary/50 transition-all inline-flex"
-            >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <Instagram className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Follow Us on Instagram</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                @alphaspeedai — AI builds, agent demos, and behind-the-scenes content.
-              </p>
-            </a>
-          </div>
+          /* Fallback — no posts yet or Supabase not configured */
+          !loading && (
+            <div className="max-w-md mx-auto text-center">
+              <a
+                href={INSTAGRAM_PROFILE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group p-8 rounded-2xl bg-card border border-border card-hover flex flex-col items-center text-center hover:border-primary/50 transition-all inline-flex"
+              >
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                  <Instagram className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Follow Us on Instagram</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  @alphaspeedai — AI builds, agent demos, and behind-the-scenes content.
+                </p>
+              </a>
+            </div>
+          )
         )}
 
         {/* CTA Link */}
-        {isConfigured && (
+        {!loading && posts.length > 0 && (
           <div className="text-center mt-8">
             <a
               href={INSTAGRAM_PROFILE_URL}
