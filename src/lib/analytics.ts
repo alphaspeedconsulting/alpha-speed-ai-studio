@@ -19,6 +19,8 @@ declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
+    fbq?: (...args: unknown[]) => void;
+    ttq?: { track: (event: string, params?: Record<string, unknown>) => void };
   }
 }
 
@@ -116,6 +118,37 @@ function sendEventToSupabase(event: AnalyticsEvent) {
   }).catch(() => {});
 }
 
+const injectMetaPixelScript = (pixelId: string) => {
+  const win = safeWindow();
+  if (!win) return;
+  if (typeof win.fbq === "function") return;
+  if (document.querySelector(`script[data-meta-pixel-id="${pixelId}"]`)) return;
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.dataset.metaPixelId = pixelId;
+  script.textContent = `
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','${pixelId}');fbq('track','PageView');
+  `;
+  document.head.appendChild(script);
+};
+
+const injectTikTokPixelScript = (pixelId: string) => {
+  const win = safeWindow();
+  if (!win) return;
+  if (win.ttq) return;
+  if (document.querySelector(`script[data-tiktok-pixel-id="${pixelId}"]`)) return;
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.dataset.tiktokPixelId = pixelId;
+  script.textContent = `
+    !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=['page','track','identify','instances','debug','on','off','once','ready','alias','group','enableCookie','disableCookie'];ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};ttq.load=function(e,n){var i='https://analytics.tiktok.com/i18n/pixel/events.js';ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;ttq._o=ttq._o||{};ttq._o[e]=n||{};var o=document.createElement('script');o.type='text/javascript';o.async=!0;o.src=i+'?sdkid='+e+'&lib='+t;var a=document.getElementsByTagName('script')[0];a.parentNode.insertBefore(o,a)};ttq.load('${pixelId}');ttq.page();}(window,document,'ttq');
+  `;
+  document.head.appendChild(script);
+};
+
 const injectGtagScript = (measurementId: string) => {
   const win = safeWindow();
   if (!win) {
@@ -157,9 +190,25 @@ export const initAnalytics = () => {
     return;
   }
 
+  // Gate all pixel injection when explicitly disabled (e.g. in dev/test)
+  if (import.meta.env.VITE_ANALYTICS_ENABLED === "false") {
+    initialized = true;
+    return;
+  }
+
   const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
   if (measurementId) {
     injectGtagScript(measurementId);
+  }
+
+  const metaPixelId = import.meta.env.VITE_META_PIXEL_ID;
+  if (metaPixelId) {
+    injectMetaPixelScript(metaPixelId);
+  }
+
+  const tikTokPixelId = import.meta.env.VITE_TIKTOK_PIXEL_ID;
+  if (tikTokPixelId) {
+    injectTikTokPixelScript(tikTokPixelId);
   }
 
   initialized = true;
@@ -190,6 +239,14 @@ export const trackEvent = (type: AnalyticsEventType, name: string, params: Event
       page_title: document.title,
       ...attribution,
     });
+  }
+
+  if (win.fbq) {
+    win.fbq("trackCustom", name, { event_category: type, ...params });
+  }
+
+  if (win.ttq) {
+    win.ttq.track(name, { event_category: type, ...params });
   }
 };
 

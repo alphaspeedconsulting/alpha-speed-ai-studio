@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap, MessageSquare } from "lucide-react";
+import { ArrowRight, Zap, MessageSquare, Mail } from "lucide-react";
 import { trackEvent, trackLead } from "@/lib/analytics";
 
 const Hero = () => {
@@ -26,37 +26,38 @@ const Hero = () => {
 
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            AI That Works For{" "}
-            <span className="gradient-text">Your Business</span>
+            DFW's AI{" "}
+            <span className="gradient-text">Automation Studio</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto text-balance">
-            From workflow automation to custom AI agents — we help small businesses save time, reduce costs, and grow with AI-powered solutions.
+            We build custom AI agents and workflow automation that help Dallas-Fort Worth businesses save time, cut costs, and grow — without hiring.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button variant="hero" size="xl" className="group" asChild>
+              <a
+                href="mailto:alpha.speed.consulting@gmail.com?subject=Free%20Strategy%20Call%20Request"
+                onClick={() => trackLead("hero_strategy_call_click", { placement: "hero" })}
+              >
+                <Mail className="w-5 h-5" />
+                Book a Free Strategy Call
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </a>
+            </Button>
             <Link to="/assistant">
               <Button
-                variant="hero"
+                variant="heroOutline"
                 size="xl"
                 className="group"
                 onClick={() => trackEvent("cta_click", "hero_assistant_click", { placement: "hero" })}
               >
                 <MessageSquare className="w-5 h-5" />
                 Try the Assistant
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Button variant="heroOutline" size="xl" asChild>
-              <a
-                href={`${baseUrl}#contact`}
-                onClick={() => trackLead("hero_schedule_consultation_click", { placement: "hero" })}
-              >
-                Schedule a Consultation
-              </a>
-            </Button>
           </div>
 
           {/* Honest tagline replacing fake logos */}

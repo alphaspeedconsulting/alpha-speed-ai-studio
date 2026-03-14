@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
+import RoiCalculator from "./components/marketing/RoiCalculator";
+import CaseStudies from "./components/marketing/CaseStudies";
 import Assistant from "./pages/Assistant";
 import AgentRoster from "./pages/AgentRoster";
 import AlphaAIDashboard from "./pages/AlphaAIDashboard";
@@ -27,6 +29,8 @@ const App = () => (
           <AnalyticsTracker />
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/roi-calculator" element={<RoiCalculator />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/assistant" element={<Assistant />} />
             <Route path="/agents" element={<AgentRoster />} />
             <Route path="/alphaai" element={<AlphaAIDashboard />} />
