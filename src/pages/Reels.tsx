@@ -33,7 +33,7 @@ const Reels = () => {
     supabase
       .from("published_posts")
       .select("id, image_url, caption, post_url, posted_at")
-      .eq("platform", "tiktok")
+      .in("platform", ["tiktok", "instagram"])
       .order("posted_at", { ascending: false })
       .limit(9)
       .then(({ data, error }) => {
