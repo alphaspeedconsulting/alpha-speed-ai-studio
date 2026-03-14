@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -17,6 +19,25 @@ const Assistant = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <Helmet>
+        <title>AI Assistant Demo | Alpha Speed AI</title>
+        <meta name="description" content="Experience the Alpha Speed AI assistant firsthand. The same intelligent AI we build for your business — handling lead qualification, scheduling, customer support, and more." />
+        <link rel="canonical" href="https://alphaspeedai.com/assistant" />
+        <meta property="og:title" content="AI Assistant Demo | Alpha Speed AI" />
+        <meta property="og:description" content="Try the AI assistant Alpha Speed AI builds for DFW businesses. See real automation in action." />
+        <meta property="og:url" content="https://alphaspeedai.com/assistant" />
+        <meta property="og:image" content="https://alphaspeedai.com/og-image.jpeg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="AI Assistant Demo | Alpha Speed AI" />
+        <meta name="twitter:description" content="Try the AI assistant Alpha Speed AI builds for DFW businesses." />
+        <meta name="twitter:image" content="https://alphaspeedai.com/og-image.jpeg" />
+        <script type="application/ld+json">
+          {JSON.stringify(buildBreadcrumbSchema([
+            { name: "Home", url: "https://alphaspeedai.com/" },
+            { name: "AI Assistant", url: "https://alphaspeedai.com/assistant" },
+          ]))}
+        </script>
+      </Helmet>
       <Header />
       <main className="flex-1">
         {/* Intro Section */}
