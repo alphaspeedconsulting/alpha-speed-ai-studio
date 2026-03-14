@@ -33,7 +33,7 @@ const Reels = () => {
     supabase
       .from("published_posts")
       .select("id, image_url, caption, post_url, posted_at")
-      .in("platform", ["tiktok", "instagram"])
+      .eq("platform", "instagram")
       .order("posted_at", { ascending: false })
       .limit(9)
       .then(({ data, error }) => {
@@ -107,7 +107,7 @@ const Reels = () => {
           ) : !loading && (
             <div className="max-w-md mx-auto text-center py-12 rounded-2xl bg-card border border-border">
               <p className="text-muted-foreground mb-6">
-                TikTok reels from Alpha will appear here automatically once published.
+                Instagram content from Alpha will appear here automatically once published.
               </p>
               <Link
                 to="/#demos"
