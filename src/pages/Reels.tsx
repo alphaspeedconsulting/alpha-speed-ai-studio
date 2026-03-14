@@ -1,13 +1,47 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
-import { REELS_VIDEOS } from "@/lib/constants";
+import { Play } from "lucide-react";
+import { getSupabase } from "@/lib/supabase";
+import { INSTAGRAM_PROFILE_URL } from "@/lib/constants";
+
+type PublishedReel = {
+  id: string;
+  image_url: string | null;
+  caption: string | null;
+  post_url: string | null;
+  posted_at: string;
+};
+
+const TIKTOK_PROFILE_URL = "https://www.tiktok.com/@alphaspeedai";
 
 const Reels = () => {
   useScrollToTop();
+  const [reels, setReels] = useState<PublishedReel[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const supabase = getSupabase();
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+    supabase
+      .from("published_posts")
+      .select("id, image_url, caption, post_url, posted_at")
+      .eq("platform", "tiktok")
+      .order("posted_at", { ascending: false })
+      .limit(9)
+      .then(({ data, error }) => {
+        if (error) console.error("[Reels] Supabase query failed:", error.message);
+        if (data) setReels(data);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div className="min-h-screen bg-background overflow-x-visible">
@@ -39,38 +73,41 @@ const Reels = () => {
             </p>
           </div>
 
-          {REELS_VIDEOS.length > 0 ? (
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {REELS_VIDEOS.map((video, index) => (
-                <div
-                  key={index}
-                  className="rounded-2xl bg-card border border-border card-hover overflow-hidden"
+          {!loading && reels.length > 0 ? (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+              {reels.map((reel) => (
+                <a
+                  key={reel.id}
+                  href={reel.post_url ?? TIKTOK_PROFILE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative aspect-[9/16] max-h-[70vh] rounded-2xl bg-card border border-border overflow-hidden card-hover"
                 >
-                  <div className="relative aspect-[9/16] max-h-[70vh] bg-muted overflow-hidden rounded-t-2xl">
-                    <video
-                      src={`${import.meta.env.BASE_URL}${video.src}`}
-                      controls
-                      playsInline
-                      preload="metadata"
-                      className="w-full h-full object-cover focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
-                      aria-label={video.title}
-                    >
-                      {video.captionUrl && (
-                        <track kind="captions" src={video.captionUrl} srcLang="en" label="English" default />
-                      )}
-                    </video>
+                  {reel.image_url ? (
+                    <img
+                      src={reel.image_url}
+                      alt={reel.caption ?? "Reel"}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-primary/5">
+                      <Play className="w-10 h-10 text-primary/40" />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-4">
+                    {reel.caption && (
+                      <p className="text-xs line-clamp-4 text-foreground leading-relaxed">{reel.caption}</p>
+                    )}
+                    <Play className="w-4 h-4 text-primary mt-2 shrink-0" />
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold mb-2">{video.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{video.description}</p>
-                  </div>
-                </div>
+                </a>
               ))}
             </div>
-          ) : (
+          ) : !loading && (
             <div className="max-w-md mx-auto text-center py-12 rounded-2xl bg-card border border-border">
               <p className="text-muted-foreground mb-6">
-                Reels uploaded from Alpha will appear here. Add entries to <code className="text-sm bg-muted px-1.5 py-0.5 rounded">REELS_VIDEOS</code> in <code className="text-sm bg-muted px-1.5 py-0.5 rounded">src/lib/constants.ts</code> and place files in <code className="text-sm bg-muted px-1.5 py-0.5 rounded">public/Videos/Reels/</code>.
+                TikTok reels from Alpha will appear here automatically once published.
               </p>
               <Link
                 to="/#demos"
