@@ -1,12 +1,21 @@
 import { ArrowRight, Clock } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import { Badge } from "@/components/ui/badge";
 import { SERVICE_PILLARS, SUBSCRIPTION_SERVICES } from "@/lib/constants";
+import { buildServiceSchema } from "@/lib/schema";
 
 const Services = () => {
   const baseUrl = import.meta.env.BASE_URL;
 
   return (
     <section id="services" className="py-10 md:py-16 relative">
+      <Helmet>
+        {SERVICE_PILLARS.map((service) => (
+          <script key={service.title} type="application/ld+json">
+            {JSON.stringify(buildServiceSchema(service.title, service.description))}
+          </script>
+        ))}
+      </Helmet>
       <div className="absolute inset-0 hero-gradient rotate-180 opacity-50" />
 
       <div className="container mx-auto px-6 relative z-10">

@@ -1,0 +1,26 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "http://localhost:4173/",
+        "http://localhost:4173/agents",
+        "http://localhost:4173/assistant",
+        "http://localhost:4173/roi-calculator",
+        "http://localhost:4173/case-studies",
+        "http://localhost:4173/reels"
+      ],
+      "startServerCommand": "npm run preview",
+      "startServerReadyPattern": "Local"
+    },
+    "assert": {
+      "assertions": {
+        "categories:seo": ["warn", { "minScore": 0.9 }],
+        "categories:performance": ["warn", { "minScore": 0.8 }],
+        "categories:accessibility": ["warn", { "minScore": 0.9 }]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

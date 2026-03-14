@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -10,6 +11,19 @@ const Reels = () => {
 
   return (
     <div className="min-h-screen bg-background overflow-x-visible">
+      <Helmet>
+        <title>AI Automation Reels | Alpha Speed AI</title>
+        <meta name="description" content="Bite-sized videos from the Alpha Speed AI platform — tips, demos, and updates on AI automation for DFW businesses." />
+        <link rel="canonical" href="https://alphaspeedai.com/reels" />
+        <meta property="og:title" content="AI Automation Reels | Alpha Speed AI" />
+        <meta property="og:description" content="Short-form videos from Alpha Speed AI — AI automation tips, demos, and platform updates." />
+        <meta property="og:url" content="https://alphaspeedai.com/reels" />
+        <meta property="og:image" content="https://alphaspeedai.com/og-image.jpeg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="AI Automation Reels | Alpha Speed AI" />
+        <meta name="twitter:description" content="Short-form AI automation videos from Alpha Speed AI." />
+        <meta name="twitter:image" content="https://alphaspeedai.com/og-image.jpeg" />
+      </Helmet>
       <Header />
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-6">

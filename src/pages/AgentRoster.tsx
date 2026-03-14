@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -122,6 +124,25 @@ const AgentRoster = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>AI Agent Roster | Alpha Speed AI</title>
+        <meta name="description" content="Meet the specialized AI agents that power Alpha Speed AI's automation platform. Each agent has a defined role — from Product Owner to Customer Relationships — keeping your workflows running 24/7." />
+        <link rel="canonical" href="https://alphaspeedai.com/agents" />
+        <meta property="og:title" content="AI Agent Roster | Alpha Speed AI" />
+        <meta property="og:description" content="Meet the specialized AI agents on the Alpha Speed AI platform. Built for DFW businesses." />
+        <meta property="og:url" content="https://alphaspeedai.com/agents" />
+        <meta property="og:image" content="https://alphaspeedai.com/og-image.jpeg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="AI Agent Roster | Alpha Speed AI" />
+        <meta name="twitter:description" content="Meet the specialized AI agents on the Alpha Speed AI platform." />
+        <meta name="twitter:image" content="https://alphaspeedai.com/og-image.jpeg" />
+        <script type="application/ld+json">
+          {JSON.stringify(buildBreadcrumbSchema([
+            { name: "Home", url: "https://alphaspeedai.com/" },
+            { name: "Agent Roster", url: "https://alphaspeedai.com/agents" },
+          ]))}
+        </script>
+      </Helmet>
       <Header />
 
       <main className="pt-20">

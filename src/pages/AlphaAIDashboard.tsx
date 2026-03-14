@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
@@ -6,18 +6,14 @@ import { Link } from "react-router-dom";
 /**
  * AlphaAI Dashboard placeholder. Full dashboard (task board, memory, workflows)
  * is planned; for now this avoids 404 and gives a clear entry point.
- * Sets document title so the tab shows "AlphaAI Dashboard".
  */
 const AlphaAIDashboard = () => {
-  useEffect(() => {
-    document.title = "AlphaAI Dashboard | Alpha Speed AI";
-    return () => {
-      document.title = "Alpha Speed AI | Automate Your Business with Intelligent AI";
-    };
-  }, []);
-
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>AlphaAI Dashboard | Alpha Speed AI</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <Header />
       <main className="pt-20 pb-16">
         <div className="container mx-auto px-6 py-16 md:py-24 text-center max-w-2xl">

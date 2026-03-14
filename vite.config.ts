@@ -2,6 +2,10 @@ import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import fs from "fs";
+import { createRequire } from "module";
+import sitemap from "vite-plugin-sitemap";
+
+const require = createRequire(import.meta.url);
 
 const alphaAISrcExists = fs.existsSync(
   path.resolve(__dirname, "./ai-assistant-local/src")
@@ -97,6 +101,62 @@ function alphaAIPublic(): Plugin {
   };
 }
 
+/**
+ * Custom static prerender plugin.
+ * Starts a local Express server after the Vite build, uses Puppeteer to visit
+ * each public route, waits for networkidle0 + 3s, then writes the fully-rendered
+ * HTML back to dist/<route>/index.html so GitHub Pages serves real content to crawlers.
+ */
+function prerenderPlugin(): Plugin {
+  const ROUTES = ["/", "/assistant", "/agents", "/reels", "/roi-calculator", "/case-studies"];
+  const RENDER_WAIT_MS = 3000;
+
+  return {
+    name: "seo-prerender",
+    apply: "build",
+    enforce: "post",
+    async closeBundle() {
+      const express = require("express") as typeof import("express");
+      const puppeteer = require("puppeteer") as typeof import("puppeteer");
+      const portfinder = require("portfinder") as { getPortPromise: () => Promise<number> };
+
+      const distDir = path.resolve(__dirname, "dist");
+      const app = express();
+      app.use(express.static(distDir));
+      app.use((_req, res) => res.sendFile(path.join(distDir, "index.html")));
+
+      const port = await portfinder.getPortPromise();
+      const server = await new Promise<ReturnType<typeof app.listen>>((resolve) => {
+        const s = app.listen(port, () => resolve(s));
+      });
+
+      const browser = await puppeteer.launch({
+        headless: true,
+        // Required for Linux CI environments (GitHub Actions)
+        args: process.platform === "linux" ? ["--no-sandbox", "--disable-setuid-sandbox"] : [],
+      });
+      console.log(`[seo-prerender] Rendering ${ROUTES.length} routes on port ${port}…`);
+
+      for (const route of ROUTES) {
+        const page = await browser.newPage();
+        await page.goto(`http://localhost:${port}${route}`, { waitUntil: "networkidle0" });
+        await new Promise((r) => setTimeout(r, RENDER_WAIT_MS));
+        const html = await page.content();
+        await page.close();
+
+        const outDir = route === "/" ? distDir : path.join(distDir, route);
+        fs.mkdirSync(outDir, { recursive: true });
+        fs.writeFileSync(path.join(outDir, "index.html"), html, "utf8");
+        console.log(`[seo-prerender] ✓ ${route} (${(html.length / 1024).toFixed(0)} kB)`);
+      }
+
+      await browser.close();
+      await new Promise<void>((resolve) => server.close(() => resolve()));
+      console.log("[seo-prerender] Done.");
+    },
+  };
+}
+
 // https://vitejs.dev/config/
 // Use base "/" for root domain (e.g. alphaspeedai.com). For GitHub Pages subpath
 // use: base: process.env.VITE_BASE_PATH || (mode === "production" ? "/alpha-speed-ai-studio/" : "/")
@@ -116,6 +176,19 @@ export default defineConfig(({ mode }) => ({
     ...(alphaAISrcExists ? [alphaAIStub()] : []),
     react(),
     alphaAIPublic(),
+    sitemap({
+      hostname: "https://alphaspeedai.com",
+      dynamicRoutes: [
+        "/roi-calculator",
+        "/case-studies",
+        "/assistant",
+        "/agents",
+        "/reels",
+      ],
+      // Internal/private pages and error pages — excluded from sitemap
+      exclude: ["/alphaai", "/traffic", "/404"],
+    }),
+    prerenderPlugin(),
   ],
   resolve: {
     alias: {

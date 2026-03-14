@@ -31,3 +31,9 @@ ai-assistant-local/
 
 # Cursor debug logs
 .cursor/debug.log
+
+# Lighthouse CI generated reports
+.lighthouseci/
+
+# Local env overrides
+.env
