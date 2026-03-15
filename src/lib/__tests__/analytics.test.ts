@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { getConsent, setConsent, CONSENT_KEY } from '../analytics';
 
 // We import the module fresh each test via dynamic import to reset `initialized`
 // For simpler unit tests we just test the exported functions directly.
@@ -61,5 +62,73 @@ describe('initAnalytics — VITE_ANALYTICS_ENABLED guard', () => {
     // The guard itself is covered by the env check in initAnalytics
     const scriptsAfter = document.querySelectorAll('script[data-ga-id]').length;
     expect(scriptsAfter).toBe(scriptsBefore);
+  });
+});
+
+describe('consent helpers — getConsent / setConsent', () => {
+  beforeEach(() => {
+    window.localStorage.removeItem(CONSENT_KEY);
+  });
+
+  afterEach(() => {
+    window.localStorage.removeItem(CONSENT_KEY);
+  });
+
+  it('test_getConsent_returns_null_when_not_set: returns null before any decision', () => {
+    expect(getConsent()).toBeNull();
+  });
+
+  it('test_setConsent_accepted_persists_to_localStorage: accepted state is stored', () => {
+    setConsent('accepted');
+    expect(window.localStorage.getItem(CONSENT_KEY)).toBe('accepted');
+    expect(getConsent()).toBe('accepted');
+  });
+
+  it('test_setConsent_declined_persists_to_localStorage: declined state is stored', () => {
+    setConsent('declined');
+    expect(window.localStorage.getItem(CONSENT_KEY)).toBe('declined');
+    expect(getConsent()).toBe('declined');
+  });
+
+  it('test_setConsent_declined_clears_event_cache: event cache removed on decline', () => {
+    window.localStorage.setItem('alpha_traffic_events_v1', JSON.stringify([{ type: 'page_view' }]));
+    setConsent('declined');
+    expect(window.localStorage.getItem('alpha_traffic_events_v1')).toBeNull();
+  });
+});
+
+describe('persistEvent — consent gate', () => {
+  beforeEach(() => {
+    window.localStorage.removeItem(CONSENT_KEY);
+    window.localStorage.removeItem('alpha_traffic_events_v1');
+  });
+
+  afterEach(() => {
+    window.localStorage.removeItem(CONSENT_KEY);
+    window.localStorage.removeItem('alpha_traffic_events_v1');
+  });
+
+  it('test_trackPageView_does_not_write_to_localStorage_when_consent_null: no events stored without consent', async () => {
+    const { trackPageView } = await import('../analytics');
+    trackPageView('/test', 'Test Page');
+    expect(window.localStorage.getItem('alpha_traffic_events_v1')).toBeNull();
+  });
+
+  it('test_trackPageView_does_not_write_to_localStorage_when_consent_declined: no events stored when declined', async () => {
+    setConsent('declined');
+    const { trackPageView } = await import('../analytics');
+    trackPageView('/test', 'Test Page');
+    expect(window.localStorage.getItem('alpha_traffic_events_v1')).toBeNull();
+  });
+
+  it('test_trackPageView_writes_to_localStorage_when_consent_accepted: events stored after accept', async () => {
+    setConsent('accepted');
+    const { trackPageView } = await import('../analytics');
+    trackPageView('/test', 'Test Page');
+    const stored = window.localStorage.getItem('alpha_traffic_events_v1');
+    expect(stored).not.toBeNull();
+    const events = JSON.parse(stored!);
+    expect(events.length).toBeGreaterThan(0);
+    expect(events[0].type).toBe('page_view');
   });
 });

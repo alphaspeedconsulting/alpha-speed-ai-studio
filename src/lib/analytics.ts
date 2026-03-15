@@ -26,6 +26,32 @@ declare global {
 
 const STORAGE_KEY = "alpha_traffic_events_v1";
 const MAX_EVENTS = 5000;
+export const CONSENT_KEY = "alpha_cookie_consent_v1";
+
+export type ConsentState = "accepted" | "declined" | null;
+
+export const getConsent = (): ConsentState => {
+  const win = safeWindow();
+  if (!win) return null;
+  const value = win.localStorage.getItem(CONSENT_KEY);
+  if (value === "accepted" || value === "declined") return value;
+  return null;
+};
+
+export const setConsent = (state: "accepted" | "declined") => {
+  const win = safeWindow();
+  if (!win) return;
+  win.localStorage.setItem(CONSENT_KEY, state);
+  if (state === "declined") {
+    win.localStorage.removeItem(STORAGE_KEY);
+  }
+};
+
+const isDNT = (): boolean => {
+  const win = safeWindow();
+  if (!win) return false;
+  return win.navigator.doNotTrack === "1";
+};
 
 let initialized = false;
 
@@ -84,6 +110,9 @@ const writeStoredEvents = (events: AnalyticsEvent[]) => {
 };
 
 const persistEvent = (event: AnalyticsEvent) => {
+  if (getConsent() !== "accepted") {
+    return;
+  }
   const events = readStoredEvents();
   events.push(event);
   writeStoredEvents(events);
@@ -196,19 +225,27 @@ export const initAnalytics = () => {
     return;
   }
 
+  // Require explicit consent before initializing any tracking
+  if (getConsent() !== "accepted") {
+    return;
+  }
+
   const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
   if (measurementId) {
     injectGtagScript(measurementId);
   }
 
-  const metaPixelId = import.meta.env.VITE_META_PIXEL_ID;
-  if (metaPixelId) {
-    injectMetaPixelScript(metaPixelId);
-  }
+  // Skip third-party marketing pixels when DNT is enabled
+  if (!isDNT()) {
+    const metaPixelId = import.meta.env.VITE_META_PIXEL_ID;
+    if (metaPixelId) {
+      injectMetaPixelScript(metaPixelId);
+    }
 
-  const tikTokPixelId = import.meta.env.VITE_TIKTOK_PIXEL_ID;
-  if (tikTokPixelId) {
-    injectTikTokPixelScript(tikTokPixelId);
+    const tikTokPixelId = import.meta.env.VITE_TIKTOK_PIXEL_ID;
+    if (tikTokPixelId) {
+      injectTikTokPixelScript(tikTokPixelId);
+    }
   }
 
   initialized = true;

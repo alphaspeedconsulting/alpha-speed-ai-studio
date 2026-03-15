@@ -14,9 +14,11 @@ import TrafficMetricsDashboard from "./pages/TrafficMetricsDashboard";
 import Reels from "./pages/Reels";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import PrivacyRequest from "./pages/PrivacyRequest";
 import NotFound from "./pages/NotFound";
 import { SPAPathRestore } from "@/components/SPAPathRestore";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
+import CookieConsent from "@/components/CookieConsent";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +31,7 @@ const App = () => (
         <BrowserRouter basename={import.meta.env.BASE_URL}>
           <SPAPathRestore />
           <AnalyticsTracker />
+          <CookieConsent />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/roi-calculator" element={<RoiCalculator />} />
@@ -40,6 +43,7 @@ const App = () => (
             <Route path="/reels" element={<Reels />} />
             <Route path="/terms-of-service.html" element={<TermsOfService />} />
             <Route path="/privacy-policy.html" element={<PrivacyPolicy />} />
+            <Route path="/privacy-request" element={<PrivacyRequest />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

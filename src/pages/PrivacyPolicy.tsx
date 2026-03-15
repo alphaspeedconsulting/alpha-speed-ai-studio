@@ -52,26 +52,39 @@ const PrivacyPolicy = () => {
 
               <p><strong>A. Information You Provide Directly</strong></p>
               <ul>
-                <li><strong>Account Information:</strong> Name, email address, company name, job title, phone number when you register for AgentVault.</li>
-                <li><strong>Payment Information:</strong> Billing address and payment card details (processed securely through third-party payment processors; we do not store full card numbers).</li>
+                <li><strong>Account Information:</strong> Email address and subscription tier when you register for AgentVault. If you engage consulting services, we may also collect your name, company name, and contact details.</li>
+                <li><strong>Payment Information:</strong> Billing address and payment card details (processed securely through Stripe; we do not store full card numbers).</li>
                 <li><strong>Consulting Inquiries:</strong> Information you provide when requesting or engaging consulting services, including project details, business information, and communications.</li>
                 <li><strong>Communications:</strong> Content of emails, support tickets, feedback, or messages you send to us.</li>
                 <li><strong>Social Media Interactions:</strong> Comments, direct messages, or other interactions you have with our accounts on TikTok and other platforms.</li>
               </ul>
 
-              <p><strong>B. Information Collected Automatically</strong></p>
+              <p><strong>B. Information Collected Automatically (Server-Side)</strong></p>
               <ul>
-                <li><strong>Usage Data:</strong> Log files, IP addresses, browser type, operating system, pages visited, time spent, and referring URLs.</li>
-                <li><strong>Platform Activity:</strong> Agent configurations, workflow runs, API calls, and other actions taken within AgentVault.</li>
-                <li><strong>Device Information:</strong> Device identifiers, hardware model, and operating system version.</li>
+                <li><strong>Website Analytics:</strong> Event data including page paths, navigation patterns, UTM campaign parameters, scroll depth, CTA interactions, and referring URLs. Analytics events are temporarily cached in your browser's local storage before being synced to our servers.</li>
+                <li><strong>IP Addresses:</strong> IP addresses are processed by Google Analytics (with IP anonymization enabled) and by Meta Pixel and TikTok Pixel if you have consented to marketing cookies. We do not store IP addresses directly in our own systems.</li>
+                <li><strong>Tool Usage Logs:</strong> When you use AgentVault, we log the tool name and timestamp of each tool invocation linked to your license key. This is used for rate limiting, abuse detection, and billing dispute resolution. Retained for 12 months on a rolling basis.</li>
+                <li><strong>Machine Fingerprint:</strong> Each license validation request transmits a one-way hash (SHA-256, first 16 characters) derived from your machine's hostname, CPU architecture, and operating system. This fingerprint is not stored on our servers — it is used only to verify token integrity for offline fallback.</li>
                 <li><strong>Cookies &amp; Tracking:</strong> Cookies, web beacons, and similar technologies (see Section 7).</li>
               </ul>
 
-              <p><strong>C. Information from Third Parties</strong></p>
+              <p><strong>C. Local Data Stored on Your Machine (AgentVault SDK)</strong></p>
+              <p>The AgentVault SDK stores data locally on your machine under <code>~/.agentvault/</code>. This data never leaves your device unless you explicitly share it. You are in control of this data.</p>
+              <ul>
+                <li><strong>License &amp; Token Files:</strong> <code>~/.agentvault/config.json</code> (your license key), <code>~/.agentvault/token.jwt</code> (a 24-hour session token for offline validation), and <code>~/.agentvault/license_cache.json</code> (cached manifest). These are auto-managed by the SDK.</li>
+                <li><strong>Governance Audit Chain:</strong> <code>~/.agentvault/data/governance/audit_chain.jsonl</code> — a tamper-evident, hash-chained log of every agent tool invocation, including tool name, agent, and a short curated action preview (max 120 characters). Full payloads are never stored. This log is retained indefinitely on your local machine to preserve audit chain integrity; it cannot be selectively deleted without breaking the chain.</li>
+                <li><strong>Agent Memory:</strong> <code>~/.agentvault/data/memory/</code> — content you provide to agents is stored locally as persistent memory. This is user-controlled and can be cleared at any time using the <code>memory_forget</code> MCP tool.</li>
+                <li><strong>Workflow Run Records:</strong> <code>~/.agentvault/data/workflows/runs/</code> — workflow execution history retained locally for 90 days, then automatically purged.</li>
+                <li><strong>Gmail Analysis Data:</strong> If you use the Gmail integration, inbox analysis results (sender statistics, deletion patterns) are cached locally at <code>~/.agentvault/data/gmail/</code> for 30 days, then automatically purged.</li>
+              </ul>
+              <Highlight>
+                To purge local AgentVault data, run <code>governance.py full-purge</code> from your AgentVault installation directory. This removes all local data except the license key file.
+              </Highlight>
+
+              <p><strong>D. Information from Third Parties</strong></p>
               <ul>
                 <li>Business contact data from lead generation and marketing platforms.</li>
                 <li>Analytics data from social media platforms (e.g., TikTok Analytics, LinkedIn Insights) regarding engagement with our content — this data is typically aggregated and non-identifiable.</li>
-                <li>OAuth or SSO data if you choose to authenticate via a third-party identity provider (e.g., Google, GitHub).</li>
               </ul>
             </Section>
 
@@ -116,7 +129,40 @@ const PrivacyPolicy = () => {
             </Section>
 
             <Section title="5. Data Retention">
-              <p>We retain personal information for as long as necessary to provide the Services, fulfill the purposes described in this policy, or as required by law. When your account is deleted or a consulting engagement concludes, we will delete or anonymize your personal data within <strong>90 days</strong>, except where longer retention is required for legal, tax, or compliance purposes.</p>
+              <p>We retain personal information for as long as necessary to provide the Services, fulfill the purposes described in this policy, or as required by law. The following schedule applies:</p>
+              <div className="overflow-x-auto -mx-1">
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr>
+                      <th className="text-left px-4 py-2 bg-primary/10 text-foreground font-semibold border border-border">Data Category</th>
+                      <th className="text-left px-4 py-2 bg-primary/10 text-foreground font-semibold border border-border">Retention Period</th>
+                      <th className="text-left px-4 py-2 bg-primary/10 text-foreground font-semibold border border-border">Automated?</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      ["User account (email, license, subscription)", "Until deletion request, or 90 days after cancellation", "Manual — deletion endpoint"],
+                      ["Tool usage logs (server)", "12 months rolling", "Yes — daily retention job"],
+                      ["Stripe payment / webhook records", "7 years (financial compliance)", "No — legal obligation; cannot be deleted on request"],
+                      ["Website analytics events", "90 days rolling", "Yes — automated purge"],
+                      ["Governance audit chain (local)", "Indefinite — integrity requires completeness", "No — user-controlled via governance.py"],
+                      ["Agent memory (local)", "User-controlled (indefinite until cleared)", "No — memory_forget tool"],
+                      ["Workflow run records (local)", "90 days", "Yes — governance.py purge"],
+                      ["Gmail analysis data (local)", "30 days", "Yes — governance.py purge"],
+                      ["JWT session tokens (local)", "24 hours, then auto-refreshed", "Yes — SDK manages"],
+                    ].map(([cat, ret, auto], i) => (
+                      <tr key={i} className={i % 2 === 1 ? "bg-primary/5" : ""}>
+                        <td className="px-4 py-2 border border-border text-foreground font-medium align-top">{cat}</td>
+                        <td className="px-4 py-2 border border-border text-muted-foreground align-top">{ret}</td>
+                        <td className="px-4 py-2 border border-border text-muted-foreground align-top">{auto}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <Highlight>
+                <strong>Note on financial records:</strong> Stripe payment event records are retained for up to 7 years to satisfy applicable tax, audit, and financial compliance requirements. These records contain only Stripe transaction identifiers — no payment card data — and cannot be deleted in response to a deletion request.
+              </Highlight>
             </Section>
 
             <Section title="6. Data Security">
@@ -137,7 +183,7 @@ const PrivacyPolicy = () => {
                 <li><strong>Analytics Cookies:</strong> Help us understand how users interact with our Services (e.g., Google Analytics).</li>
                 <li><strong>Marketing Cookies:</strong> Used to deliver relevant advertising and track campaign performance.</li>
               </ul>
-              <p>You can control cookies through your browser settings. Note that disabling certain cookies may affect platform functionality. We honor browser-based "Do Not Track" signals where technically feasible.</p>
+              <p>When you first visit our site, you will be presented with a cookie consent banner allowing you to accept or decline analytics and marketing cookies. Essential cookies required for basic functionality are always active. You may also control cookies through your browser settings. We honor browser-based "Do Not Track" (DNT) signals — when DNT is enabled, third-party marketing pixels (Meta Pixel, TikTok Pixel) will not be injected.</p>
             </Section>
 
             <Section title="8. Third-Party Social Media Platforms">
@@ -163,7 +209,12 @@ const PrivacyPolicy = () => {
                 <li><strong>Opt-Out of Marketing:</strong> Unsubscribe from marketing emails at any time using the unsubscribe link or by contacting us.</li>
                 <li><strong>Portability:</strong> Request your data in a structured, machine-readable format where technically feasible.</li>
               </ul>
-              <p>To exercise any of these rights, please contact us at <a href="mailto:alpha.speed.consulting@gmail.com" className="text-primary hover:underline">alpha.speed.consulting@gmail.com</a>. We will respond within <strong>45 days</strong> of receiving your request.</p>
+              <p>To exercise any of these rights, submit a request using our <a href="/privacy-request" className="text-primary hover:underline">Privacy Request Form</a> or contact us at <a href="mailto:alpha.speed.consulting@gmail.com" className="text-primary hover:underline">alpha.speed.consulting@gmail.com</a>. We will respond within <strong>45 days</strong> of receiving your request.</p>
+              <p><strong>AgentVault subscribers</strong> can also exercise access and deletion rights directly via the platform API:</p>
+              <ul>
+                <li><strong>Data Access:</strong> Send a <code>GET</code> request to <code>/user/data-export</code> with your <code>X-License-Key</code> header. Returns your account record, masked Stripe identifiers, and your last 1,000 tool usage log entries.</li>
+                <li><strong>Account Deletion:</strong> Send a <code>DELETE</code> request to <code>/user/account</code> with your <code>X-License-Key</code> header and body <code>{"{"}"confirm": "DELETE_MY_ACCOUNT"{"}"}</code>. This permanently deletes your account and all associated usage logs. Stripe payment records are retained per the financial compliance exception above. To also remove local data, run <code>governance.py full-purge</code> on your machine.</li>
+              </ul>
             </Section>
 
             <Section title="11. California Privacy Rights (CCPA / CPRA)">
@@ -189,12 +240,12 @@ const PrivacyPolicy = () => {
                   </thead>
                   <tbody>
                     {[
-                      ["Identifiers", "Name, email, IP address", "Yes"],
-                      ["Commercial Information", "Purchase history, billing records", "Yes"],
-                      ["Internet Activity", "Browsing on our platform, usage logs", "Yes"],
-                      ["Professional / Employment", "Job title, company name", "Yes"],
-                      ["Inferences", "Preferences derived from usage data", "Yes"],
-                      ["Sensitive Personal Info", "Financial account numbers (via payment processor)", "Limited"],
+                      ["Identifiers", "Email address; license key; machine fingerprint hash (non-reversible, not stored server-side)", "Yes"],
+                      ["Commercial Information", "Subscription tier, billing records, Stripe customer/subscription IDs", "Yes"],
+                      ["Internet Activity", "Website analytics, tool usage logs (tool name + timestamp)", "Yes"],
+                      ["Professional / Employment", "Company name, job title (consulting engagements only — not collected at platform signup)", "Limited"],
+                      ["Inferences", "Preferences derived from agent memory and usage data (stored locally on your machine)", "Yes — local only"],
+                      ["Sensitive Personal Info", "Financial account numbers (via Stripe payment processor only)", "Limited"],
                       ["Geolocation Data", "Precise location", "No"],
                       ["Biometric Data", "Fingerprints, facial recognition", "No"],
                     ].map(([cat, ex, col], i) => (
@@ -207,7 +258,7 @@ const PrivacyPolicy = () => {
                   </tbody>
                 </table>
               </div>
-              <p>To submit a CCPA request, contact us at <a href="mailto:alpha.speed.consulting@gmail.com" className="text-primary hover:underline">alpha.speed.consulting@gmail.com</a> with the subject line "CCPA Privacy Request." We may need to verify your identity before processing your request.</p>
+              <p>To submit a CCPA request, use our <a href="/privacy-request" className="text-primary hover:underline">Privacy Request Form</a> or email <a href="mailto:alpha.speed.consulting@gmail.com" className="text-primary hover:underline">alpha.speed.consulting@gmail.com</a> with the subject line "CCPA Privacy Request." We may need to verify your identity before processing your request.</p>
             </Section>
 
             <Section title="12. International Users">
