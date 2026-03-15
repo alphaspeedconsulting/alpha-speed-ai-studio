@@ -33,6 +33,16 @@ const Footer = () => {
             © 2026 αlphaspeed AI. All rights reserved.
           </p>
         </div>
+
+        {/* Legal links */}
+        <div className="mt-6 pt-4 border-t border-border flex justify-center gap-6">
+          <Link to="/terms" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            Terms of Service
+          </Link>
+          <Link to="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            Privacy Policy
+          </Link>
+        </div>
       </div>
     </footer>
   );

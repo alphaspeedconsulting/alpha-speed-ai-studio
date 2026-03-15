@@ -12,6 +12,8 @@ import AgentRoster from "./pages/AgentRoster";
 import AlphaAIDashboard from "./pages/AlphaAIDashboard";
 import TrafficMetricsDashboard from "./pages/TrafficMetricsDashboard";
 import Reels from "./pages/Reels";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 import { SPAPathRestore } from "@/components/SPAPathRestore";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
@@ -36,6 +38,8 @@ const App = () => (
             <Route path="/alphaai" element={<AlphaAIDashboard />} />
             <Route path="/traffic" element={<TrafficMetricsDashboard />} />
             <Route path="/reels" element={<Reels />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
