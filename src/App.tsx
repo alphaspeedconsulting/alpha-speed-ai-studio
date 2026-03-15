@@ -38,8 +38,8 @@ const App = () => (
             <Route path="/alphaai" element={<AlphaAIDashboard />} />
             <Route path="/traffic" element={<TrafficMetricsDashboard />} />
             <Route path="/reels" element={<Reels />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service.html" element={<TermsOfService />} />
+            <Route path="/privacy-policy.html" element={<PrivacyPolicy />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
