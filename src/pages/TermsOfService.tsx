@@ -142,8 +142,8 @@ const TermsOfService = () => {
               <p>If you have any questions about these Terms, please contact us:</p>
               <p>
                 <strong>Alpha Speed Consulting, LLC</strong><br />
-                Email: <a href="mailto:legal@agentvault.ai" className="text-primary hover:underline">legal@agentvault.ai</a><br />
-                Website: <a href="https://agentvault.ai" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">agentvault.ai</a>
+                Email: <a href="mailto:alpha.speed.consulting@gmail.com" className="text-primary hover:underline">alpha.speed.consulting@gmail.com</a><br />
+                Website: <a href="https://alphaspeedai.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">alphaspeedai.com</a>
               </p>
             </Section>
           </div>

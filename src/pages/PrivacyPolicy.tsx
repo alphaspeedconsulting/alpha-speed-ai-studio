@@ -127,7 +127,7 @@ const PrivacyPolicy = () => {
                 <li>Regular security assessments and vulnerability monitoring.</li>
                 <li>Secure data centers with physical access controls.</li>
               </ul>
-              <p>No method of transmission or storage is 100% secure. While we strive to protect your information, we cannot guarantee absolute security. Please notify us immediately at <a href="mailto:security@agentvault.ai" className="text-primary hover:underline">security@agentvault.ai</a> if you suspect unauthorized access to your account.</p>
+              <p>No method of transmission or storage is 100% secure. While we strive to protect your information, we cannot guarantee absolute security. Please notify us immediately at <a href="mailto:alpha.speed.consulting@gmail.com" className="text-primary hover:underline">alpha.speed.consulting@gmail.com</a> if you suspect unauthorized access to your account.</p>
             </Section>
 
             <Section title="7. Cookies and Tracking Technologies">
@@ -151,7 +151,7 @@ const PrivacyPolicy = () => {
             </Section>
 
             <Section title="9. Children's Privacy">
-              <p>Our Services are not directed to individuals under the age of <strong>18</strong>. We do not knowingly collect personal information from minors. If we become aware that we have collected personal information from a person under 18 without verifiable parental consent, we will take steps to delete that information promptly. If you believe we have inadvertently collected such information, please contact us at <a href="mailto:privacy@agentvault.ai" className="text-primary hover:underline">privacy@agentvault.ai</a>.</p>
+              <p>Our Services are not directed to individuals under the age of <strong>18</strong>. We do not knowingly collect personal information from minors. If we become aware that we have collected personal information from a person under 18 without verifiable parental consent, we will take steps to delete that information promptly. If you believe we have inadvertently collected such information, please contact us at <a href="mailto:alpha.speed.consulting@gmail.com" className="text-primary hover:underline">alpha.speed.consulting@gmail.com</a>.</p>
             </Section>
 
             <Section title="10. Your Privacy Rights (All Users)">
@@ -163,7 +163,7 @@ const PrivacyPolicy = () => {
                 <li><strong>Opt-Out of Marketing:</strong> Unsubscribe from marketing emails at any time using the unsubscribe link or by contacting us.</li>
                 <li><strong>Portability:</strong> Request your data in a structured, machine-readable format where technically feasible.</li>
               </ul>
-              <p>To exercise any of these rights, please contact us at <a href="mailto:privacy@agentvault.ai" className="text-primary hover:underline">privacy@agentvault.ai</a>. We will respond within <strong>45 days</strong> of receiving your request.</p>
+              <p>To exercise any of these rights, please contact us at <a href="mailto:alpha.speed.consulting@gmail.com" className="text-primary hover:underline">alpha.speed.consulting@gmail.com</a>. We will respond within <strong>45 days</strong> of receiving your request.</p>
             </Section>
 
             <Section title="11. California Privacy Rights (CCPA / CPRA)">
@@ -207,7 +207,7 @@ const PrivacyPolicy = () => {
                   </tbody>
                 </table>
               </div>
-              <p>To submit a CCPA request, contact us at <a href="mailto:privacy@agentvault.ai" className="text-primary hover:underline">privacy@agentvault.ai</a> with the subject line "CCPA Privacy Request." We may need to verify your identity before processing your request.</p>
+              <p>To submit a CCPA request, contact us at <a href="mailto:alpha.speed.consulting@gmail.com" className="text-primary hover:underline">alpha.speed.consulting@gmail.com</a> with the subject line "CCPA Privacy Request." We may need to verify your identity before processing your request.</p>
             </Section>
 
             <Section title="12. International Users">
@@ -222,9 +222,8 @@ const PrivacyPolicy = () => {
               <p>If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:</p>
               <p>
                 <strong>Alpha Speed Consulting, LLC</strong><br />
-                Privacy Inquiries: <a href="mailto:privacy@agentvault.ai" className="text-primary hover:underline">privacy@agentvault.ai</a><br />
-                Security Issues: <a href="mailto:security@agentvault.ai" className="text-primary hover:underline">security@agentvault.ai</a><br />
-                Website: <a href="https://agentvault.ai" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">agentvault.ai</a>
+                Email: <a href="mailto:alpha.speed.consulting@gmail.com" className="text-primary hover:underline">alpha.speed.consulting@gmail.com</a><br />
+                Website: <a href="https://alphaspeedai.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">alphaspeedai.com</a>
               </p>
             </Section>
           </div>
