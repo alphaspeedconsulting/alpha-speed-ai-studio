@@ -113,7 +113,10 @@ const TermsOfService = () => {
 
             <Section title="10. Disclaimers">
               <p className="uppercase text-sm">The services are provided on an "as is" and "as available" basis without warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
-              <p>We do not warrant that the Services will be uninterrupted, error-free, or free of viruses or other harmful components. AI-generated outputs from AgentVault should be reviewed by qualified personnel before being relied upon for business decisions.</p>
+              <p>We do not warrant that the Services will be uninterrupted, error-free, or free of viruses or other harmful components.</p>
+              <Highlight>
+                <strong>Important — AI Outputs:</strong> AI-generated outputs from AgentVault must be reviewed by qualified personnel before being relied upon for any business, legal, financial, or operational decisions. We make no representations as to the accuracy, completeness, or fitness of AI-generated content for any specific purpose.
+              </Highlight>
             </Section>
 
             <Section title="11. Limitation of Liability">
