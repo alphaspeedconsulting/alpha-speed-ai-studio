@@ -36,10 +36,10 @@ const Footer = () => {
 
         {/* Legal links */}
         <div className="mt-6 pt-4 border-t border-border flex justify-center gap-6">
-          <Link to="/terms" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/terms-of-service.html" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
             Terms of Service
           </Link>
-          <Link to="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/privacy-policy.html" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
             Privacy Policy
           </Link>
         </div>
