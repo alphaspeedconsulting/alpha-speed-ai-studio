@@ -12,6 +12,14 @@ type PublishedPost = {
   posted_at: string;
 };
 
+const sanitizeCaption = (caption: string | null): string | null => {
+  if (!caption) return caption;
+
+  return caption
+    .replace(/\baassistant\b/gi, "assistant")
+    .replace(/alphaspeadai\.com/gi, "alphaspeedai.com");
+};
+
 const InstagramFeed = () => {
   const [posts, setPosts] = useState<PublishedPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -59,37 +67,41 @@ const InstagramFeed = () => {
         {!loading && posts.length > 0 ? (
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
-              {posts.map((post) => (
-                <a
-                  key={post.id}
-                  href={post.post_url ?? INSTAGRAM_PROFILE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative aspect-square rounded-xl overflow-hidden bg-card border border-border"
-                >
-                  {post.image_url ? (
-                    <img
-                      src={post.image_url}
-                      alt={post.caption ?? "Instagram post"}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-primary/5">
-                      <Instagram className="w-8 h-8 text-primary/30" />
-                    </div>
-                  )}
-                  {/* Caption overlay on hover */}
-                  <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-3">
-                    {post.caption && (
-                      <p className="text-xs line-clamp-3 text-foreground leading-relaxed">
-                        {post.caption}
-                      </p>
+              {posts.map((post) => {
+                const safeCaption = sanitizeCaption(post.caption);
+
+                return (
+                  <a
+                    key={post.id}
+                    href={post.post_url ?? INSTAGRAM_PROFILE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative aspect-square rounded-xl overflow-hidden bg-card border border-border"
+                  >
+                    {post.image_url ? (
+                      <img
+                        src={post.image_url}
+                        alt={safeCaption ?? "Instagram post"}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-primary/5">
+                        <Instagram className="w-8 h-8 text-primary/30" />
+                      </div>
                     )}
-                    <ExternalLink className="w-3.5 h-3.5 text-primary mt-1.5 shrink-0" />
-                  </div>
-                </a>
-              ))}
+                    {/* Caption overlay on hover */}
+                    <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-3">
+                      {safeCaption && (
+                        <p className="text-xs line-clamp-3 text-foreground leading-relaxed">
+                          {safeCaption}
+                        </p>
+                      )}
+                      <ExternalLink className="w-3.5 h-3.5 text-primary mt-1.5 shrink-0" />
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           </div>
         ) : (
