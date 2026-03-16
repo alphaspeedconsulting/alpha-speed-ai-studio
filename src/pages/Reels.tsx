@@ -7,17 +7,16 @@ import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Play } from "lucide-react";
 import { getSupabase } from "@/lib/supabase";
-import { INSTAGRAM_PROFILE_URL } from "@/lib/constants";
+import { INSTAGRAM_PROFILE_URL, TIKTOK_PROFILE_URL } from "@/lib/constants";
 
 type PublishedReel = {
   id: string;
+  platform: string;
   image_url: string | null;
   caption: string | null;
   post_url: string | null;
   posted_at: string;
 };
-
-const TIKTOK_PROFILE_URL = "https://www.tiktok.com/@alphaspeedai";
 
 const Reels = () => {
   useScrollToTop();
@@ -32,12 +31,14 @@ const Reels = () => {
     }
     supabase
       .from("published_posts")
-      .select("id, image_url, caption, post_url, posted_at")
-      .eq("platform", "instagram")
+      .select("id, platform, image_url, caption, post_url, posted_at")
+      .or("platform.ilike.instagram,platform.ilike.tiktok")
       .order("posted_at", { ascending: false })
       .limit(9)
       .then(({ data, error }) => {
-        if (error) console.error("[Reels] Supabase query failed:", error.message);
+        if (error) {
+          console.error("[Reels] Supabase query failed:", error.message, error);
+        }
         if (data) setReels(data);
         setLoading(false);
       });
@@ -78,18 +79,23 @@ const Reels = () => {
               {reels.map((reel) => (
                 <a
                   key={reel.id}
-                  href={reel.post_url ?? TIKTOK_PROFILE_URL}
+                  href={reel.post_url ?? (reel.platform?.toLowerCase() === "tiktok" ? TIKTOK_PROFILE_URL : INSTAGRAM_PROFILE_URL)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative aspect-[9/16] max-h-[70vh] rounded-2xl bg-card border border-border overflow-hidden card-hover"
                 >
+                  <span className="absolute top-2 right-2 z-10 px-2 py-0.5 rounded text-[10px] font-medium bg-background/90 text-foreground capitalize">
+                    {reel.platform ?? "Reel"}
+                  </span>
                   {reel.image_url ? (
-                    <img
-                      src={reel.image_url}
-                      alt={reel.caption ?? "Reel"}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
+                    <div className="w-full h-full bg-black/40 flex items-center justify-center p-1">
+                      <img
+                        src={reel.image_url}
+                        alt={reel.caption ?? "Reel"}
+                        className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                        loading="lazy"
+                      />
+                    </div>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-primary/5">
                       <Play className="w-10 h-10 text-primary/40" />
@@ -107,7 +113,7 @@ const Reels = () => {
           ) : !loading && (
             <div className="max-w-md mx-auto text-center py-12 rounded-2xl bg-card border border-border">
               <p className="text-muted-foreground mb-6">
-                Instagram content from Alpha will appear here automatically once published.
+                Reels from Alpha (Instagram & TikTok) will appear here once published to the feed.
               </p>
               <Link
                 to="/#demos"
