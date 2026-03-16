@@ -11,6 +11,7 @@ const PrivacyPolicy = () => {
       <Helmet>
         <title>Privacy Policy | αlphaspeed AI</title>
         <meta name="description" content="Privacy Policy for αlphaspeed AI and the AgentVault platform." />
+        <link rel="canonical" href="https://alphaspeedai.com/privacy-policy" />
       </Helmet>
 
       <Header />

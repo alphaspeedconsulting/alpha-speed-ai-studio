@@ -108,7 +108,7 @@ function alphaAIPublic(): Plugin {
  * HTML back to dist/<route>/index.html so GitHub Pages serves real content to crawlers.
  */
 function prerenderPlugin(): Plugin {
-  const ROUTES = ["/", "/assistant", "/agents", "/reels", "/roi-calculator", "/case-studies"];
+  const ROUTES = ["/", "/assistant", "/agents", "/reels", "/roi-calculator", "/case-studies", "/privacy-policy", "/terms-of-service", "/privacy-request"];
   const RENDER_WAIT_MS = 3000;
 
   return {
@@ -184,6 +184,9 @@ export default defineConfig(({ mode }) => ({
         "/assistant",
         "/agents",
         "/reels",
+        "/privacy-policy",
+        "/terms-of-service",
+        "/privacy-request",
       ],
       // Internal/private pages and error pages — excluded from sitemap
       exclude: ["/alphaai", "/traffic", "/404"],

@@ -66,6 +66,7 @@ const PrivacyRequest = () => {
       <Helmet>
         <title>Privacy Request | αlphaspeed AI</title>
         <meta name="description" content="Submit a data privacy request to Alpha Speed Consulting, LLC." />
+        <link rel="canonical" href="https://alphaspeedai.com/privacy-request" />
       </Helmet>
 
       <Header />
@@ -185,7 +186,7 @@ const PrivacyRequest = () => {
 
                 <p className="text-xs text-muted-foreground text-center leading-relaxed">
                   By submitting this form you agree to our{" "}
-                  <a href="/privacy-policy.html" className="text-primary hover:underline">Privacy Policy</a>.
+                  <a href="/privacy-policy" className="text-primary hover:underline">Privacy Policy</a>.
                   We will respond within 45 days.
                 </p>
               </form>

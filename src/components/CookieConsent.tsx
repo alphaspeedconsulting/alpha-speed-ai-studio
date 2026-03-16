@@ -23,7 +23,7 @@ const CookieConsent = () => {
         <div className="bg-card border border-border rounded-xl shadow-lg px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <p className="text-sm text-muted-foreground flex-1">
             We use cookies and analytics to understand how visitors use our site and improve our services.{" "}
-            <a href="/privacy-policy.html" className="text-primary hover:underline">
+            <a href="/privacy-policy" className="text-primary hover:underline">
               Learn more
             </a>
             .
