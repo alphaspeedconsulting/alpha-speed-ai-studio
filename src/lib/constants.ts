@@ -15,9 +15,10 @@ import {
 export const CONTACT_EMAIL = "alpha.speed.consulting@gmail.com";
 export const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}?subject=Free%20Consultation%20Request`;
 
-// ── Instagram Feed ────────────────────────────────────────────────────
+// ── Social / Reels ────────────────────────────────────────────────────
 // Posts are loaded from Supabase published_posts table (written by content gen flow)
 export const INSTAGRAM_PROFILE_URL = "https://www.instagram.com/alphaspeedai";
+export const TIKTOK_PROFILE_URL = "https://www.tiktok.com/@alphaspeedai";
 
 // ── Service Pillars ──────────────────────────────────────────────────
 export interface ServicePillar {

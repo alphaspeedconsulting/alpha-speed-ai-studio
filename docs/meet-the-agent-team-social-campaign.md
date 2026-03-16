@@ -4,6 +4,15 @@ Comprehensive reference table for the **Agent Roster** used in the "Meet the Age
 
 ---
 
+## Social card design checklist (for generated assets)
+
+When creating or regenerating agent card images/videos for Reels/TikTok/Instagram:
+
+- **Spelling:** Use **"Personal Assistant"** (two words, one "a"). Never use "Personal aassistant" or "aassistant."
+- **Layout:** Keep the CTA (e.g. "LEARN MORE") from overlapping the caption line or the avatar. Leave clear spacing between the bottom caption ("Meet the Agent … alphaspeedai.com") and the button so both stay readable.
+
+---
+
 ## Agent Roster — Full Reference Table
 
 ### Core Roster (Website)
