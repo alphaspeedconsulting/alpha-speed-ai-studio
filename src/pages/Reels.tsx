@@ -76,39 +76,42 @@ const Reels = () => {
 
           {!loading && reels.length > 0 ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-              {reels.map((reel) => (
-                <a
-                  key={reel.id}
-                  href={reel.post_url ?? (reel.platform?.toLowerCase() === "tiktok" ? TIKTOK_PROFILE_URL : INSTAGRAM_PROFILE_URL)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative aspect-[9/16] max-h-[70vh] rounded-2xl bg-card border border-border overflow-hidden card-hover"
-                >
-                  <span className="absolute top-2 right-2 z-10 px-2 py-0.5 rounded text-[10px] font-medium bg-background/90 text-foreground capitalize">
-                    {reel.platform ?? "Reel"}
-                  </span>
-                  {reel.image_url ? (
-                    <div className="w-full h-full bg-black/40 flex items-center justify-center p-1">
+              {reels.map((reel) => {
+                const isTikTok = reel.platform?.toLowerCase() === "tiktok";
+                const imageSrc = reel.image_url ?? (isTikTok ? "/tiktok-placeholder.svg" : null);
+
+                return (
+                  <a
+                    key={reel.id}
+                    href={reel.post_url ?? (reel.platform?.toLowerCase() === "tiktok" ? TIKTOK_PROFILE_URL : INSTAGRAM_PROFILE_URL)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative aspect-[9/16] max-h-[70vh] rounded-2xl bg-card border border-border overflow-hidden card-hover"
+                  >
+                    <span className="absolute top-2 right-2 z-10 px-2 py-0.5 rounded text-[10px] font-medium bg-background/90 text-foreground capitalize">
+                      {reel.platform ?? "Reel"}
+                    </span>
+                    {imageSrc ? (
                       <img
-                        src={reel.image_url}
+                        src={imageSrc}
                         alt={reel.caption ?? "Reel"}
-                        className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
                       />
-                    </div>
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-primary/5">
-                      <Play className="w-10 h-10 text-primary/40" />
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-4">
-                    {reel.caption && (
-                      <p className="text-xs line-clamp-4 text-foreground leading-relaxed">{reel.caption}</p>
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-primary/5">
+                        <Play className="w-10 h-10 text-primary/40" />
+                      </div>
                     )}
-                    <Play className="w-4 h-4 text-primary mt-2 shrink-0" />
-                  </div>
-                </a>
-              ))}
+                    <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-4">
+                      {reel.caption && (
+                        <p className="text-xs line-clamp-4 text-foreground leading-relaxed">{reel.caption}</p>
+                      )}
+                      <Play className="w-4 h-4 text-primary mt-2 shrink-0" />
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           ) : !loading && (
             <div className="max-w-md mx-auto text-center py-12 rounded-2xl bg-card border border-border">

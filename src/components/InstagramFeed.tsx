@@ -68,14 +68,12 @@ const InstagramFeed = () => {
                   className="group relative aspect-square rounded-xl overflow-hidden bg-card border border-border"
                 >
                   {post.image_url ? (
-                    <div className="w-full h-full bg-black/40 flex items-center justify-center p-1">
-                      <img
-                        src={post.image_url}
-                        alt={post.caption ?? "Instagram post"}
-                        className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
-                        loading="lazy"
-                      />
-                    </div>
+                    <img
+                      src={post.image_url}
+                      alt={post.caption ?? "Instagram post"}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-primary/5">
                       <Instagram className="w-8 h-8 text-primary/30" />

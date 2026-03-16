@@ -1,0 +1,21 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1080" y2="1920" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#04101E"/>
+      <stop offset="1" stop-color="#0A1830"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="240" y1="360" x2="840" y2="1560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22D3EE" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#06B6D4" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#bg)"/>
+  <rect x="80" y="80" width="920" height="1760" rx="48" stroke="#0EA5B8" stroke-opacity="0.35" stroke-width="4"/>
+  <rect x="112" y="112" width="856" height="1696" rx="36" fill="url(#accent)"/>
+  <g opacity="0.9">
+    <path d="M494 958V812H560V958C560 1008 600 1048 650 1048C700 1048 740 1008 740 958C740 908 700 868 650 868V802C736 802 806 872 806 958C806 1044 736 1114 650 1114C564 1114 494 1044 494 958Z" fill="#22D3EE"/>
+    <path d="M560 812C620 812 668 764 668 704H734C734 800 656 878 560 878V812Z" fill="#A5F3FC"/>
+  </g>
+  <text x="540" y="1320" fill="#E2E8F0" font-size="56" font-family="Arial, sans-serif" text-anchor="middle">TikTok Preview</text>
+  <text x="540" y="1388" fill="#94A3B8" font-size="34" font-family="Arial, sans-serif" text-anchor="middle">Image not available for this post yet</text>
+</svg>
