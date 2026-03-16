@@ -11,6 +11,7 @@ const TermsOfService = () => {
       <Helmet>
         <title>Terms of Service | αlphaspeed AI</title>
         <meta name="description" content="Terms of Service for αlphaspeed AI and the AgentVault platform." />
+        <link rel="canonical" href="https://alphaspeedai.com/terms-of-service" />
       </Helmet>
 
       <Header />

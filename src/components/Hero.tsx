@@ -1,10 +1,26 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap, MessageSquare, Mail } from "lucide-react";
-import { trackEvent, trackLead } from "@/lib/analytics";
+import { Zap, MessageSquare } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
+import CalendlyBooking from "@/components/CalendlyBooking";
+
+const getSocialHeadline = (): { headline: string; subheadline: string } | null => {
+  const params = new URLSearchParams(window.location.search);
+  const source = params.get("utm_source")?.toLowerCase();
+  if (!source) return null;
+
+  const socialSources = ["linkedin", "instagram", "facebook", "twitter", "tiktok"];
+  if (!socialSources.includes(source)) return null;
+
+  return {
+    headline: "See Why DFW Businesses Are Automating with AI",
+    subheadline:
+      "Custom AI agents and workflow automation that save time, cut costs, and grow your business — without hiring.",
+  };
+};
 
 const Hero = () => {
-  const baseUrl = import.meta.env.BASE_URL;
+  const socialVariant = getSocialHeadline();
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-x-visible overflow-y-hidden pt-20">
@@ -26,27 +42,29 @@ const Hero = () => {
 
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            DFW's AI{" "}
-            <span className="gradient-text">Automation Studio</span>
+            {socialVariant ? (
+              <>
+                See Why DFW Businesses Are{" "}
+                <span className="gradient-text">Automating with AI</span>
+              </>
+            ) : (
+              <>
+                DFW's AI{" "}
+                <span className="gradient-text">Automation Studio</span>
+              </>
+            )}
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto text-balance">
-            We build custom AI agents and workflow automation that help Dallas-Fort Worth businesses save time, cut costs, and grow — without hiring.
+            {socialVariant
+              ? socialVariant.subheadline
+              : "We build custom AI agents and workflow automation that help Dallas-Fort Worth businesses save time, cut costs, and grow — without hiring."}
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="hero" size="xl" className="group" asChild>
-              <a
-                href="mailto:alpha.speed.consulting@gmail.com?subject=Free%20Strategy%20Call%20Request"
-                onClick={() => trackLead("hero_strategy_call_click", { placement: "hero" })}
-              >
-                <Mail className="w-5 h-5" />
-                Book a Free Strategy Call
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </a>
-            </Button>
+            <CalendlyBooking placement="hero" />
             <Link to="/assistant">
               <Button
                 variant="heroOutline"
@@ -60,8 +78,19 @@ const Hero = () => {
             </Link>
           </div>
 
+          {/* Secondary link */}
+          <div className="mt-8">
+            <Link
+              to="/agents"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+              onClick={() => trackEvent("cta_click", "hero_agents_link", { placement: "hero" })}
+            >
+              Meet Our AI Agents &rarr;
+            </Link>
+          </div>
+
           {/* Honest tagline replacing fake logos */}
-          <div className="mt-16 pt-8 border-t border-border/50">
+          <div className="mt-8 pt-8 border-t border-border/50">
             <p className="text-sm text-muted-foreground">
               Helping small businesses automate and grow with AI since 2025
             </p>

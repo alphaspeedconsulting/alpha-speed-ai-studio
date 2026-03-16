@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Bot, Server, Wrench } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -179,10 +180,14 @@ const AgentsAsServiceSection = () => {
           </TabsContent>
         </Tabs>
 
-        <p className="text-center text-sm text-muted-foreground mt-8">
-          Registry can be extended to scan all code under your workspace (e.g. /Users/miguelfranco). See{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5">docs/agents-as-service-summary.md</code> for scope and implementation.
-        </p>
+        <div className="text-center mt-8">
+          <Link
+            to="/agents"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+          >
+            View Full Agent Roster &rarr;
+          </Link>
+        </div>
       </div>
     </section>
   );

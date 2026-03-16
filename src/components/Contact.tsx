@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { trackLead } from "@/lib/analytics";
+import CalendlyBooking from "@/components/CalendlyBooking";
 
 const Contact = () => {
   return (
     <section id="contact" className="py-10 md:py-16 relative">
       <div className="absolute inset-0 hero-gradient" />
-      
+
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* CTA Box */}
@@ -15,19 +15,14 @@ const Contact = () => {
               Ready to <span className="gradient-text">Transform</span> Your Business?
             </h2>
             <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-              Let's discuss how AI automation can revolutionize your workflows 
+              Let's discuss how AI automation can revolutionize your workflows
               and drive unprecedented growth for your organization.
             </p>
-            
-            <Button variant="hero" size="xl" className="group" asChild>
-              <a
-                href="mailto:alpha.speed.consulting@gmail.com?subject=Free%20Consultation%20Request"
-                onClick={() => trackLead("contact_consultation_email_click", { placement: "contact_section" })}
-              >
-                Schedule Your Free Consultation
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </a>
-            </Button>
+
+            <CalendlyBooking
+              label="Schedule Your Free Consultation"
+              placement="contact_section"
+            />
 
             {/* Contact Info */}
             <div className="mt-12 pt-8 border-t border-border/50">

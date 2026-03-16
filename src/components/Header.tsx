@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import bannerLogo from "@/assets/bannerlogo.png";
 import ThemeToggle from "@/components/ThemeToggle";
-import { trackEvent, trackLead } from "@/lib/analytics";
+import { trackEvent } from "@/lib/analytics";
+import CalendlyBooking from "@/components/CalendlyBooking";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -102,16 +103,14 @@ const Header = () => {
                 Try the Assistant
               </Button>
             </Link>
-            <Button variant="hero" size="default" asChild>
-              <button
-                onClick={() => {
-                  trackLead("header_get_started_click", { placement: "header" });
-                  handleHashNavigation("contact");
-                }}
-              >
-                Get Started
-              </button>
-            </Button>
+            <CalendlyBooking
+              label="Get Started"
+              placement="header"
+              variant="hero"
+              size="default"
+              showArrow={false}
+              showIcon={false}
+            />
           </div>
 
           <div className="lg:hidden flex items-center gap-2">
@@ -163,13 +162,15 @@ const Header = () => {
                   Try the Assistant
                 </Button>
               </Link>
-              <Button variant="hero" size="default" className="w-full" asChild>
-                <button onClick={() => {
-                  trackLead("mobile_header_get_started_click", { placement: "mobile_header" });
-                  handleHashNavigation("contact");
-                  setIsMenuOpen(false);
-                }}>Get Started</button>
-              </Button>
+              <CalendlyBooking
+                label="Get Started"
+                placement="mobile_header"
+                variant="hero"
+                size="default"
+                className="w-full"
+                showArrow={false}
+                showIcon={false}
+              />
             </nav>
           </div>
         )}

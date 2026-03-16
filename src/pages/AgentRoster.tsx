@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import WhyAgentsSection from "@/components/WhyAgentsSection";
 import { Badge } from "@/components/ui/badge";
 import { Wrench, Bot } from "lucide-react";
+import CalendlyBooking from "@/components/CalendlyBooking";
 
 interface Agent {
   name: string;
@@ -211,6 +212,21 @@ const AgentRoster = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="pb-16 md:pb-24">
+          <div className="container mx-auto px-6 text-center">
+            <div className="max-w-2xl mx-auto p-10 rounded-2xl bg-card border border-border">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+                Ready to Put These Agents to Work?
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Book a free strategy call and we'll show you which agents fit your business.
+              </p>
+              <CalendlyBooking placement="agent_roster_cta" />
             </div>
           </div>
         </section>

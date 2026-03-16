@@ -1,4 +1,4 @@
-type AnalyticsEventType = "page_view" | "lead_event" | "cta_click" | "scroll_depth";
+type AnalyticsEventType = "page_view" | "lead_event" | "cta_click" | "scroll_depth" | "generate_lead" | "form_submit" | "schedule_appointment" | "sign_up";
 
 export type AnalyticsEvent = {
   type: AnalyticsEventType;
@@ -178,6 +178,31 @@ const injectTikTokPixelScript = (pixelId: string) => {
   document.head.appendChild(script);
 };
 
+const injectLinkedInInsightTag = (partnerId: string) => {
+  const win = safeWindow();
+  if (!win) return;
+  if (document.querySelector(`script[data-linkedin-partner-id="${partnerId}"]`)) return;
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.dataset.linkedinPartnerId = partnerId;
+  script.textContent = `
+    _linkedin_partner_id="${partnerId}";window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[];window._linkedin_data_partner_ids.push(_linkedin_partner_id);(function(l){if(!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[]}var s=document.getElementsByTagName("script")[0];var b=document.createElement("script");b.type="text/javascript";b.async=true;b.src="https://snap.licdn.com/li.lms-analytics/insight.min.js";s.parentNode.insertBefore(b,s)})(window.lintrk);
+  `;
+  document.head.appendChild(script);
+
+  // LinkedIn noscript pixel
+  const noscript = document.createElement("noscript");
+  const img = document.createElement("img");
+  img.height = 1;
+  img.width = 1;
+  img.style.display = "none";
+  img.alt = "";
+  img.src = `https://px.ads.linkedin.com/collect/?pid=${partnerId}&fmt=gif`;
+  noscript.appendChild(img);
+  document.body.appendChild(noscript);
+};
+
 const injectGtagScript = (measurementId: string) => {
   const win = safeWindow();
   if (!win) {
@@ -245,6 +270,11 @@ export const initAnalytics = () => {
     const tikTokPixelId = import.meta.env.VITE_TIKTOK_PIXEL_ID;
     if (tikTokPixelId) {
       injectTikTokPixelScript(tikTokPixelId);
+    }
+
+    const linkedInPartnerId = import.meta.env.VITE_LINKEDIN_PARTNER_ID;
+    if (linkedInPartnerId) {
+      injectLinkedInInsightTag(linkedInPartnerId);
     }
   }
 
@@ -314,6 +344,47 @@ export const trackPageView = (path: string, title: string) => {
 
 export const trackLead = (name: string, params: EventParams = {}) => {
   trackEvent("lead_event", name, params);
+};
+
+/**
+ * Fires a GA4-recommended conversion event. These event types should be marked
+ * as Key Events in GA4 Admin → Events to appear in conversion reports.
+ *
+ * Supported types: "generate_lead", "form_submit", "schedule_appointment", "sign_up"
+ */
+export const trackConversion = (
+  type: "generate_lead" | "form_submit" | "schedule_appointment" | "sign_up",
+  name: string,
+  params: EventParams = {},
+) => {
+  // Fire through the standard pipeline (Supabase + localStorage + pixels)
+  trackEvent(type, name, params);
+
+  // Also push the GA4 recommended event name directly so GA4 recognises it
+  // as a Key Event candidate (GA4 expects the event name to match its type).
+  const win = safeWindow();
+  if (win?.gtag) {
+    win.gtag("event", type, {
+      ...params,
+      event_label: name,
+      page_path: win.location.pathname,
+      page_location: win.location.href,
+    });
+  }
+
+  // Fire Facebook standard events for matching conversion types
+  if (win?.fbq) {
+    const fbEventMap: Record<string, string> = {
+      generate_lead: "Lead",
+      schedule_appointment: "Schedule",
+      sign_up: "CompleteRegistration",
+      form_submit: "SubmitApplication",
+    };
+    const fbEvent = fbEventMap[type];
+    if (fbEvent) {
+      win.fbq("track", fbEvent, { content_name: name, ...params });
+    }
+  }
 };
 
 export const getStoredAnalyticsEvents = () => readStoredEvents();

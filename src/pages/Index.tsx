@@ -16,6 +16,7 @@ import WorkflowExamplesSection from "@/components/WorkflowExamplesSection";
 import DemoVideosSection from "@/components/DemoVideosSection";
 import InstagramFeed from "@/components/InstagramFeed";
 import About from "@/components/About";
+import EmailCapture from "@/components/EmailCapture";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -55,6 +56,7 @@ const Index = () => {
         <WhyAgentsSection />
         <Services />
         <HowWeWorkSection />
+        <EmailCapture />
         <PortfolioSection />
         <AgentsAsServiceSection />
         <PlatformSection />
