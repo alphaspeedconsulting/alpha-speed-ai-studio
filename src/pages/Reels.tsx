@@ -22,6 +22,7 @@ const Reels = () => {
   useScrollToTop();
   const [reels, setReels] = useState<PublishedReel[]>([]);
   const [loading, setLoading] = useState(true);
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     const supabase = getSupabase();
@@ -78,7 +79,12 @@ const Reels = () => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
               {reels.map((reel) => {
                 const isTikTok = reel.platform?.toLowerCase() === "tiktok";
-                const imageSrc = reel.image_url ?? (isTikTok ? "/tiktok-placeholder.svg" : null);
+                const imageSrc =
+                  !failedImages[reel.id] && reel.image_url
+                    ? reel.image_url
+                    : isTikTok
+                      ? "/tiktok-placeholder.svg"
+                      : null;
 
                 return (
                   <a
@@ -94,9 +100,15 @@ const Reels = () => {
                     {imageSrc ? (
                       <img
                         src={imageSrc}
-                        alt={reel.caption ?? "Reel"}
+                        alt="Reel"
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
+                        onError={() =>
+                          setFailedImages((prev) => ({
+                            ...prev,
+                            [reel.id]: true,
+                          }))
+                        }
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-primary/5">
