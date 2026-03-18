@@ -203,7 +203,7 @@ const injectLinkedInInsightTag = (partnerId: string) => {
   document.body.appendChild(noscript);
 };
 
-const injectGtagScript = (measurementId: string) => {
+const injectGtagScript = (measurementId: string, consentGranted: boolean) => {
   const win = safeWindow();
   if (!win) {
     return;
@@ -235,8 +235,28 @@ const injectGtagScript = (measurementId: string) => {
   };
   win.gtag = gtag;
 
+  // Consent Mode v2: must be set before gtag('config') so GA4 can model
+  // estimated traffic even for visitors who have not yet consented.
+  gtag("consent", "default", {
+    analytics_storage: consentGranted ? "granted" : "denied",
+    ad_storage: "denied",
+    wait_for_update: 500,
+  });
+
   gtag("js", new Date());
   gtag("config", measurementId, { send_page_view: false });
+};
+
+/**
+ * Loads the GA4 script unconditionally with Consent Mode v2.
+ * Call this on every page load so GA4 can model traffic regardless of
+ * whether the visitor has accepted the cookie banner.
+ */
+export const initGtagBase = () => {
+  if (import.meta.env.VITE_ANALYTICS_ENABLED === "false") return;
+  const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+  if (!measurementId) return;
+  injectGtagScript(measurementId, getConsent() === "accepted");
 };
 
 export const initAnalytics = () => {
@@ -250,14 +270,20 @@ export const initAnalytics = () => {
     return;
   }
 
-  // Require explicit consent before initializing any tracking
+  // Require explicit consent before enabling full tracking
   if (getConsent() !== "accepted") {
     return;
   }
 
-  const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
-  if (measurementId) {
-    injectGtagScript(measurementId);
+  // Upgrade consent so GA4 switches from modeled to full data collection
+  const win = safeWindow();
+  if (win?.gtag) {
+    win.gtag("consent", "update", { analytics_storage: "granted" });
+  } else {
+    const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+    if (measurementId) {
+      injectGtagScript(measurementId, true);
+    }
   }
 
   // Skip third-party marketing pixels when DNT is enabled
