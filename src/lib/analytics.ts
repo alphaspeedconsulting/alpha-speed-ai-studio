@@ -270,20 +270,9 @@ export const initAnalytics = () => {
     return;
   }
 
-  // Require explicit consent before enabling full tracking
+  // Require explicit consent before enabling ad pixels
   if (getConsent() !== "accepted") {
     return;
-  }
-
-  // Upgrade consent so GA4 switches from modeled to full data collection
-  const win = safeWindow();
-  if (win?.gtag) {
-    win.gtag("consent", "update", { analytics_storage: "granted" });
-  } else {
-    const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
-    if (measurementId) {
-      injectGtagScript(measurementId, true);
-    }
   }
 
   // Skip third-party marketing pixels when DNT is enabled
