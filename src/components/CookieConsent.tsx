@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { setConsent, getConsent, initAnalytics } from "@/lib/analytics";
 
 const CookieConsent = () => {
-  const [visible, setVisible] = useState(() => getConsent() === null);
+  // Initialize hidden so the prerendered HTML never includes the banner.
+  // After hydration, show only if the user has not yet made a consent choice.
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (getConsent() === null) setVisible(true);
+  }, []);
 
   if (!visible) return null;
 
