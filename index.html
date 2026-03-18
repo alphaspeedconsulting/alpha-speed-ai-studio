@@ -15,7 +15,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Analytics injected by src/lib/analytics.ts via VITE_GA_MEASUREMENT_ID env var -->
+    <!-- Google tag (gtag.js) — loaded immediately before React to ensure GA4
+         receives every session. Consent Mode v2 defaults deny analytics_storage
+         until the user accepts the cookie banner, at which point analytics.ts
+         calls gtag('consent','update',{analytics_storage:'granted'}). -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=%VITE_GA_MEASUREMENT_ID%"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        wait_for_update: 500
+      });
+      gtag('js', new Date());
+      gtag('config', '%VITE_GA_MEASUREMENT_ID%', { send_page_view: false });
+    </script>
   </head>
 
   <body>
