@@ -25,7 +25,7 @@ const Index = () => {
   useScrollToAnchor();
 
   return (
-    <div className="min-h-screen bg-background overflow-x-visible">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Helmet>
         <title>Alpha Speed AI | DFW AI Automation Studio</title>
         <meta name="description" content="Dallas-Fort Worth's AI automation studio. We build custom AI agents, workflow automation, and integration solutions that help DFW businesses save time, cut costs, and grow." />

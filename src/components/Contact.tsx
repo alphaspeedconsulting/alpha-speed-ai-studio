@@ -10,7 +10,7 @@ const Contact = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* CTA Box */}
-          <div className="text-center p-12 rounded-3xl bg-gradient-to-b from-card to-secondary/30 border border-border glow-teal">
+          <div className="text-center p-6 sm:p-12 rounded-3xl bg-gradient-to-b from-card to-secondary/30 border border-border glow-teal">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
               Ready to <span className="gradient-text">Transform</span> Your Business?
             </h2>

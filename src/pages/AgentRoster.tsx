@@ -171,28 +171,28 @@ const AgentRoster = () => {
         {/* Agent Grid */}
         <section className="pb-16 md:pb-24">
           <div className="container mx-auto px-6">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6">
               {agents.map((agent) => (
                 <div
                   key={agent.name}
                   className="group rounded-2xl bg-card border border-border card-hover overflow-hidden flex flex-col"
                 >
                   {/* Agent Avatar — circular crop with white bg */}
-                  <div className="flex justify-center pt-8 pb-3 bg-primary/5">
-                    <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-primary/20 bg-white">
+                  <div className="flex justify-center pt-5 sm:pt-8 pb-2 sm:pb-3 bg-primary/5">
+                    <div className="w-20 h-20 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-primary/20 bg-white">
                       <AgentImage src={agent.image} alt={agent.name} />
                     </div>
                   </div>
 
                   {/* Card Body */}
-                  <div className="p-5 flex flex-col flex-1 text-center">
+                  <div className="p-3 sm:p-5 flex flex-col flex-1 text-center">
                     <h3 className="text-base font-bold text-foreground">
                       {agent.name}
                     </h3>
                     <p className="text-sm text-primary font-medium mb-2">
                       {agent.role}
                     </p>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-3 flex-1">
+                    <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-3 flex-1 line-clamp-3 sm:line-clamp-none">
                       {agent.description}
                     </p>
 

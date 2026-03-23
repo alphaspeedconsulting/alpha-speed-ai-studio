@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -11,6 +11,16 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [isMenuOpen]);
 
   const navLinks = [
     { label: "Services", hash: "services" },
@@ -126,54 +136,56 @@ const Header = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="lg:hidden pb-6">
-            <nav className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                link.href ? (
-                  <Link
-                    key={link.label}
-                    to={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 font-medium py-2"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <button
-                    key={link.label}
-                    onClick={() => {
-                      link.hash && handleHashNavigation(link.hash);
-                      setIsMenuOpen(false);
-                    }}
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 font-medium py-2 text-left cursor-pointer"
-                  >
-                    {link.label}
-                  </button>
-                )
-              ))}
-              <Link to="/assistant" onClick={() => setIsMenuOpen(false)}>
-                <Button
-                  variant="heroOutline"
-                  size="default"
-                  className="w-full mt-2"
-                  onClick={() => trackEvent("cta_click", "mobile_header_assistant_click", { placement: "mobile_header" })}
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            isMenuOpen ? "max-h-[80vh] opacity-100 pb-6" : "max-h-0 opacity-0"
+          }`}
+        >
+          <nav className="flex flex-col gap-1">
+            {navLinks.map((link) => (
+              link.href ? (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 font-medium py-3 min-h-[44px] flex items-center"
+                  onClick={() => setIsMenuOpen(false)}
                 >
-                  Try the Assistant
-                </Button>
-              </Link>
-              <CalendlyBooking
-                label="Get Started"
-                placement="mobile_header"
-                variant="hero"
+                  {link.label}
+                </Link>
+              ) : (
+                <button
+                  key={link.label}
+                  onClick={() => {
+                    link.hash && handleHashNavigation(link.hash);
+                    setIsMenuOpen(false);
+                  }}
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 font-medium py-3 min-h-[44px] text-left cursor-pointer flex items-center"
+                >
+                  {link.label}
+                </button>
+              )
+            ))}
+            <Link to="/assistant" onClick={() => setIsMenuOpen(false)} className="mt-2">
+              <Button
+                variant="heroOutline"
                 size="default"
                 className="w-full"
-                showArrow={false}
-                showIcon={false}
-              />
-            </nav>
-          </div>
-        )}
+                onClick={() => trackEvent("cta_click", "mobile_header_assistant_click", { placement: "mobile_header" })}
+              >
+                Try the Assistant
+              </Button>
+            </Link>
+            <CalendlyBooking
+              label="Get Started"
+              placement="mobile_header"
+              variant="hero"
+              size="default"
+              className="w-full"
+              showArrow={false}
+              showIcon={false}
+            />
+          </nav>
+        </div>
       </div>
     </header>
   );
