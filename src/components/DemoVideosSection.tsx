@@ -8,7 +8,7 @@ const DemoVideosSection = () => {
     <section id="demos" className="py-10 md:py-16 relative">
       <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
           <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm border-primary/50 text-primary">
             See It In Action
           </Badge>
@@ -21,7 +21,7 @@ const DemoVideosSection = () => {
         </div>
 
         {/* Video Grid */}
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 mb-10 md:mb-16">
           {DEMO_VIDEOS.map((video, index) => (
             <div
               key={index}

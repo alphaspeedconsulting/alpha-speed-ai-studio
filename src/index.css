@@ -163,11 +163,11 @@
   }
 
   html {
-    overflow-x: visible;
+    overflow-x: hidden;
   }
 
   body {
-    @apply bg-background text-foreground antialiased overflow-x-visible;
+    @apply bg-background text-foreground antialiased overflow-x-hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {

@@ -18,7 +18,7 @@ const Footer = () => {
           </Link>
 
           {/* Links */}
-          <nav className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-muted-foreground">
             <a href={`${baseUrl}#services`} className="hover:text-foreground transition-colors">Services</a>
             <a href={`${baseUrl}#how-we-work`} className="hover:text-foreground transition-colors">How It Works</a>
             <a href={`${baseUrl}#portfolio`} className="hover:text-foreground transition-colors">Portfolio</a>

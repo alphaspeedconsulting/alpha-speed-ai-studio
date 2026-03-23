@@ -60,7 +60,7 @@ const AgentsAsServiceSection = () => {
       <div className="absolute inset-0 hero-gradient opacity-30" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
           <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm border-primary/50 text-primary">
             Agent Registry
           </Badge>
@@ -92,16 +92,16 @@ const AgentsAsServiceSection = () => {
 
         <Tabs defaultValue="agents" className="w-full">
           <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-10">
-            <TabsTrigger value="agents" className="flex items-center gap-2">
-              <Bot className="h-4 w-4" />
+            <TabsTrigger value="agents" className="flex items-center gap-1.5 text-xs sm:text-sm sm:gap-2">
+              <Bot className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               Agents
             </TabsTrigger>
-            <TabsTrigger value="mcp" className="flex items-center gap-2">
-              <Server className="h-4 w-4" />
+            <TabsTrigger value="mcp" className="flex items-center gap-1.5 text-xs sm:text-sm sm:gap-2">
+              <Server className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               MCP
             </TabsTrigger>
-            <TabsTrigger value="tools" className="flex items-center gap-2">
-              <Wrench className="h-4 w-4" />
+            <TabsTrigger value="tools" className="flex items-center gap-1.5 text-xs sm:text-sm sm:gap-2">
+              <Wrench className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               Tools
             </TabsTrigger>
           </TabsList>

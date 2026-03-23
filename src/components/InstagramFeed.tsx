@@ -49,7 +49,7 @@ const InstagramFeed = () => {
     <section id="instagram" className="py-10 md:py-16 relative">
       <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
           <Badge
             variant="outline"
             className="mb-4 px-4 py-1.5 text-sm border-primary/50 text-primary"
@@ -98,14 +98,14 @@ const InstagramFeed = () => {
                         <Instagram className="w-8 h-8 text-primary/30" />
                       </div>
                     )}
-                    {/* Caption overlay on hover */}
-                    <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-3">
+                    {/* Caption overlay — always visible on mobile (no hover), hover on desktop */}
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 to-transparent p-3 pt-6 sm:absolute sm:inset-0 sm:bg-background/80 sm:opacity-0 sm:group-hover:opacity-100 sm:transition-opacity sm:duration-200 sm:flex sm:flex-col sm:justify-end sm:p-3 sm:pt-3">
                       {safeCaption && (
-                        <p className="text-xs line-clamp-3 text-foreground leading-relaxed">
+                        <p className="text-xs line-clamp-2 sm:line-clamp-3 text-foreground leading-relaxed">
                           {safeCaption}
                         </p>
                       )}
-                      <ExternalLink className="w-3.5 h-3.5 text-primary mt-1.5 shrink-0" />
+                      <ExternalLink className="w-3.5 h-3.5 text-primary mt-1.5 shrink-0 hidden sm:block" />
                     </div>
                   </a>
                 );
