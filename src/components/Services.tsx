@@ -20,7 +20,7 @@ const Services = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             What We <span className="gradient-text">Do</span>
           </h2>
@@ -30,7 +30,7 @@ const Services = () => {
         </div>
 
         {/* Service Pillars Grid */}
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 md:mb-16">
           {SERVICE_PILLARS.map((service, index) => (
             <div
               key={index}

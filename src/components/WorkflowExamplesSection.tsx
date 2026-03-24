@@ -57,7 +57,7 @@ const WorkflowExamplesSection = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             How <span className="gradient-text">Automation Works</span>
           </h2>
@@ -71,7 +71,7 @@ const WorkflowExamplesSection = () => {
           {workflows.map((workflow, index) => (
             <div
               key={index}
-              className="group p-8 rounded-2xl bg-card border border-border card-hover"
+              className="group p-5 sm:p-8 rounded-2xl bg-card border border-border card-hover"
             >
               {/* Workflow Header */}
               <div className="mb-6">

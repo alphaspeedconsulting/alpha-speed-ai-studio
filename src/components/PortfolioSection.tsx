@@ -24,7 +24,7 @@ const PortfolioSection = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
           <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm border-primary/50 text-primary">
             Real Work, Real Results
           </Badge>
@@ -53,7 +53,7 @@ const PortfolioSection = () => {
               >
                 {/* Screenshots */}
                 {hasImages && (
-                  <div className={`grid gap-1 ${item.images.length === 1 ? "grid-cols-1" : item.images.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
+                  <div className={`grid gap-1 ${item.images.length === 1 ? "grid-cols-1" : item.images.length === 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-3"}`}>
                     {item.images.map((img, imgIndex) => (
                       <div key={imgIndex} className="relative aspect-video bg-muted overflow-hidden">
                         <img

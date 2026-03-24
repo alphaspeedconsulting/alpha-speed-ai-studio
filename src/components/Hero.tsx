@@ -28,9 +28,9 @@ const Hero = () => {
       <div className="absolute inset-0 hero-gradient" />
       <div className="absolute inset-0 grid-pattern opacity-30" />
 
-      {/* Animated Orb */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-glow" />
-      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse-glow delay-1000" />
+      {/* Animated Orb — smaller on mobile for performance */}
+      <div className="absolute top-1/4 right-1/4 w-48 h-48 sm:w-96 sm:h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-glow" />
+      <div className="absolute bottom-1/4 left-1/4 w-32 h-32 sm:w-64 sm:h-64 bg-primary/10 rounded-full blur-3xl animate-pulse-glow delay-1000" />
 
       <div className="w-full max-w-[min(100%,1400px)] mx-auto px-6 sm:px-10 lg:px-16 relative z-10 overflow-visible">
         <div className="max-w-5xl mx-auto text-center">
@@ -65,11 +65,11 @@ const Hero = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CalendlyBooking placement="hero" />
-            <Link to="/assistant">
+            <Link to="/assistant" className="w-full sm:w-auto">
               <Button
                 variant="heroOutline"
                 size="xl"
-                className="group"
+                className="group w-full sm:w-auto"
                 onClick={() => trackEvent("cta_click", "hero_assistant_click", { placement: "hero" })}
               >
                 <MessageSquare className="w-5 h-5" />

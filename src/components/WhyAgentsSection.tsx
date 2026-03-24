@@ -150,7 +150,7 @@ const WhyAgentsSection = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
           <Badge
             variant="outline"
             className="mb-4 px-4 py-1.5 text-sm border-primary/50 text-primary"
@@ -171,7 +171,7 @@ const WhyAgentsSection = () => {
         {/* Side-by-Side Cards */}
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
           {/* ChatGPT Side */}
-          <div className="p-8 rounded-2xl bg-card border border-border relative overflow-hidden">
+          <div className="p-5 sm:p-8 rounded-2xl bg-card border border-border relative overflow-hidden">
             <div className="absolute top-0 inset-x-0 h-1 bg-muted-foreground/30" />
             <div className="mb-6">
               <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">
@@ -237,7 +237,7 @@ const WhyAgentsSection = () => {
           </div>
 
           {/* Agent Side */}
-          <div className="p-8 rounded-2xl bg-card border border-primary/50 relative overflow-hidden">
+          <div className="p-5 sm:p-8 rounded-2xl bg-card border border-primary/50 relative overflow-hidden">
             <div className="absolute top-0 inset-x-0 h-1 bg-primary" />
             <div className="mb-6">
               <p className="text-xs font-bold uppercase tracking-wider text-primary mb-1">

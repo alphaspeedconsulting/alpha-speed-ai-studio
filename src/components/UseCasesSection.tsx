@@ -57,7 +57,7 @@ const UseCasesSection = () => {
     <section id="use-cases" className="py-10 md:py-16 relative">
       <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             What We've <span className="gradient-text">Built</span>
           </h2>
@@ -71,7 +71,7 @@ const UseCasesSection = () => {
           {useCases.map((useCase, index) => (
             <div
               key={index}
-              className="group p-8 rounded-2xl bg-card border border-border card-hover"
+              className="group p-5 sm:p-8 rounded-2xl bg-card border border-border card-hover"
             >
               <div className="flex items-start gap-4 mb-4">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">

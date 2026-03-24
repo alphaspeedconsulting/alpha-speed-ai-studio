@@ -53,7 +53,7 @@ const PlatformSection = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
           <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm border-primary/50 text-primary">
             The Backbone of Your Business
           </Badge>
@@ -66,7 +66,7 @@ const PlatformSection = () => {
         </div>
 
         {/* Platform Features Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 md:mb-16">
           {platformFeatures.map((feature, index) => (
             <div
               key={index}
@@ -84,7 +84,7 @@ const PlatformSection = () => {
         </div>
 
         {/* One Platform - All Capabilities */}
-        <div className="mb-16 p-8 rounded-2xl bg-card border border-border">
+        <div className="mb-10 md:mb-16 p-5 sm:p-8 rounded-2xl bg-card border border-border">
           <h3 className="text-2xl font-bold mb-6 text-center">
             <span className="gradient-text">One Platform</span> — All the Capabilities You Need
           </h3>
