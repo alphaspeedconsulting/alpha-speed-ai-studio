@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { trackLead } from "@/lib/analytics";
+import { buildCaseStudyListSchema } from "@/lib/schema";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -64,6 +65,15 @@ const CaseStudies = () => {
         <meta name="twitter:title" content="AI Automation Case Studies | Alpha Speed AI" />
         <meta name="twitter:description" content="Real AI automation results from DFW businesses." />
         <meta name="twitter:image" content="https://alphaspeedai.com/og-image.jpeg" />
+        <script type="application/ld+json">
+          {JSON.stringify(buildCaseStudyListSchema(
+            CASE_STUDIES.map((cs, i) => ({
+              headline: cs.title,
+              description: cs.challenge.slice(0, 160),
+              url: `https://alphaspeedai.com/case-studies#study-${i + 1}`,
+            }))
+          ))}
+        </script>
       </Helmet>
       <Header />
       <main className="pt-24 pb-16">

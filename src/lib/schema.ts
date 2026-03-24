@@ -9,6 +9,8 @@ import type {
   WebSite,
   Service,
   BreadcrumbList,
+  FAQPage,
+  ItemList,
   WithContext,
 } from "schema-dts";
 
@@ -133,6 +135,69 @@ export function buildServiceSchema(
       name: "Dallas-Fort Worth",
     },
   };
+}
+
+// ── FAQPage ──────────────────────────────────────────────────────────────────
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export function buildFAQPageSchema(
+  items: FAQItem[]
+): WithContext<FAQPage> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question" as const,
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer" as const,
+        text: item.answer,
+      },
+    })),
+  };
+}
+
+// ── ItemList (Case Studies) ──────────────────────────────────────────────────
+
+export interface CaseStudyItem {
+  headline: string;
+  description: string;
+  url: string;
+}
+
+export function buildCaseStudyListSchema(
+  studies: CaseStudyItem[]
+): WithContext<ItemList> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Alpha Speed AI Case Studies",
+    description: "Real AI automation results for DFW businesses",
+    url: `${BASE_URL}/case-studies`,
+    itemListElement: studies.map((study, index) => ({
+      "@type": "ListItem" as const,
+      position: index + 1,
+      item: {
+        "@type": "Article" as const,
+        headline: study.headline,
+        description: study.description,
+        author: {
+          "@type": "Organization" as const,
+          name: "Alpha Speed AI",
+        },
+        publisher: {
+          "@type": "Organization" as const,
+          name: "Alpha Speed AI",
+          url: BASE_URL,
+        },
+        url: study.url,
+      },
+    })),
+  } as WithContext<ItemList>;
 }
 
 // ── BreadcrumbList ────────────────────────────────────────────────────────────

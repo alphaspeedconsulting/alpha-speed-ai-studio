@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { setConsent, getConsent, initAnalytics } from "@/lib/analytics";
 
 const CookieConsent = () => {
@@ -10,6 +10,21 @@ const CookieConsent = () => {
     if (getConsent() === null) setVisible(true);
   }, []);
 
+  const handleDecline = useCallback(() => {
+    setConsent("declined");
+    setVisible(false);
+  }, []);
+
+  // Dismiss with Escape key
+  useEffect(() => {
+    if (!visible) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleDecline();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [visible, handleDecline]);
+
   if (!visible) return null;
 
   const handleAccept = () => {
@@ -18,13 +33,8 @@ const CookieConsent = () => {
     setVisible(false);
   };
 
-  const handleDecline = () => {
-    setConsent("declined");
-    setVisible(false);
-  };
-
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6" role="alertdialog" aria-label="Cookie consent">
       <div className="container mx-auto max-w-4xl">
         <div className="bg-card border border-border rounded-xl shadow-lg px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <p className="text-sm text-muted-foreground flex-1">

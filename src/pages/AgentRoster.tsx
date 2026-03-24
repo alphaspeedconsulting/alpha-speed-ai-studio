@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { buildBreadcrumbSchema } from "@/lib/schema";
+import { buildBreadcrumbSchema, buildFAQPageSchema } from "@/lib/schema";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -141,6 +141,22 @@ const AgentRoster = () => {
           {JSON.stringify(buildBreadcrumbSchema([
             { name: "Home", url: "https://alphaspeedai.com/" },
             { name: "Agent Roster", url: "https://alphaspeedai.com/agents" },
+          ]))}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(buildFAQPageSchema([
+            {
+              question: "What is an AI agent?",
+              answer: "An AI agent is an autonomous software system that perceives its environment, makes decisions, and takes actions to achieve a goal — without requiring step-by-step human instruction for every task.",
+            },
+            {
+              question: "How is an AI agent different from ChatGPT?",
+              answer: "ChatGPT responds to prompts. AI agents act on your behalf — they can browse the web, read emails, update CRMs, send messages, and complete multi-step tasks autonomously. Alpha Speed AI builds agents that work inside your existing tools and workflows.",
+            },
+            {
+              question: "Can I have more than one AI agent for my business?",
+              answer: "Yes. Most Alpha Speed AI clients deploy 2–5 specialized agents that work together — for example, a Customer Relationships agent feeding qualified leads to a Schedule Optimizer agent.",
+            },
           ]))}
         </script>
       </Helmet>

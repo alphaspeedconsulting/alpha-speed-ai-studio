@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { buildLocalBusinessSchema, buildWebSiteSchema } from "@/lib/schema";
+import { buildLocalBusinessSchema, buildWebSiteSchema, buildFAQPageSchema } from "@/lib/schema";
 import { useScrollToAnchor } from "@/hooks/useScrollToAnchor";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
@@ -47,6 +47,30 @@ const Index = () => {
         </script>
         <script type="application/ld+json">
           {JSON.stringify(buildWebSiteSchema())}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(buildFAQPageSchema([
+            {
+              question: "What is an AI automation agency?",
+              answer: "An AI automation agency builds custom AI agents and workflow automations that handle repetitive business tasks — from lead qualification and scheduling to customer follow-up and reporting — so your team can focus on high-value work.",
+            },
+            {
+              question: "How much does AI automation cost for a small business?",
+              answer: "AI automation projects for small businesses typically range from $2,500 for targeted workflow automation to $15,000+ for fully custom multi-agent systems. Alpha Speed AI offers free consultations to scope your specific needs.",
+            },
+            {
+              question: "How long does it take to implement AI automation?",
+              answer: "Most Alpha Speed AI projects deliver a working automation in 2–4 weeks. Complex multi-agent systems or enterprise integrations typically take 6–12 weeks depending on scope.",
+            },
+            {
+              question: "Do I need to know how to code to use AI automation?",
+              answer: "No. Alpha Speed AI handles all technical implementation. You describe the problem; we build, test, and deploy the solution. Most clients interact with their AI agents through tools they already use.",
+            },
+            {
+              question: "What kinds of businesses benefit most from AI automation?",
+              answer: "Any business that handles repetitive processes benefits — construction firms, professional services, e-commerce, healthcare administration, and real estate are among the strongest use cases in DFW.",
+            },
+          ]))}
         </script>
       </Helmet>
       <Header />
