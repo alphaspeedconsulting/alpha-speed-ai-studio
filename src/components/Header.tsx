@@ -12,15 +12,31 @@ const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll only while the mobile menu is open on mobile widths.
   useEffect(() => {
-    if (isMenuOpen) {
+    const isMobileViewport = window.matchMedia("(max-width: 1023px)").matches;
+    if (isMenuOpen && isMobileViewport) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
     return () => { document.body.style.overflow = ""; };
   }, [isMenuOpen]);
+
+  // Ensure menu state resets when crossing into desktop layout.
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const handleDesktopSwitch = (event: MediaQueryListEvent) => {
+      if (event.matches) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleDesktopSwitch);
+    return () => {
+      mediaQuery.removeEventListener("change", handleDesktopSwitch);
+    };
+  }, []);
 
   const navLinks = [
     { label: "Services", hash: "services" },
@@ -129,6 +145,8 @@ const Header = () => {
               className="text-foreground p-3"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -137,8 +155,11 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         <div
+          id="mobile-nav"
+          aria-hidden={!isMenuOpen}
+          inert={!isMenuOpen}
           className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isMenuOpen ? "max-h-[80vh] opacity-100 pb-6" : "max-h-0 opacity-0"
+            isMenuOpen ? "max-h-[calc(100vh-5rem)] opacity-100 pb-6 overflow-y-auto" : "max-h-0 opacity-0 pointer-events-none"
           }`}
         >
           <nav className="flex flex-col gap-1">
