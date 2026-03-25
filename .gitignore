@@ -26,11 +26,9 @@ dist-ssr
 # AlphaAI local assistant (isolated development)
 ai-assistant-local/
 
-# Claude skills (cloned repos, not submodules)
-.claude/skills/
-
-# Cursor debug logs
-.cursor/debug.log
+# Local AI/editor tooling (proprietary; keep out of public remote)
+.claude/
+.cursor/
 
 # Lighthouse CI generated reports
 .lighthouseci/
