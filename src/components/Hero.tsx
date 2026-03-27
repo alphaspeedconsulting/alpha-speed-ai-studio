@@ -81,7 +81,7 @@ const Hero = () => {
           {/* Secondary link */}
           <div className="mt-8">
             <Link
-              to="/agents"
+              to="/agentvault"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
               onClick={() => trackEvent("cta_click", "hero_agents_link", { placement: "hero" })}
             >

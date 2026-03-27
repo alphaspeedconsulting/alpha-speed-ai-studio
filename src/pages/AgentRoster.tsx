@@ -8,6 +8,7 @@ import WhyAgentsSection from "@/components/WhyAgentsSection";
 import { Badge } from "@/components/ui/badge";
 import { Wrench, Bot } from "lucide-react";
 import CalendlyBooking from "@/components/CalendlyBooking";
+import AgentVaultPricing from "@/components/AgentVaultPricing";
 
 interface Agent {
   name: string;
@@ -126,36 +127,36 @@ const AgentRoster = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>AI Agent Roster | Alpha Speed AI</title>
-        <meta name="description" content="Meet the specialized AI agents that power Alpha Speed AI's automation platform. Each agent has a defined role — from Product Owner to Customer Relationships — keeping your workflows running 24/7." />
-        <link rel="canonical" href="https://alphaspeedai.com/agents" />
-        <meta property="og:title" content="AI Agent Roster | Alpha Speed AI" />
-        <meta property="og:description" content="Meet the specialized AI agents on the Alpha Speed AI platform. Built for DFW businesses." />
-        <meta property="og:url" content="https://alphaspeedai.com/agents" />
+        <title>AgentVault — AI Agents, MCP Connectors &amp; Workflows | Alpha Speed AI</title>
+        <meta name="description" content="AgentVault is the AI workflow automation platform from Alpha Speed AI. Get 10+ specialized agents, MCP connectors, 30+ skills, and canonical workflows — installed in minutes via Claude's Cowork plugin." />
+        <link rel="canonical" href="https://alphaspeedai.com/agentvault" />
+        <meta property="og:title" content="AgentVault — AI Agents, MCP Connectors &amp; Workflows | Alpha Speed AI" />
+        <meta property="og:description" content="AgentVault gives your team 10+ AI agents, 30+ skills, and 38 canonical workflows. Works inside Claude's Cowork plugin." />
+        <meta property="og:url" content="https://alphaspeedai.com/agentvault" />
         <meta property="og:image" content="https://alphaspeedai.com/og-image.jpeg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="AI Agent Roster | Alpha Speed AI" />
-        <meta name="twitter:description" content="Meet the specialized AI agents on the Alpha Speed AI platform." />
+        <meta name="twitter:title" content="AgentVault — AI Agents, MCP Connectors &amp; Workflows | Alpha Speed AI" />
+        <meta name="twitter:description" content="AgentVault gives your team 10+ AI agents, 30+ skills, and 38 canonical workflows." />
         <meta name="twitter:image" content="https://alphaspeedai.com/og-image.jpeg" />
         <script type="application/ld+json">
           {JSON.stringify(buildBreadcrumbSchema([
             { name: "Home", url: "https://alphaspeedai.com/" },
-            { name: "Agent Roster", url: "https://alphaspeedai.com/agents" },
+            { name: "AgentVault", url: "https://alphaspeedai.com/agentvault" },
           ]))}
         </script>
         <script type="application/ld+json">
           {JSON.stringify(buildFAQPageSchema([
             {
-              question: "What is an AI agent?",
-              answer: "An AI agent is an autonomous software system that perceives its environment, makes decisions, and takes actions to achieve a goal — without requiring step-by-step human instruction for every task.",
+              question: "What is AgentVault?",
+              answer: "AgentVault is an AI workflow automation platform that installs into Claude's Cowork plugin. It gives your team specialized AI agents, MCP connectors, skills, and canonical workflows — all manageable from a single license key.",
             },
             {
-              question: "How is an AI agent different from ChatGPT?",
-              answer: "ChatGPT responds to prompts. AI agents act on your behalf — they can browse the web, read emails, update CRMs, send messages, and complete multi-step tasks autonomously. Alpha Speed AI builds agents that work inside your existing tools and workflows.",
+              question: "How do I install AgentVault?",
+              answer: "After subscribing, you'll receive a license key. Run the AgentVault CLI installer and the Cowork plugin automatically connects your agents and MCP connectors to Claude.",
             },
             {
-              question: "Can I have more than one AI agent for my business?",
-              answer: "Yes. Most Alpha Speed AI clients deploy 2–5 specialized agents that work together — for example, a Customer Relationships agent feeding qualified leads to a Schedule Optimizer agent.",
+              question: "What's included in every AgentVault plan?",
+              answer: "Every plan includes the full agent roster (Product Owner, Developer, Architect, and more), the Cowork plugin installer, and at least 5 canonical workflows. Higher tiers add more connectors, skills, and workflow runs per month.",
             },
           ]))}
         </script>
@@ -171,20 +172,49 @@ const AgentRoster = () => {
               variant="outline"
               className="mb-4 px-4 py-1.5 text-sm border-primary/50 text-primary"
             >
-              Meet the Team
+              AI Workflow Automation
             </Badge>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-4">
-              Agent <span className="gradient-text">Roster</span>
+              Agent<span className="gradient-text">Vault</span>
             </h1>
             <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto">
-              Every agent on our platform has a clear role, a defined set of
-              tools, and one job — making your workflows faster. Here's who's on
-              the team.
+              A complete AI platform that lives inside Claude's Cowork plugin.
+              Agents, MCP connectors, skills, and workflows — activated with a
+              single license key.
             </p>
           </div>
         </section>
 
+        {/* Value proposition */}
+        <section className="pb-8">
+          <div className="container mx-auto px-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto text-center">
+              {[
+                { stat: "10+", label: "AI Agents" },
+                { stat: "30+", label: "Skills" },
+                { stat: "18", label: "MCP Connectors" },
+                { stat: "38", label: "Workflows" },
+              ].map(({ stat, label }) => (
+                <div key={label} className="rounded-xl bg-card border border-border p-4">
+                  <p className="text-3xl font-extrabold gradient-text">{stat}</p>
+                  <p className="text-sm text-muted-foreground mt-1">{label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Agent Grid */}
+        <section className="py-8 md:py-16">
+          <div className="container mx-auto px-6 text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-2">
+              Your <span className="gradient-text">Agent Roster</span>
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Every agent has a defined role and toolset. They're included in every AgentVault plan.
+            </p>
+          </div>
+        </section>
         <section className="pb-16 md:pb-24">
           <div className="container mx-auto px-6">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6">
@@ -231,6 +261,9 @@ const AgentRoster = () => {
             </div>
           </div>
         </section>
+
+        {/* Pricing */}
+        <AgentVaultPricing />
 
         {/* CTA */}
         <section className="pb-16 md:pb-24">

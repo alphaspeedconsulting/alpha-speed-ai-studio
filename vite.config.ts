@@ -108,7 +108,7 @@ function alphaAIPublic(): Plugin {
  * HTML back to dist/<route>/index.html so GitHub Pages serves real content to crawlers.
  */
 function prerenderPlugin(): Plugin {
-  const ROUTES = ["/", "/assistant", "/agents", "/reels", "/roi-calculator", "/case-studies", "/privacy-policy", "/terms-of-service", "/privacy-request"];
+  const ROUTES = ["/", "/assistant", "/agentvault", "/reels", "/roi-calculator", "/case-studies", "/privacy-policy", "/terms-of-service", "/privacy-request"];
   const RENDER_WAIT_MS = 3000;
 
   return {
@@ -182,7 +182,7 @@ export default defineConfig(({ mode }) => ({
         "/roi-calculator",
         "/case-studies",
         "/assistant",
-        "/agents",
+        "/agentvault",
         "/reels",
         "/privacy-policy",
         "/terms-of-service",
@@ -192,7 +192,7 @@ export default defineConfig(({ mode }) => ({
       exclude: ["/alphaai", "/traffic", "/404"],
       changefreq: {
         "/": "weekly",
-        "/agents": "weekly",
+        "/agentvault": "weekly",
         "/case-studies": "monthly",
         "/assistant": "monthly",
         "/roi-calculator": "monthly",
@@ -203,7 +203,7 @@ export default defineConfig(({ mode }) => ({
       },
       priority: {
         "/": 1.0,
-        "/agents": 0.9,
+        "/agentvault": 0.9,
         "/case-studies": 0.9,
         "/assistant": 0.8,
         "/roi-calculator": 0.7,

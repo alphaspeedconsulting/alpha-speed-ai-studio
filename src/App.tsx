@@ -9,6 +9,8 @@ import RoiCalculator from "./components/marketing/RoiCalculator";
 import CaseStudies from "./components/marketing/CaseStudies";
 import Assistant from "./pages/Assistant";
 import AgentRoster from "./pages/AgentRoster";
+import AgentVaultSignup from "./pages/AgentVaultSignup";
+import { Navigate } from "react-router-dom";
 import AlphaAIDashboard from "./pages/AlphaAIDashboard";
 import TrafficMetricsDashboard from "./pages/TrafficMetricsDashboard";
 import Reels from "./pages/Reels";
@@ -37,7 +39,9 @@ const App = () => (
             <Route path="/roi-calculator" element={<RoiCalculator />} />
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/assistant" element={<Assistant />} />
-            <Route path="/agents" element={<AgentRoster />} />
+            <Route path="/agentvault" element={<AgentRoster />} />
+            <Route path="/agentvault/signup" element={<AgentVaultSignup />} />
+            <Route path="/agents" element={<Navigate to="/agentvault" replace />} />
             <Route path="/alphaai" element={<AlphaAIDashboard />} />
             <Route path="/traffic" element={<TrafficMetricsDashboard />} />
             <Route path="/reels" element={<Reels />} />
