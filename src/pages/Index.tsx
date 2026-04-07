@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { buildLocalBusinessSchema, buildWebSiteSchema, buildFAQPageSchema } from "@/lib/schema";
 import { useScrollToAnchor } from "@/hooks/useScrollToAnchor";
@@ -8,17 +9,19 @@ import StatsBar from "@/components/StatsBar";
 import WhyAgentsSection from "@/components/WhyAgentsSection";
 import Services from "@/components/Services";
 import HowWeWorkSection from "@/components/HowWeWorkSection";
+import SectionCTA from "@/components/SectionCTA";
 import PortfolioSection from "@/components/PortfolioSection";
-import PlatformSection from "@/components/PlatformSection";
-import AgentsAsServiceSection from "@/components/AgentsAsServiceSection";
-import UseCasesSection from "@/components/UseCasesSection";
-import WorkflowExamplesSection from "@/components/WorkflowExamplesSection";
-import DemoVideosSection from "@/components/DemoVideosSection";
-import InstagramFeed from "@/components/InstagramFeed";
 import About from "@/components/About";
 import EmailCapture from "@/components/EmailCapture";
 import Contact from "@/components/Contact";
+import StickyCtaBanner from "@/components/StickyCtaBanner";
+import ExitIntentModal from "@/components/ExitIntentModal";
+import ScrollDepthTracker from "@/components/ScrollDepthTracker";
 import Footer from "@/components/Footer";
+
+// Lazy-load below-fold heavy sections
+const UseCasesSection = lazy(() => import("@/components/UseCasesSection"));
+const DemoVideosSection = lazy(() => import("@/components/DemoVideosSection"));
 
 const Index = () => {
   useScrollToTop();
@@ -79,18 +82,29 @@ const Index = () => {
         <StatsBar />
         <WhyAgentsSection />
         <Services />
+        <SectionCTA
+          text="See how we built this for DCR Roofing"
+          to="/case-studies"
+          trackingName="section_cta_case_studies"
+        />
         <HowWeWorkSection />
-        <EmailCapture />
+        <SectionCTA
+          text="Calculate your potential savings"
+          to="/roi-calculator"
+          trackingName="section_cta_roi_calculator"
+        />
         <PortfolioSection />
-        <AgentsAsServiceSection />
-        <PlatformSection />
-        <UseCasesSection />
-        <WorkflowExamplesSection />
-        <DemoVideosSection />
-        <InstagramFeed />
+        <Suspense fallback={null}>
+          <UseCasesSection />
+          <DemoVideosSection />
+        </Suspense>
         <About />
+        <EmailCapture />
         <Contact />
       </main>
+      <StickyCtaBanner />
+      <ExitIntentModal />
+      <ScrollDepthTracker />
       <Footer />
     </div>
   );

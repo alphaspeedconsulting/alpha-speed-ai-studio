@@ -83,9 +83,12 @@ const InstagramFeed = () => {
                     {hasImage ? (
                       <img
                         src={post.image_url!}
-                        alt="Instagram post"
+                        alt={safeCaption ? safeCaption.slice(0, 100) : "Instagram post by Alpha Speed AI"}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
+                        decoding="async"
+                        width={400}
+                        height={400}
                         onError={() =>
                           setFailedImages((prev) => ({
                             ...prev,

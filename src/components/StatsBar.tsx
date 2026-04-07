@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
 const STATS = [
-  { value: "40%", label: "avg productivity gain", detail: "industry benchmark" },
-  { value: "3×", label: "average ROI", detail: "within 12 months" },
-  { value: "$50K+", label: "avg annual savings", detail: "per automated workflow" },
+  { value: "20+", label: "hours saved per week", detail: "per client average" },
+  { value: "90%", label: "faster lead response", detail: "automated follow-up" },
+  { value: "3×", label: "return on investment", detail: "within 12 months" },
 ];
 
 const StatsBar = () => {

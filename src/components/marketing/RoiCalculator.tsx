@@ -5,10 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Calculator, Mail } from "lucide-react";
+import { ArrowRight, Calculator, Mail, ChevronDown, ChevronUp } from "lucide-react";
 import { trackLead } from "@/lib/analytics";
+import { buildFAQPageSchema } from "@/lib/schema";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CalendlyBooking from "@/components/CalendlyBooking";
 
 type InputState = {
   employees: string;
@@ -56,6 +58,31 @@ const RoiCalculator = () => {
     setSubmitting(false);
   };
 
+  const roiFaqs = [
+    {
+      question: "How accurate is this AI ROI calculator?",
+      answer: "Our calculator uses an industry-standard 40% task automation rate, which is a conservative estimate based on McKinsey research on automation potential across industries. Your actual savings may be higher depending on the types of tasks automated — highly repetitive tasks like data entry and lead follow-up often see 70-90% automation rates.",
+    },
+    {
+      question: "What types of tasks can AI automate?",
+      answer: "AI agents can automate lead qualification and follow-up, appointment scheduling, invoice processing, customer support triage, report generation, data entry and CRM updates, email responses, and multi-step business workflows. Essentially any repetitive task that follows a consistent pattern.",
+    },
+    {
+      question: "How long does it take to see ROI from AI automation?",
+      answer: "Most Alpha Speed AI clients see measurable ROI within 4-6 weeks of deployment. Simple workflow automations can deliver savings from day one, while more complex multi-agent systems typically reach full ROI within 3 months.",
+    },
+    {
+      question: "What's the minimum team size that benefits from AI automation?",
+      answer: "Even solo entrepreneurs and two-person teams benefit from AI automation. If you spend more than 5 hours per week on repetitive tasks, automation will free up meaningful time. Our smallest clients are one-person operations that use AI agents to handle lead follow-up and scheduling.",
+    },
+    {
+      question: "How much does AI automation cost compared to hiring?",
+      answer: "AI automation projects typically cost $2,500-$15,000 as a one-time investment, compared to $40,000-$60,000+ per year for an additional employee. Most automation solutions pay for themselves within 2-4 months through time savings alone.",
+    },
+  ];
+
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
@@ -70,6 +97,9 @@ const RoiCalculator = () => {
         <meta name="twitter:title" content="AI ROI Calculator | Alpha Speed AI" />
         <meta name="twitter:description" content="Calculate your potential ROI from AI automation." />
         <meta name="twitter:image" content="https://alphaspeedai.com/og-image.jpeg" />
+        <script type="application/ld+json">
+          {JSON.stringify(buildFAQPageSchema(roiFaqs))}
+        </script>
       </Helmet>
       <Header />
       <main className="pt-24 pb-16">
@@ -205,6 +235,95 @@ const RoiCalculator = () => {
               )}
             </div>
           )}
+
+          {/* How We Calculate */}
+          <div className="mt-12 mb-8">
+            <h2 className="text-2xl font-bold mb-4">How We Calculate Your AI ROI</h2>
+            <p className="text-muted-foreground mb-4">
+              Our calculator uses a straightforward formula based on your team's actual workload:
+            </p>
+            <div className="rounded-xl bg-card border border-border p-6 mb-4">
+              <p className="text-sm font-mono text-center text-primary mb-3">
+                Annual Savings = Employees × Hours/Week × Hourly Cost × 52 Weeks × 40%
+              </p>
+              <p className="text-sm text-muted-foreground text-center">
+                The 40% automation rate is a conservative industry benchmark. Highly repetitive tasks like data entry and follow-up emails often see 70-90% automation rates.
+              </p>
+            </div>
+          </div>
+
+          {/* Example Scenarios */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold mb-4">Example Scenarios</h2>
+            <div className="space-y-4">
+              <div className="rounded-xl bg-card border border-border p-5">
+                <h3 className="font-semibold mb-2">Roofing Contractor (5 employees)</h3>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Office staff spends 15 hrs/week on lead follow-up, scheduling, and invoice processing at $25/hr.
+                </p>
+                <p className="text-sm">
+                  <span className="font-medium text-primary">Result:</span> $39,000/year in savings — paid back the automation investment in 6 weeks.
+                </p>
+              </div>
+              <div className="rounded-xl bg-card border border-border p-5">
+                <h3 className="font-semibold mb-2">E-commerce Business (3 employees)</h3>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Team handles 20 hrs/week of order processing, customer support, and inventory updates at $30/hr.
+                </p>
+                <p className="text-sm">
+                  <span className="font-medium text-primary">Result:</span> $37,440/year in savings — freed up team to focus on marketing and growth.
+                </p>
+              </div>
+              <div className="rounded-xl bg-card border border-border p-5">
+                <h3 className="font-semibold mb-2">Solo Consultant</h3>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Spends 10 hrs/week on email follow-up, proposal writing, and scheduling at $75/hr.
+                </p>
+                <p className="text-sm">
+                  <span className="font-medium text-primary">Result:</span> $15,600/year in savings — reclaimed an entire workday per week.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="rounded-2xl bg-gradient-to-b from-card to-secondary/30 border border-border p-6 sm:p-8 text-center mb-8">
+            <h2 className="text-xl font-bold mb-2">Want to see these savings for your business?</h2>
+            <p className="text-muted-foreground mb-6 text-sm">
+              Book a free consultation and we'll map out exactly which tasks to automate first.
+            </p>
+            <CalendlyBooking
+              label="Book Free Consultation"
+              placement="roi_calculator_bottom"
+            />
+          </div>
+
+          {/* FAQ */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
+            <div className="space-y-2">
+              {roiFaqs.map((faq, i) => (
+                <div key={i} className="rounded-xl border border-border overflow-hidden">
+                  <button
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="w-full flex items-center justify-between p-4 text-left hover:bg-card/50 transition-colors"
+                  >
+                    <span className="text-sm font-medium pr-4">{faq.question}</span>
+                    {openFaq === i ? (
+                      <ChevronUp className="w-4 h-4 text-muted-foreground shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" />
+                    )}
+                  </button>
+                  {openFaq === i && (
+                    <div className="px-4 pb-4">
+                      <p className="text-sm text-muted-foreground">{faq.answer}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div className="text-center mt-8">
             <Link to="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">

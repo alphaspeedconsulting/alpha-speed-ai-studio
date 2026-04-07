@@ -108,8 +108,20 @@ function alphaAIPublic(): Plugin {
  * HTML back to dist/<route>/index.html so GitHub Pages serves real content to crawlers.
  */
 function prerenderPlugin(): Plugin {
-  const ROUTES = ["/", "/assistant", "/agentvault", "/reels", "/roi-calculator", "/case-studies", "/privacy-policy", "/terms-of-service", "/privacy-request"];
+  const ROUTES = ["/", "/assistant", "/agentvault", "/reels", "/roi-calculator", "/case-studies", "/from/instagram", "/from/linkedin", "/privacy-policy", "/terms-of-service", "/privacy-request"];
   const RENDER_WAIT_MS = 3000;
+
+  // Content markers that MUST appear in pre-rendered HTML for each route.
+  // If a marker is missing, the build will warn (the page likely rendered an empty shell).
+  const CONTENT_MARKERS: Record<string, string[]> = {
+    "/": ["Alpha Speed AI", "DFW", "AI Automation"],
+    "/roi-calculator": ["ROI Calculator", "Save with AI"],
+    "/case-studies": ["Case Studies", "Real Work"],
+    "/agentvault": ["AgentVault"],
+    "/assistant": ["Assistant"],
+    "/privacy-policy": ["Privacy Policy"],
+    "/terms-of-service": ["Terms of Service"],
+  };
 
   return {
     name: "seo-prerender",
@@ -137,12 +149,29 @@ function prerenderPlugin(): Plugin {
       });
       console.log(`[seo-prerender] Rendering ${ROUTES.length} routes on port ${port}…`);
 
+      let failures = 0;
       for (const route of ROUTES) {
         const page = await browser.newPage();
         await page.goto(`http://localhost:${port}${route}`, { waitUntil: "networkidle0" });
         await new Promise((r) => setTimeout(r, RENDER_WAIT_MS));
         const html = await page.content();
         await page.close();
+
+        // Content verification: ensure pre-rendered HTML contains expected markers
+        const markers = CONTENT_MARKERS[route];
+        if (markers) {
+          const missing = markers.filter((m) => !html.includes(m));
+          if (missing.length > 0) {
+            console.error(`[seo-prerender] ✗ ${route} MISSING CONTENT: ${missing.join(", ")}`);
+            console.error(`[seo-prerender]   HTML length: ${html.length} chars — page may have rendered as empty shell`);
+            failures++;
+          }
+        }
+
+        // Verify meta tags are present in pre-rendered output
+        if (!html.includes("<title>") || !html.includes('meta name="description"')) {
+          console.warn(`[seo-prerender] ⚠ ${route} missing <title> or meta description in rendered HTML`);
+        }
 
         const outDir = route === "/" ? distDir : path.join(distDir, route);
         fs.mkdirSync(outDir, { recursive: true });
@@ -152,6 +181,10 @@ function prerenderPlugin(): Plugin {
 
       await browser.close();
       await new Promise<void>((resolve) => server.close(() => resolve()));
+
+      if (failures > 0) {
+        console.error(`\n[seo-prerender] ⚠ ${failures} route(s) failed content verification. Google may index empty shells.`);
+      }
       console.log("[seo-prerender] Done.");
     },
   };

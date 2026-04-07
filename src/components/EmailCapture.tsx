@@ -13,7 +13,11 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const EmailCapture = () => {
+interface EmailCaptureProps {
+  compact?: boolean;
+}
+
+const EmailCapture = ({ compact = false }: EmailCaptureProps) => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -70,6 +74,53 @@ const EmailCapture = () => {
     setSubmitted(true);
   };
 
+  const formContent = (
+    <>
+      {submitted ? (
+        <div className="flex items-center justify-center gap-2 text-primary font-medium py-3">
+          <CheckCircle2 className="w-5 h-5" />
+          You're in! Check your inbox.
+        </div>
+      ) : (
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+        >
+          <div className="flex-1">
+            <Input
+              type="email"
+              placeholder="your@email.com"
+              {...register("email")}
+              className="h-11"
+              aria-label="Email address"
+            />
+            {errors.email && (
+              <p className="text-sm text-destructive mt-1 text-left">
+                {errors.email.message}
+              </p>
+            )}
+            {error && (
+              <p className="text-sm text-destructive mt-1 text-left">
+                {error}
+              </p>
+            )}
+          </div>
+          <Button type="submit" variant="hero" size="default" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              "Subscribe"
+            )}
+          </Button>
+        </form>
+      )}
+    </>
+  );
+
+  if (compact) {
+    return <div className="text-center">{formContent}</div>;
+  }
+
   return (
     <section className="py-10 md:py-16 relative">
       <div className="container mx-auto px-6">
@@ -83,45 +134,7 @@ const EmailCapture = () => {
               Weekly insights on how DFW businesses are using AI to save time and grow.
               No spam — unsubscribe anytime.
             </p>
-
-            {submitted ? (
-              <div className="flex items-center justify-center gap-2 text-primary font-medium py-3">
-                <CheckCircle2 className="w-5 h-5" />
-                You're in! Check your inbox.
-              </div>
-            ) : (
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-              >
-                <div className="flex-1">
-                  <Input
-                    type="email"
-                    placeholder="your@email.com"
-                    {...register("email")}
-                    className="h-11"
-                    aria-label="Email address"
-                  />
-                  {errors.email && (
-                    <p className="text-sm text-destructive mt-1 text-left">
-                      {errors.email.message}
-                    </p>
-                  )}
-                  {error && (
-                    <p className="text-sm text-destructive mt-1 text-left">
-                      {error}
-                    </p>
-                  )}
-                </div>
-                <Button type="submit" variant="hero" size="default" disabled={isSubmitting}>
-                  {isSubmitting ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : (
-                    "Subscribe"
-                  )}
-                </Button>
-              </form>
-            )}
+            {formContent}
           </div>
         </div>
       </div>
