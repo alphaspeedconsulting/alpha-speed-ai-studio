@@ -108,17 +108,36 @@ function alphaAIPublic(): Plugin {
  * HTML back to dist/<route>/index.html so GitHub Pages serves real content to crawlers.
  */
 function prerenderPlugin(): Plugin {
-  const ROUTES = ["/", "/assistant", "/agentvault", "/reels", "/roi-calculator", "/case-studies", "/from/instagram", "/from/linkedin", "/privacy-policy", "/terms-of-service", "/privacy-request"];
+  // Add new blog posts here when published.
+  const BLOG_POST_SLUGS = ["chatbot-vs-ai-agent"];
+
+  const ROUTES = [
+    "/",
+    "/assistant",
+    "/agentvault",
+    "/reels",
+    "/roi-calculator",
+    "/case-studies",
+    "/blog",
+    ...BLOG_POST_SLUGS.map((s) => `/blog/${s}`),
+    "/from/instagram",
+    "/from/linkedin",
+    "/privacy-policy",
+    "/terms-of-service",
+    "/privacy-request",
+  ];
   const RENDER_WAIT_MS = 3000;
 
   // Content markers that MUST appear in pre-rendered HTML for each route.
-  // If a marker is missing, the build will warn (the page likely rendered an empty shell).
+  // A missing marker causes the build to fail — prevents deploying empty shells.
   const CONTENT_MARKERS: Record<string, string[]> = {
     "/": ["Alpha Speed AI", "DFW", "AI Automation"],
     "/roi-calculator": ["ROI Calculator", "Save with AI"],
     "/case-studies": ["Case Studies", "Real Work"],
     "/agentvault": ["AgentVault"],
     "/assistant": ["Assistant"],
+    "/blog": ["Alpha Speed AI Blog", "DFW business owners"],
+    "/blog/chatbot-vs-ai-agent": ["Chatbot vs AI Agent", "What's the Difference"],
     "/privacy-policy": ["Privacy Policy"],
     "/terms-of-service": ["Terms of Service"],
   };
@@ -183,9 +202,32 @@ function prerenderPlugin(): Plugin {
       await new Promise<void>((resolve) => server.close(() => resolve()));
 
       if (failures > 0) {
-        console.error(`\n[seo-prerender] ⚠ ${failures} route(s) failed content verification. Google may index empty shells.`);
+        // Hard failure: a silent deploy of empty shells would mean Google indexes nothing.
+        // Force the build to fail so CI catches the problem before deployment.
+        throw new Error(
+          `[seo-prerender] ${failures} route(s) failed content verification. ` +
+          `Fix rendering before deploying to prevent empty Google index shells.`
+        );
       }
       console.log("[seo-prerender] Done.");
+    },
+  };
+}
+
+/**
+ * Injects the Google Search Console verification meta tag into index.html.
+ * Set VITE_GSC_VERIFICATION=<token> in .env.local — never commit the value.
+ * The placeholder %VITE_GSC_TAG% is replaced at build time.
+ */
+function gscVerificationPlugin(): Plugin {
+  return {
+    name: "gsc-verification",
+    transformIndexHtml(html) {
+      const token = process.env.VITE_GSC_VERIFICATION;
+      const tag = token
+        ? `<meta name="google-site-verification" content="${token}" />`
+        : "";
+      return html.replace(/%VITE_GSC_TAG%/g, tag);
     },
   };
 }
@@ -207,6 +249,7 @@ export default defineConfig(({ mode }) => ({
     // On CI/GitHub Pages where it's missing, skip the plugin entirely to prevent
     // Vite from creating an unreachable virtual module chunk that 404s.
     ...(alphaAISrcExists ? [alphaAIStub()] : []),
+    gscVerificationPlugin(),
     react(),
     alphaAIPublic(),
     sitemap({
@@ -214,6 +257,8 @@ export default defineConfig(({ mode }) => ({
       dynamicRoutes: [
         "/roi-calculator",
         "/case-studies",
+        "/blog",
+        "/blog/chatbot-vs-ai-agent",
         "/assistant",
         "/agentvault",
         "/reels",
@@ -221,11 +266,13 @@ export default defineConfig(({ mode }) => ({
         "/terms-of-service",
         "/privacy-request",
       ],
-      // Internal/private pages and error pages — excluded from sitemap
-      exclude: ["/alphaai", "/traffic", "/404"],
+      // Internal/private pages, social landing pages (noindex), and error pages — excluded from sitemap
+      exclude: ["/alphaai", "/traffic", "/404", "/from/instagram", "/from/linkedin"],
       changefreq: {
         "/": "weekly",
         "/agentvault": "weekly",
+        "/blog": "weekly",
+        "/blog/chatbot-vs-ai-agent": "monthly",
         "/case-studies": "monthly",
         "/assistant": "monthly",
         "/roi-calculator": "monthly",
@@ -236,6 +283,8 @@ export default defineConfig(({ mode }) => ({
       },
       priority: {
         "/": 1.0,
+        "/blog": 0.9,
+        "/blog/chatbot-vs-ai-agent": 0.8,
         "/agentvault": 0.9,
         "/case-studies": 0.9,
         "/assistant": 0.8,

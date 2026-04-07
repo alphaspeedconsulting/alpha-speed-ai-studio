@@ -19,6 +19,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import PrivacyRequest from "./pages/PrivacyRequest";
 import FromInstagram from "./pages/FromInstagram";
 import FromLinkedIn from "./pages/FromLinkedIn";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import { SPAPathRestore } from "@/components/SPAPathRestore";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
@@ -52,6 +54,8 @@ const App = () => (
             <Route path="/privacy-request" element={<PrivacyRequest />} />
             <Route path="/from/instagram" element={<FromInstagram />} />
             <Route path="/from/linkedin" element={<FromLinkedIn />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

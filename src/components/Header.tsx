@@ -45,6 +45,7 @@ const Header = () => {
     { label: "Demos", hash: "demos" },
     { label: "Reels", href: "/reels" },
     { label: "AgentVault", href: "/agentvault" },
+    { label: "Blog", href: "/blog" },
     { label: "About", hash: "about" },
     { label: "Contact", hash: "contact" },
   ];
