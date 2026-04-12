@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Calculator, Mail, ChevronDown, ChevronUp } from "lucide-react";
 import { trackLead } from "@/lib/analytics";
 import { buildFAQPageSchema } from "@/lib/schema";
+import { buildCanonicalUrl } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CalendlyBooking from "@/components/CalendlyBooking";
@@ -25,6 +26,7 @@ export function calcAnnualSavings(employees: number, hoursPerWeek: number, hourl
 }
 
 const RoiCalculator = () => {
+  const canonicalUrl = buildCanonicalUrl("/roi-calculator");
   const [inputs, setInputs] = useState<InputState>({
     employees: "",
     hoursPerWeek: "",
@@ -88,10 +90,10 @@ const RoiCalculator = () => {
       <Helmet>
         <title>AI ROI Calculator | Alpha Speed AI</title>
         <meta name="description" content="Calculate your potential ROI from AI automation. See how much time and money your DFW business can save with custom AI agents and workflow automation." />
-        <link rel="canonical" href="https://alphaspeedai.com/roi-calculator" />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content="AI ROI Calculator | Alpha Speed AI" />
         <meta property="og:description" content="Calculate your potential ROI from AI automation for your DFW business." />
-        <meta property="og:url" content="https://alphaspeedai.com/roi-calculator" />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content="https://alphaspeedai.com/og-image.jpeg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="AI ROI Calculator | Alpha Speed AI" />

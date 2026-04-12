@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { buildBreadcrumbSchema, buildFAQPageSchema } from "@/lib/schema";
+import { buildCanonicalUrl } from "@/lib/site";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -123,16 +124,17 @@ const AgentImage = ({ src, alt }: { src: string; alt: string }) => {
 
 const AgentRoster = () => {
   useScrollToTop();
+  const canonicalUrl = buildCanonicalUrl("/agentvault");
 
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>AgentVault — AI Agents, MCP Connectors &amp; Workflows | Alpha Speed AI</title>
         <meta name="description" content="AgentVault is the AI workflow automation platform from Alpha Speed AI. Get 10+ specialized agents, MCP connectors, 30+ skills, and canonical workflows — installed in minutes via Claude's Cowork plugin." />
-        <link rel="canonical" href="https://alphaspeedai.com/agentvault" />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content="AgentVault — AI Agents, MCP Connectors &amp; Workflows | Alpha Speed AI" />
         <meta property="og:description" content="AgentVault gives your team 10+ AI agents, 30+ skills, and 38 canonical workflows. Works inside Claude's Cowork plugin." />
-        <meta property="og:url" content="https://alphaspeedai.com/agentvault" />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content="https://alphaspeedai.com/og-image.jpeg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="AgentVault — AI Agents, MCP Connectors &amp; Workflows | Alpha Speed AI" />
@@ -141,7 +143,7 @@ const AgentRoster = () => {
         <script type="application/ld+json">
           {JSON.stringify(buildBreadcrumbSchema([
             { name: "Home", url: "https://alphaspeedai.com/" },
-            { name: "AgentVault", url: "https://alphaspeedai.com/agentvault" },
+            { name: "AgentVault", url: canonicalUrl },
           ]))}
         </script>
         <script type="application/ld+json">

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import CalendlyBooking from "@/components/CalendlyBooking";
 import { getBlogPost } from "@/data/blog";
 import { trackEvent } from "@/lib/analytics";
+import { buildCanonicalUrl, SITE_URL } from "@/lib/site";
 import type { BlogBlock } from "@/data/blog/types";
 
 const renderBlock = (block: BlogBlock, index: number) => {
@@ -76,7 +77,7 @@ const BlogPost = () => {
     return <Navigate to="/blog" replace />;
   }
 
-  const canonicalUrl = `https://alphaspeedai.com/blog/${post.slug}`;
+  const canonicalUrl = buildCanonicalUrl(`/blog/${post.slug}`);
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -87,12 +88,12 @@ const BlogPost = () => {
     author: {
       "@type": "Organization",
       name: post.author,
-      url: "https://alphaspeedai.com",
+      url: SITE_URL,
     },
     publisher: {
       "@type": "Organization",
       name: "Alpha Speed AI",
-      url: "https://alphaspeedai.com",
+      url: SITE_URL,
       logo: {
         "@type": "ImageObject",
         url: "https://alphaspeedai.com/og-image.jpeg",

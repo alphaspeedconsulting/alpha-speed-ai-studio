@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { buildLocalBusinessSchema, buildWebSiteSchema, buildFAQPageSchema } from "@/lib/schema";
+import { buildCanonicalUrl } from "@/lib/site";
 import { useScrollToAnchor } from "@/hooks/useScrollToAnchor";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
@@ -11,6 +12,7 @@ import Services from "@/components/Services";
 import HowWeWorkSection from "@/components/HowWeWorkSection";
 import SectionCTA from "@/components/SectionCTA";
 import PortfolioSection from "@/components/PortfolioSection";
+import ResourcePathways from "@/components/ResourcePathways";
 import About from "@/components/About";
 import EmailCapture from "@/components/EmailCapture";
 import Contact from "@/components/Contact";
@@ -26,6 +28,7 @@ const DemoVideosSection = lazy(() => import("@/components/DemoVideosSection"));
 const Index = () => {
   useScrollToTop();
   useScrollToAnchor();
+  const canonicalUrl = buildCanonicalUrl("/");
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
@@ -34,11 +37,11 @@ const Index = () => {
         <meta name="description" content="Dallas-Fort Worth's AI automation studio. We build custom AI agents, workflow automation, and integration solutions that help DFW businesses save time, cut costs, and grow." />
         <meta name="keywords" content="DFW AI automation, Dallas AI agency, AI workflow automation Texas, Dallas-Fort Worth AI consulting, custom AI agents DFW, business automation Dallas" />
         <meta name="author" content="Alpha Speed AI" />
-        <link rel="canonical" href="https://alphaspeedai.com/" />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content="Alpha Speed AI | DFW AI Automation Studio" />
         <meta property="og:description" content="Dallas-Fort Worth's AI automation studio. Custom AI agents, workflow automation, and integration solutions for DFW businesses." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://alphaspeedai.com/" />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content="https://alphaspeedai.com/og-image.jpeg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@AlphaSpeedAI" />
@@ -94,6 +97,7 @@ const Index = () => {
           trackingName="section_cta_roi_calculator"
         />
         <PortfolioSection />
+        <ResourcePathways />
         <Suspense fallback={null}>
           <UseCasesSection />
           <DemoVideosSection />

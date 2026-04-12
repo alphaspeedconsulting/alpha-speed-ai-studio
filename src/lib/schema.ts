@@ -13,8 +13,8 @@ import type {
   ItemList,
   WithContext,
 } from "schema-dts";
+import { SITE_URL } from "@/lib/site";
 
-const BASE_URL = "https://alphaspeedai.com";
 const CONTACT_EMAIL = "alpha.speed.consulting@gmail.com";
 
 // ── LocalBusiness ─────────────────────────────────────────────────────────────
@@ -26,7 +26,7 @@ export function buildLocalBusinessSchema(): WithContext<LocalBusiness> {
     name: "Alpha Speed AI",
     description:
       "Dallas-Fort Worth AI automation studio specializing in custom AI agents, workflow automation, and business integration solutions.",
-    url: BASE_URL,
+    url: SITE_URL,
     email: CONTACT_EMAIL,
     areaServed: {
       "@type": "GeoCircle",
@@ -102,12 +102,12 @@ export function buildWebSiteSchema(): WithContext<WebSite> {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Alpha Speed AI",
-    url: BASE_URL,
+    url: SITE_URL,
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${BASE_URL}/?q={search_term_string}`,
+        urlTemplate: `${SITE_URL}/?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     } as never,
@@ -128,7 +128,7 @@ export function buildServiceSchema(
     provider: {
       "@type": "LocalBusiness",
       name: "Alpha Speed AI",
-      url: BASE_URL,
+      url: SITE_URL,
     },
     areaServed: {
       "@type": "City",
@@ -177,7 +177,7 @@ export function buildCaseStudyListSchema(
     "@type": "ItemList",
     name: "Alpha Speed AI Case Studies",
     description: "Real AI automation results for DFW businesses",
-    url: `${BASE_URL}/case-studies`,
+    url: `${SITE_URL}/case-studies/`,
     itemListElement: studies.map((study, index) => ({
       "@type": "ListItem" as const,
       position: index + 1,
@@ -192,7 +192,7 @@ export function buildCaseStudyListSchema(
         publisher: {
           "@type": "Organization" as const,
           name: "Alpha Speed AI",
-          url: BASE_URL,
+          url: SITE_URL,
         },
         url: study.url,
       },

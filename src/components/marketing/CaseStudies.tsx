@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { trackLead } from "@/lib/analytics";
 import { buildCaseStudyListSchema } from "@/lib/schema";
+import { buildCanonicalUrl } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -51,15 +52,17 @@ const CASE_STUDIES: CaseStudy[] = [
 ];
 
 const CaseStudies = () => {
+  const canonicalUrl = buildCanonicalUrl("/case-studies");
+
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>AI Automation Case Studies | Alpha Speed AI</title>
         <meta name="description" content="See real results from Alpha Speed AI's automation projects. Case studies from construction, real estate, healthcare, and retail businesses across the Dallas-Fort Worth area." />
-        <link rel="canonical" href="https://alphaspeedai.com/case-studies" />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content="AI Automation Case Studies | Alpha Speed AI" />
         <meta property="og:description" content="Real results from AI automation projects across DFW industries." />
-        <meta property="og:url" content="https://alphaspeedai.com/case-studies" />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content="https://alphaspeedai.com/og-image.jpeg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="AI Automation Case Studies | Alpha Speed AI" />

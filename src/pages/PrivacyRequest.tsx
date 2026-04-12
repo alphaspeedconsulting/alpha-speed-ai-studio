@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { buildCanonicalUrl } from "@/lib/site";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -38,6 +39,7 @@ const submitPrivacyRequest = async (payload: {
 };
 
 const PrivacyRequest = () => {
+  const canonicalUrl = buildCanonicalUrl("/privacy-request");
   useScrollToTop();
 
   const [name, setName] = useState("");
@@ -66,7 +68,7 @@ const PrivacyRequest = () => {
       <Helmet>
         <title>Privacy Request | αlphaspeed AI</title>
         <meta name="description" content="Submit a data privacy request to Alpha Speed Consulting, LLC." />
-        <link rel="canonical" href="https://alphaspeedai.com/privacy-request" />
+        <link rel="canonical" href={canonicalUrl} />
       </Helmet>
 
       <Header />

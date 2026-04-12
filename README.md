@@ -60,6 +60,33 @@ VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 
 Use UTM parameters on campaign links (`utm_source`, `utm_medium`, `utm_campaign`) so source/campaign breakdown is accurate.
 
+### Weekly SEO / Content Review Loop
+
+Review these once per week after content or SEO changes ship:
+
+1. Check Google Search Console for:
+   - indexed page count trend
+   - newly discovered or newly excluded URLs
+   - any redirected or `Crawled - currently not indexed` URLs tied to recent pages
+2. Check `/traffic` and GA4 for:
+   - organic landing pages gaining sessions
+   - homepage-to-content clicks
+   - blog-to-case-study / ROI click paths
+   - booking/contact conversions from landing pages
+3. Compare the top-performing entry pages against CTA performance:
+   - keep expanding topics that earn both traffic and downstream clicks
+   - improve internal links or offers on pages that earn traffic but weak conversion engagement
+4. Turn the next content sprint into one of:
+   - another post supporting a page already getting impressions
+   - a stronger CTA path for a page with traffic but weak assists
+   - a new vertical/local page if Search Console shows adjacent demand
+
+Recommended tracked surfaces added in this repo:
+- Homepage discovery cards
+- Blog CTA links to ROI, case studies, and landing pages
+- Landing-page resource links to case studies, ROI, and supporting blog posts
+- Calendly/contact placements with page-specific `placement` metadata
+
 ## Deployment
 
 Deployed to GitHub Pages via the production build:

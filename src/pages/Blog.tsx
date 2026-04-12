@@ -5,8 +5,11 @@ import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { BLOG_POSTS } from "@/data/blog";
+import { buildCanonicalUrl, SITE_URL } from "@/lib/site";
 
 const Blog = () => {
+  const canonicalUrl = buildCanonicalUrl("/blog");
+
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
@@ -15,13 +18,13 @@ const Blog = () => {
           name="description"
           content="Practical guides on AI automation for DFW businesses — how AI agents work, what they cost, and how to pick the right workflows to automate first."
         />
-        <link rel="canonical" href="https://alphaspeedai.com/blog" />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content="AI Automation Blog | Alpha Speed AI" />
         <meta
           property="og:description"
           content="Practical guides on AI automation for DFW businesses — how AI agents work, what they cost, and how to pick the right workflows to automate first."
         />
-        <meta property="og:url" content="https://alphaspeedai.com/blog" />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content="https://alphaspeedai.com/og-image.jpeg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="AI Automation Blog | Alpha Speed AI" />
@@ -35,13 +38,13 @@ const Blog = () => {
             "@context": "https://schema.org",
             "@type": "Blog",
             name: "Alpha Speed AI Blog",
-            url: "https://alphaspeedai.com/blog",
+            url: canonicalUrl,
             description:
               "Practical guides on AI automation for DFW businesses — how AI agents work, what they cost, and how to pick the right workflows to automate first.",
             publisher: {
               "@type": "Organization",
               name: "Alpha Speed AI",
-              url: "https://alphaspeedai.com",
+              url: SITE_URL,
             },
           })}
         </script>

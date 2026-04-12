@@ -1,17 +1,19 @@
 import { Helmet } from "react-helmet-async";
+import { buildCanonicalUrl } from "@/lib/site";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const PrivacyPolicy = () => {
   useScrollToTop();
+  const canonicalUrl = buildCanonicalUrl("/privacy-policy");
 
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>Privacy Policy | αlphaspeed AI</title>
         <meta name="description" content="Privacy Policy for αlphaspeed AI and the AgentVault platform." />
-        <link rel="canonical" href="https://alphaspeedai.com/privacy-policy" />
+        <link rel="canonical" href={canonicalUrl} />
       </Helmet>
 
       <Header />

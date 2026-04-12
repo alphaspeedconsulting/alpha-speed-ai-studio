@@ -22,6 +22,9 @@ const Footer = () => {
             <a href={`${baseUrl}#services`} className="hover:text-foreground transition-colors">Services</a>
             <a href={`${baseUrl}#how-we-work`} className="hover:text-foreground transition-colors">How It Works</a>
             <a href={`${baseUrl}#portfolio`} className="hover:text-foreground transition-colors">Portfolio</a>
+            <Link to="/blog" className="hover:text-foreground transition-colors">Blog</Link>
+            <Link to="/case-studies" className="hover:text-foreground transition-colors">Case Studies</Link>
+            <Link to="/roi-calculator" className="hover:text-foreground transition-colors">ROI Calculator</Link>
             <a href="/agentvault" className="hover:text-foreground transition-colors">AgentVault</a>
             <a href={`${baseUrl}#about`} className="hover:text-foreground transition-colors">About</a>
             <a href={`${baseUrl}#contact`} className="hover:text-foreground transition-colors">Contact</a>

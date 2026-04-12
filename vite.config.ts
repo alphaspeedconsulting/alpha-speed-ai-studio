@@ -4,6 +4,14 @@ import path from "path";
 import fs from "fs";
 import { createRequire } from "module";
 import sitemap from "vite-plugin-sitemap";
+import {
+  PRERENDER_CONTENT_MARKERS,
+  PRERENDER_ROUTES,
+  SITEMAP_CHANGEFREQ,
+  SITEMAP_DYNAMIC_ROUTES,
+  SITEMAP_EXCLUDE_ROUTES,
+  SITEMAP_PRIORITY,
+} from "./src/lib/seoRoutes";
 
 const require = createRequire(import.meta.url);
 
@@ -108,39 +116,7 @@ function alphaAIPublic(): Plugin {
  * HTML back to dist/<route>/index.html so GitHub Pages serves real content to crawlers.
  */
 function prerenderPlugin(): Plugin {
-  // Add new blog posts here when published.
-  const BLOG_POST_SLUGS = ["chatbot-vs-ai-agent"];
-
-  const ROUTES = [
-    "/",
-    "/assistant",
-    "/agentvault",
-    "/reels",
-    "/roi-calculator",
-    "/case-studies",
-    "/blog",
-    ...BLOG_POST_SLUGS.map((s) => `/blog/${s}`),
-    "/from/instagram",
-    "/from/linkedin",
-    "/privacy-policy",
-    "/terms-of-service",
-    "/privacy-request",
-  ];
   const RENDER_WAIT_MS = 3000;
-
-  // Content markers that MUST appear in pre-rendered HTML for each route.
-  // A missing marker causes the build to fail — prevents deploying empty shells.
-  const CONTENT_MARKERS: Record<string, string[]> = {
-    "/": ["Alpha Speed AI", "DFW", "AI Automation"],
-    "/roi-calculator": ["ROI Calculator", "Save with AI"],
-    "/case-studies": ["Case Studies", "Real Work"],
-    "/agentvault": ["AgentVault"],
-    "/assistant": ["Assistant"],
-    "/blog": ["Alpha Speed AI Blog", "DFW business owners"],
-    "/blog/chatbot-vs-ai-agent": ["Chatbot vs AI Agent", "What's the Difference"],
-    "/privacy-policy": ["Privacy Policy"],
-    "/terms-of-service": ["Terms of Service"],
-  };
 
   return {
     name: "seo-prerender",
@@ -166,10 +142,10 @@ function prerenderPlugin(): Plugin {
         // Required for Linux CI environments (GitHub Actions)
         args: process.platform === "linux" ? ["--no-sandbox", "--disable-setuid-sandbox"] : [],
       });
-      console.log(`[seo-prerender] Rendering ${ROUTES.length} routes on port ${port}…`);
+      console.log(`[seo-prerender] Rendering ${PRERENDER_ROUTES.length} routes on port ${port}…`);
 
       let failures = 0;
-      for (const route of ROUTES) {
+      for (const route of PRERENDER_ROUTES) {
         const page = await browser.newPage();
         await page.goto(`http://localhost:${port}${route}`, { waitUntil: "networkidle0" });
         await new Promise((r) => setTimeout(r, RENDER_WAIT_MS));
@@ -177,7 +153,7 @@ function prerenderPlugin(): Plugin {
         await page.close();
 
         // Content verification: ensure pre-rendered HTML contains expected markers
-        const markers = CONTENT_MARKERS[route];
+        const markers = PRERENDER_CONTENT_MARKERS[route];
         if (markers) {
           const missing = markers.filter((m) => !html.includes(m));
           if (missing.length > 0) {
@@ -254,46 +230,11 @@ export default defineConfig(({ mode }) => ({
     alphaAIPublic(),
     sitemap({
       hostname: "https://alphaspeedai.com",
-      dynamicRoutes: [
-        "/roi-calculator",
-        "/case-studies",
-        "/blog",
-        "/blog/chatbot-vs-ai-agent",
-        "/assistant",
-        "/agentvault",
-        "/reels",
-        "/privacy-policy",
-        "/terms-of-service",
-        "/privacy-request",
-      ],
+      dynamicRoutes: [...SITEMAP_DYNAMIC_ROUTES],
       // Internal/private pages, social landing pages (noindex), and error pages — excluded from sitemap
-      exclude: ["/alphaai", "/traffic", "/404", "/from/instagram", "/from/linkedin"],
-      changefreq: {
-        "/": "weekly",
-        "/agentvault": "weekly",
-        "/blog": "weekly",
-        "/blog/chatbot-vs-ai-agent": "monthly",
-        "/case-studies": "monthly",
-        "/assistant": "monthly",
-        "/roi-calculator": "monthly",
-        "/reels": "monthly",
-        "/privacy-policy": "yearly",
-        "/terms-of-service": "yearly",
-        "/privacy-request": "yearly",
-      },
-      priority: {
-        "/": 1.0,
-        "/blog": 0.9,
-        "/blog/chatbot-vs-ai-agent": 0.8,
-        "/agentvault": 0.9,
-        "/case-studies": 0.9,
-        "/assistant": 0.8,
-        "/roi-calculator": 0.7,
-        "/reels": 0.6,
-        "/privacy-policy": 0.2,
-        "/terms-of-service": 0.2,
-        "/privacy-request": 0.1,
-      },
+      exclude: [...SITEMAP_EXCLUDE_ROUTES],
+      changefreq: SITEMAP_CHANGEFREQ,
+      priority: SITEMAP_PRIORITY,
     }),
     prerenderPlugin(),
   ],

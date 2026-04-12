@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { buildBreadcrumbSchema } from "@/lib/schema";
+import { buildCanonicalUrl } from "@/lib/site";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -12,6 +13,7 @@ import AssistantLayoutC from "@/components/assistant/AssistantLayoutC";
 
 const Assistant = () => {
   useScrollToTop();
+  const canonicalUrl = buildCanonicalUrl("/assistant");
   const [selectedLayout, setSelectedLayout] = useState<"A" | "B" | "C">("A");
 
   // Shared simulation state - persists across layout switches
@@ -22,10 +24,10 @@ const Assistant = () => {
       <Helmet>
         <title>AI Assistant Demo | Alpha Speed AI</title>
         <meta name="description" content="Experience the Alpha Speed AI assistant firsthand. The same intelligent AI we build for your business — handling lead qualification, scheduling, customer support, and more." />
-        <link rel="canonical" href="https://alphaspeedai.com/assistant" />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content="AI Assistant Demo | Alpha Speed AI" />
         <meta property="og:description" content="Try the AI assistant Alpha Speed AI builds for DFW businesses. See real automation in action." />
-        <meta property="og:url" content="https://alphaspeedai.com/assistant" />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content="https://alphaspeedai.com/og-image.jpeg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="AI Assistant Demo | Alpha Speed AI" />
@@ -34,7 +36,7 @@ const Assistant = () => {
         <script type="application/ld+json">
           {JSON.stringify(buildBreadcrumbSchema([
             { name: "Home", url: "https://alphaspeedai.com/" },
-            { name: "AI Assistant", url: "https://alphaspeedai.com/assistant" },
+            { name: "AI Assistant", url: canonicalUrl },
           ]))}
         </script>
       </Helmet>

@@ -21,6 +21,8 @@ import FromInstagram from "./pages/FromInstagram";
 import FromLinkedIn from "./pages/FromLinkedIn";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import ContractorsAIAutomation from "./pages/ContractorsAIAutomation";
+import DfwAIAutomationServices from "./pages/DfwAIAutomationServices";
 import NotFound from "./pages/NotFound";
 import { SPAPathRestore } from "@/components/SPAPathRestore";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
@@ -56,6 +58,8 @@ const App = () => (
             <Route path="/from/linkedin" element={<FromLinkedIn />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/dfw-ai-automation-services" element={<DfwAIAutomationServices />} />
+            <Route path="/ai-automation-for-contractors" element={<ContractorsAIAutomation />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
