@@ -10,9 +10,9 @@ import { Check } from "lucide-react";
 
 const LICENSE_SERVER_URL = "https://agentvault-license-server.onrender.com";
 
-type Tier = "basic" | "advanced" | "custom";
+type Tier = "basic" | "advanced" | "custom" | "developer_license";
 
-const tierDetails: Record<Exclude<Tier, "custom">, { label: string; price: string; description: string; features: string[] }> = {
+const tierDetails: Record<Exclude<Tier, "custom">, { label: string; price: string; description: string; features: string[]; badge?: string }> = {
   basic: {
     label: "Basic",
     price: "$99/mo",
@@ -25,6 +25,13 @@ const tierDetails: Record<Exclude<Tier, "custom">, { label: string; price: strin
     description: "Full agent suite — 30 skills, 18 connectors, 38 workflows",
     features: ["Everything in Basic", "30 skills + 18 connectors", "13 AI Product Agents", "38 canonical workflows", "1,000 tool calls / hour"],
   },
+  developer_license: {
+    label: "Developer",
+    price: "Free for 2 months",
+    description: "Full local runtime — all agents, prompts, and pipelines",
+    features: ["Full ai_product_agents_mcp runtime", "Real multi-step PRD, architecture & pitch agents", "Private repo access (Development_agents)", "Run workflows locally with your own infra", "100% off for 2 months with BetaTrial coupon"],
+    badge: "Beta",
+  },
 };
 
 const AgentVaultSignup = () => {
@@ -33,7 +40,11 @@ const AgentVaultSignup = () => {
   const [searchParams] = useSearchParams();
   const initialTier = (searchParams.get("tier") ?? "basic") as Tier;
 
-  const [tier, setTier] = useState<Tier>(initialTier === "advanced" ? "advanced" : "basic");
+  const [tier, setTier] = useState<Tier>(
+    initialTier === "advanced" ? "advanced"
+    : initialTier === "developer_license" ? "developer_license"
+    : "basic"
+  );
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -64,7 +75,7 @@ const AgentVaultSignup = () => {
     }
   };
 
-  const details = tierDetails[tier as Exclude<Tier, "custom">];
+  const details = tierDetails[tier as Exclude<Tier, "custom">] ?? null;
 
   return (
     <div className="min-h-screen bg-background">
@@ -96,8 +107,8 @@ const AgentVaultSignup = () => {
             {/* Tier selector */}
             <div className="mb-6">
               <p className="text-sm font-medium text-foreground mb-3">Choose your plan</p>
-              <div className="grid grid-cols-2 gap-3">
-                {(["basic", "advanced"] as const).map((t) => (
+              <div className="grid grid-cols-1 gap-3">
+                {(["basic", "advanced", "developer_license"] as const).map((t) => (
                   <button
                     key={t}
                     type="button"
@@ -108,7 +119,14 @@ const AgentVaultSignup = () => {
                         : "border-border hover:border-primary/40"
                     }`}
                   >
-                    <p className="font-semibold text-foreground capitalize">{t}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold text-foreground">{tierDetails[t].label}</p>
+                      {tierDetails[t].badge && (
+                        <span className="text-xs font-semibold bg-primary/20 text-primary px-2 py-0.5 rounded-full">
+                          {tierDetails[t].badge}
+                        </span>
+                      )}
+                    </div>
                     <p className="text-sm text-primary font-medium">{tierDetails[t].price}</p>
                     <p className="text-xs text-muted-foreground mt-1">{tierDetails[t].description}</p>
                   </button>
