@@ -26,11 +26,16 @@ export function SPAPathRestore() {
       const routePath = BASE_PATH && pathParam.startsWith(BASE_PATH)
         ? pathParam.slice(BASE_PATH.length) || "/"
         : pathParam;
-      navigate(routePath, { replace: true });
+      // Preserve any remaining query params (other than ?path=) from the current URL
+      const remaining = new URLSearchParams(params);
+      remaining.delete("path");
+      const search = remaining.toString() ? `?${remaining.toString()}` : "";
+      navigate(routePath + search, { replace: true });
       return;
     }
 
-    // Fallback: sessionStorage.redirect (set by 404.html) contains full URL
+    // Fallback: sessionStorage.redirect (set by 404.html) contains the full original URL
+    // including query string — use it to restore both path and search params
     const redirectUrl = sessionStorage.redirect;
     if (redirectUrl) {
       delete sessionStorage.redirect;
@@ -40,9 +45,10 @@ export function SPAPathRestore() {
         const routePath = BASE_PATH && pathname.startsWith(BASE_PATH)
           ? pathname.slice(BASE_PATH.length) || "/"
           : pathname;
+        const search = url.search; // preserves ?tier=developer_license etc.
         if (routePath && routePath !== location.pathname) {
           didRestore.current = true;
-          navigate(routePath, { replace: true });
+          navigate(routePath + search, { replace: true });
         }
       } catch {
         // ignore invalid URL
