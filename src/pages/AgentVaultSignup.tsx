@@ -27,9 +27,9 @@ const tierDetails: Record<Exclude<Tier, "custom">, { label: string; price: strin
   },
   developer_license: {
     label: "Developer",
-    price: "Free for 2 months",
+    price: "$499/mo",
     description: "Full local runtime — all agents, prompts, and pipelines",
-    features: ["Full ai_product_agents_mcp runtime", "Real multi-step PRD, architecture & pitch agents", "Private repo access (Development_agents)", "Run workflows locally with your own infra", "100% off for 2 months with BetaTrial coupon"],
+    features: ["Full ai_product_agents_mcp runtime", "Real multi-step PRD, architecture & pitch agents", "Private repo access (Development_agents)", "Run workflows locally with your own infra"],
     badge: "Beta",
   },
 };
@@ -132,6 +132,14 @@ const AgentVaultSignup = () => {
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Beta coupon callout */}
+            <div className="mb-5 rounded-lg border border-yellow-500/30 bg-yellow-500/10 px-4 py-3 text-sm">
+              <span className="font-semibold text-yellow-400">Beta offer:</span>{" "}
+              <span className="text-foreground">Use code </span>
+              <code className="rounded bg-yellow-500/20 px-1.5 py-0.5 font-mono text-xs font-bold text-yellow-300">BETA-TRIAL-ALPHA-X6090</code>
+              <span className="text-foreground"> at checkout for 100% off your first 2 months — works on any plan.</span>
             </div>
 
             {/* Selected tier features */}

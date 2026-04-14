@@ -22,30 +22,52 @@ export function SPAPathRestore() {
 
     if (pathParam) {
       didRestore.current = true;
-      // pathParam may be "/agents" or "/alpha-speed-ai-studio/agents"; strip base to get route path
+      // pathParam carries only the pathname — the original query string is in sessionStorage.redirect
       const routePath = BASE_PATH && pathParam.startsWith(BASE_PATH)
         ? pathParam.slice(BASE_PATH.length) || "/"
         : pathParam;
-      // Preserve any remaining query params (other than ?path=) from the current URL
-      const remaining = new URLSearchParams(params);
-      remaining.delete("path");
-      const search = remaining.toString() ? `?${remaining.toString()}` : "";
+
+      // Pull original query string from sessionStorage.redirect when available.
+      // 404.html encodes only the pathname in ?path= but stores the full URL (with query)
+      // in sessionStorage so we can recover ?tier=, ?coupon=, etc.
+      let search = "";
+      const savedFull = sessionStorage.redirect;
+      if (savedFull) {
+        sessionStorage.removeItem("redirect");
+        try {
+          const saved = new URL(savedFull);
+          const savedPath = BASE_PATH && saved.pathname.startsWith(BASE_PATH)
+            ? saved.pathname.slice(BASE_PATH.length) || "/"
+            : saved.pathname;
+          if (savedPath === routePath) {
+            search = saved.search; // e.g. "?tier=developer_license"
+          }
+        } catch { /* ignore malformed URL */ }
+      }
+
+      // Final fallback: any extra query params on the current URL besides ?path=
+      if (!search) {
+        const remaining = new URLSearchParams(params);
+        remaining.delete("path");
+        search = remaining.toString() ? `?${remaining.toString()}` : "";
+      }
+
       navigate(routePath + search, { replace: true });
       return;
     }
 
-    // Fallback: sessionStorage.redirect (set by 404.html) contains the full original URL
-    // including query string — use it to restore both path and search params
+    // No ?path= param: try sessionStorage.redirect directly (set by 404.html on deep links
+    // where the path param was not used, e.g. hash-based fallback paths)
     const redirectUrl = sessionStorage.redirect;
     if (redirectUrl) {
-      delete sessionStorage.redirect;
+      sessionStorage.removeItem("redirect");
       try {
         const url = new URL(redirectUrl);
         const pathname = url.pathname;
         const routePath = BASE_PATH && pathname.startsWith(BASE_PATH)
           ? pathname.slice(BASE_PATH.length) || "/"
           : pathname;
-        const search = url.search; // preserves ?tier=developer_license etc.
+        const search = url.search;
         if (routePath && routePath !== location.pathname) {
           didRestore.current = true;
           navigate(routePath + search, { replace: true });
