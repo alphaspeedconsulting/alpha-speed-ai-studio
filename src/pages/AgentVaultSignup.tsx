@@ -55,11 +55,16 @@ const AgentVaultSignup = () => {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch(`${LICENSE_SERVER_URL}/signup`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tier, email }),
-      });
+      let res: Response;
+      try {
+        res = await fetch(`${LICENSE_SERVER_URL}/signup`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tier, email }),
+        });
+      } catch {
+        throw new Error("Unable to reach the server. Please check your connection and try again.");
+      }
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
