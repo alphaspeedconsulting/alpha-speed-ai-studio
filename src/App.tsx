@@ -24,6 +24,7 @@ import BlogPost from "./pages/BlogPost";
 import ContractorsAIAutomation from "./pages/ContractorsAIAutomation";
 import DfwAIAutomationServices from "./pages/DfwAIAutomationServices";
 import NotFound from "./pages/NotFound";
+import SalesKitRedirect from "./pages/SalesKitRedirect";
 import { SPAPathRestore } from "@/components/SPAPathRestore";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import CookieConsent from "@/components/CookieConsent";
@@ -60,6 +61,9 @@ const App = () => (
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/dfw-ai-automation-services" element={<DfwAIAutomationServices />} />
             <Route path="/ai-automation-for-contractors" element={<ContractorsAIAutomation />} />
+            <Route path="/sales-kit" element={<SalesKitRedirect />} />
+            <Route path="/alpha-speed-sales-kit" element={<SalesKitRedirect />} />
+            <Route path="/alpha-speed-sales-kit.html" element={<SalesKitRedirect />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

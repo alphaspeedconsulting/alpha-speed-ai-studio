@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alpha Speed AI — Sales Kit 2026</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --teal:       #0d4f4f;
+  --teal-mid:   #1a6b6b;
+  --teal-light: #2d8a7a;
+  --teal-pale:  #e4f2f0;
+  --ink:        #0d1f2d;
+  --white:      #ffffff;
+  --gray:       #f5f7f7;
+  --border:     #d8e8e6;
+  --text:       #3d5a58;
+  --red:        #c0392b;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  background: var(--gray);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── HEADER ── */
+.header {
+  background: var(--teal);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.header-bg-pattern {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 80% 50%, rgba(45,138,122,0.3) 0%, transparent 60%),
+                    radial-gradient(circle at 10% 80%, rgba(26,107,107,0.4) 0%, transparent 50%);
+}
+.header-inner {
+  position: relative;
+  max-width: 1080px; margin: 0 auto;
+  padding: 52px 32px 44px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
+}
+.brand-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  padding: 5px 14px 5px 10px;
+  margin-bottom: 20px;
+}
+.brand-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--teal-light);
+}
+.brand-badge span { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.8); }
+.header h1 {
+  font-size: 42px; font-weight: 900; color: var(--white);
+  letter-spacing: -1px; line-height: 1.1; margin-bottom: 14px;
+}
+.header h1 em { color: var(--teal-light); font-style: normal; }
+.header-sub { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 480px; }
+
+/* stats strip in header */
+.header-stats {
+  display: flex; flex-direction: column; gap: 16px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 16px;
+  padding: 24px 28px;
+  min-width: 200px;
+  text-align: center;
+}
+.h-stat-num { font-size: 36px; font-weight: 900; color: var(--white); line-height: 1; }
+.h-stat-num span { color: var(--teal-light); }
+.h-stat-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+.h-stat-divider { border: none; border-top: 1px solid rgba(255,255,255,0.12); }
+
+/* ── NAV PILLS ── */
+.nav-bar {
+  background: var(--teal-mid);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.nav-inner {
+  max-width: 1080px; margin: 0 auto;
+  padding: 0 32px;
+  display: flex; gap: 4px; align-items: center;
+  overflow-x: auto;
+}
+.nav-link {
+  display: inline-block;
+  padding: 12px 16px;
+  font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  white-space: nowrap;
+  transition: color 0.2s;
+  border-bottom: 2px solid transparent;
+}
+.nav-link:hover { color: var(--white); }
+
+/* ── WRAP ── */
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px 80px; }
+
+/* ── SECTION HEADS ── */
+.section-head { margin: 52px 0 24px; }
+.section-eyebrow {
+  font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--teal-light); margin-bottom: 6px;
+}
+.section-title {
+  font-size: 28px; font-weight: 900; color: var(--teal);
+  letter-spacing: -0.5px; line-height: 1.2;
+}
+.section-title em { color: var(--teal-light); font-style: normal; }
+
+/* ── BEFORE / AFTER STRIP ── */
+.ba-strip {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 20px rgba(13,79,79,0.08);
+}
+.ba-col { padding: 28px 28px; }
+.ba-col.before { background: #fafafa; }
+.ba-col.after  { background: var(--teal); color: var(--white); }
+.ba-label {
+  font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.ba-col.before .ba-label { color: var(--red); }
+.ba-col.after  .ba-label { color: var(--teal-light); }
+.ba-items { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.ba-items li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; line-height: 1.45;
+}
+.ba-col.before .ba-items li { color: #5a5a5a; }
+.ba-col.after  .ba-items li { color: rgba(255,255,255,0.88); }
+.ba-icon { flex-shrink: 0; margin-top: 1px; }
+.ba-divider {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--teal-mid);
+  padding: 0 12px;
+}
+.ba-arrow {
+  width: 36px; height: 36px;
+  background: var(--teal-light);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── PRODUCT GRID ── */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 48px;
+}
+.product-card {
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(13,79,79,0.06);
+  display: flex; flex-direction: column;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.product-card:hover { box-shadow: 0 8px 32px rgba(13,79,79,0.14); transform: translateY(-2px); }
+
+.card-top {
+  background: var(--teal);
+  padding: 22px 22px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.card-top::after {
+  content: '';
+  position: absolute; bottom: -20px; right: -20px;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: rgba(45,138,122,0.25);
+}
+.card-num {
+  font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--teal-light); margin-bottom: 10px;
+}
+.card-icon { margin-bottom: 12px; }
+.card-name {
+  font-size: 16px; font-weight: 800; color: var(--white);
+  line-height: 1.25; margin-bottom: 6px;
+}
+.card-hook { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.45; }
+
+.card-body { padding: 18px 20px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+
+/* stat pill */
+.stat-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.stat-pill {
+  display: flex; flex-direction: column; align-items: center;
+  background: var(--teal-pale);
+  border-radius: 10px;
+  padding: 8px 12px;
+  flex: 1; min-width: 60px;
+}
+.stat-pill .num { font-size: 20px; font-weight: 900; color: var(--teal); line-height: 1; }
+.stat-pill .lbl { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--teal-mid); margin-top: 3px; text-align: center; }
+
+/* proof points compact */
+.proof-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.proof-list li {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12.5px; color: var(--text); line-height: 1.45;
+}
+.proof-check {
+  flex-shrink: 0; width: 16px; height: 16px;
+  background: var(--teal-light);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+
+/* wow + coffee */
+.wow-block {
+  background: linear-gradient(135deg, var(--teal-pale) 0%, #d4ede9 100%);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.wow-block .wow-label {
+  font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--teal-mid); margin-bottom: 5px;
+}
+.wow-block p { font-size: 12px; color: var(--teal); line-height: 1.5; font-style: italic; }
+
+.coffee-q {
+  background: #fffbf5;
+  border: 1px solid #f0e0c0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12px; font-weight: 600; color: #7a5c2a;
+  line-height: 1.5;
+  margin-top: auto;
+}
+.coffee-q::before { content: '☕ '; }
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  background: var(--teal);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 48px;
+  box-shadow: 0 4px 20px rgba(13,79,79,0.18);
+}
+.stats-bar-item {
+  padding: 32px 28px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+.stats-bar-item:last-child { border-right: none; }
+.big-num {
+  font-size: 56px; font-weight: 900; color: var(--white);
+  line-height: 1; letter-spacing: -2px;
+}
+.big-num span { color: var(--teal-light); }
+.big-label { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 6px; font-weight: 500; }
+.big-source { font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
+
+/* ── SCENARIOS ── */
+.scenarios-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 18px; margin-bottom: 48px;
+}
+.scenario-card {
+  background: var(--white);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  padding: 24px 24px;
+  box-shadow: 0 2px 10px rgba(13,79,79,0.05);
+  display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start;
+}
+.scenario-icon-wrap {
+  width: 48px; height: 48px;
+  background: var(--teal-pale);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.scenario-tag { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-light); margin-bottom: 5px; }
+.scenario-headline { font-size: 15px; font-weight: 800; color: var(--teal); margin-bottom: 8px; line-height: 1.3; }
+.scenario-body { font-size: 13px; color: var(--text); line-height: 1.6; }
+
+/* ── CLOSER GRID ── */
+.closer-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px; margin-bottom: 48px;
+}
+.closer-card {
+  background: var(--white);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  padding: 22px 18px;
+  box-shadow: 0 2px 10px rgba(13,79,79,0.05);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.closer-card.featured {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--white);
+}
+.closer-type { font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+.closer-card:not(.featured) .closer-type { color: var(--teal-light); }
+.closer-card.featured .closer-type { color: rgba(255,255,255,0.55); }
+.closer-name { font-size: 16px; font-weight: 800; line-height: 1.2; }
+.closer-card:not(.featured) .closer-name { color: var(--teal); }
+.closer-card.featured .closer-name { color: var(--white); }
+.closer-price { font-size: 13px; font-weight: 700; }
+.closer-card:not(.featured) .closer-price { color: var(--teal-light); }
+.closer-card.featured .closer-price { color: rgba(255,255,255,0.75); }
+.closer-desc { font-size: 12px; line-height: 1.55; margin-top: 4px; }
+.closer-card:not(.featured) .closer-desc { color: var(--text); }
+.closer-card.featured .closer-desc { color: rgba(255,255,255,0.7); }
+.closer-cta {
+  display: inline-block; margin-top: auto;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  text-align: center;
+}
+.closer-card:not(.featured) .closer-cta { background: var(--teal-pale); color: var(--teal); }
+.closer-card.featured .closer-cta { background: var(--teal-light); color: var(--white); }
+
+/* ── QUICK REF CARD ── */
+.qr-card {
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(13,79,79,0.10);
+}
+.qr-header {
+  background: var(--teal);
+  padding: 28px 32px 22px;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+  flex-wrap: wrap;
+}
+.qr-tagline {
+  font-size: 20px; font-weight: 900; color: var(--white);
+  letter-spacing: -0.3px; line-height: 1.25;
+}
+.qr-tagline em { color: var(--teal-light); font-style: normal; display: block; }
+.qr-links { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.qr-link-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 12px; font-weight: 700; color: var(--white);
+  white-space: nowrap;
+}
+.qr-link-btn:hover { background: rgba(255,255,255,0.2); }
+.qr-body {
+  display: grid; grid-template-columns: 1.2fr 1fr 0.9fr;
+  border-top: 1px solid var(--border);
+}
+.qr-col { padding: 24px 24px; border-right: 1px solid var(--border); }
+.qr-col:last-child { border-right: none; }
+.qr-col-title { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-mid); margin-bottom: 14px; }
+
+/* product pills in ref card */
+.qr-pill-list { display: flex; flex-direction: column; gap: 6px; }
+.qr-pill {
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 10px; align-items: center;
+  padding: 7px 10px;
+  background: var(--gray);
+  border-radius: 8px;
+  font-size: 12px;
+}
+.qr-pill-num {
+  width: 20px; height: 20px;
+  background: var(--teal);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 900; color: var(--white);
+  flex-shrink: 0;
+}
+.qr-pill-text strong { display: block; font-size: 12px; font-weight: 700; color: var(--teal); line-height: 1.2; }
+.qr-pill-text span { font-size: 10.5px; color: var(--text); }
+
+.diff-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.diff-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--ink); line-height: 1.5; }
+.diff-icon { flex-shrink: 0; margin-top: 1px; }
+
+.contact-block { display: flex; flex-direction: column; gap: 12px; }
+.contact-row strong { display: block; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--teal-mid); margin-bottom: 3px; }
+.contact-row a, .contact-row span { font-size: 13px; font-weight: 600; color: var(--ink); }
+.contact-row a { color: var(--teal-mid); }
+.link-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--teal);
+  color: var(--white);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 12px; font-weight: 800; letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+.link-btn.outline {
+  background: transparent;
+  border: 1.5px solid var(--teal);
+  color: var(--teal);
+}
+
+.qr-footer {
+  background: var(--gray);
+  border-top: 1px solid var(--border);
+  padding: 12px 28px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  font-size: 11px; color: #8a9a99;
+}
+
+/* ── UTILITY ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+.label-chip {
+  display: inline-block;
+  background: var(--teal-pale);
+  color: var(--teal-mid);
+  font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 100px; margin-bottom: 8px;
+}
+
+@media (max-width: 860px) {
+  .header-inner { grid-template-columns: 1fr; }
+  .header-stats { flex-direction: row; justify-content: space-around; }
+  .products-grid { grid-template-columns: 1fr 1fr; }
+  .scenarios-grid { grid-template-columns: 1fr; }
+  .closer-grid { grid-template-columns: 1fr 1fr; }
+  .qr-body { grid-template-columns: 1fr; }
+  .ba-strip { grid-template-columns: 1fr; }
+  .ba-divider { padding: 12px 0; }
+  .ba-arrow { transform: rotate(90deg); }
+}
+@media (max-width: 560px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .closer-grid { grid-template-columns: 1fr; }
+  .header h1 { font-size: 30px; }
+  .stats-bar { grid-template-columns: 1fr; }
+  .stats-bar-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+}
+@media print {
+  .products-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .product-card, .qr-card, .stats-bar, .ba-strip { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .header, .nav-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════ -->
+<header class="header">
+  <div class="header-bg-pattern"></div>
+  <div class="header-inner">
+    <div>
+      <div class="brand-badge">
+        <div class="brand-dot"></div>
+        <span>Alpha Speed AI &nbsp;·&nbsp; DFW AI Automation Studio</span>
+      </div>
+      <h1>We automate your<br><em>back office.</em></h1>
+      <p class="header-sub">Custom automation that replaces the repetitive work — so you can focus on the business, not the busywork.</p>
+      <div style="margin-top:22px; display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="https://alphaspeedai.com" target="_blank" class="link-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          alphaspeedai.com
+        </a>
+        <a href="https://alphaspeedai.com/#portfolio" target="_blank" class="link-btn outline" style="color:rgba(255,255,255,0.85); border-color:rgba(255,255,255,0.3);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          See Live Demos
+        </a>
+        <a href="https://instagram.com/alphaspeed.ai" target="_blank" class="link-btn outline" style="color:rgba(255,255,255,0.85); border-color:rgba(255,255,255,0.3);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          @alphaspeed.ai
+        </a>
+      </div>
+    </div>
+    <div class="header-stats">
+      <div>
+        <div class="h-stat-num">20<span>+</span></div>
+        <div class="h-stat-label">Hours saved<br>per client / week</div>
+      </div>
+      <hr class="h-stat-divider">
+      <div>
+        <div class="h-stat-num">90<span>%</span></div>
+        <div class="h-stat-label">Faster lead<br>response</div>
+      </div>
+      <hr class="h-stat-divider">
+      <div>
+        <div class="h-stat-num">3<span>×</span></div>
+        <div class="h-stat-label">ROI within<br>12 months</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <a href="#before-after" class="nav-link">The Difference</a>
+    <a href="#products" class="nav-link">6 Products</a>
+    <a href="#results" class="nav-link">Real Results</a>
+    <a href="#scenarios" class="nav-link">90-Day Outcomes</a>
+    <a href="#closer" class="nav-link">Commitment Closer</a>
+    <a href="#qr" class="nav-link">Quick Reference</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════════════════════════════════════════════
+     BEFORE / AFTER
+══════════════════════════════════════════════ -->
+<div id="before-after" class="section-head">
+  <div class="section-eyebrow">The difference</div>
+  <div class="section-title">What changes when you work with us</div>
+</div>
+
+<div class="ba-strip">
+  <div class="ba-col before">
+    <div class="ba-label">Without Alpha Speed AI</div>
+    <ul class="ba-items">
+      <li>
+        <span class="ba-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </span>
+        Mornings spent logging into 4 tools to figure out what needs attention
+      </li>
+      <li>
+        <span class="ba-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></span>
+        15 hrs/week writing emails, chasing subcontractors, qualifying leads by hand
+      </li>
+      <li>
+        <span class="ba-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></span>
+        Jobs fall through the cracks when emails go unanswered for days
+      </li>
+      <li>
+        <span class="ba-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></span>
+        Content gets skipped because building each piece takes hours
+      </li>
+      <li>
+        <span class="ba-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></span>
+        No visibility into whether competitors are gaining ground
+      </li>
+    </ul>
+  </div>
+  <div class="ba-divider">
+    <div class="ba-arrow">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </div>
+  </div>
+  <div class="ba-col after">
+    <div class="ba-label">With Alpha Speed AI</div>
+    <ul class="ba-items">
+      <li>
+        <span class="ba-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
+        One morning briefing — everything in flight, every decision waiting, prioritized
+      </li>
+      <li>
+        <span class="ba-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
+        Prospecting drops to 90 min/week — the system finds, scores, and drafts outreach
+      </li>
+      <li>
+        <span class="ba-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
+        Jobs advance automatically when emails arrive — nothing waits on manual follow-up
+      </li>
+      <li>
+        <span class="ba-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
+        10 posts a week generated in a single batch — images, videos, captions included
+      </li>
+      <li>
+        <span class="ba-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
+        Weekly competitive intel arrives without you asking — you always know where you stand
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     RESULTS BAR
+══════════════════════════════════════════════ -->
+<div id="results" class="stats-bar">
+  <div class="stats-bar-item">
+    <div class="big-num">90<span>%</span></div>
+    <div class="big-label">Reduction in prospecting time</div>
+    <div class="big-source">Lead gen case study · Month 3</div>
+  </div>
+  <div class="stats-bar-item">
+    <div class="big-num">20<span>+</span></div>
+    <div class="big-label">Hours saved per week</div>
+    <div class="big-source">DCR Roofing · Production system</div>
+  </div>
+  <div class="stats-bar-item">
+    <div class="big-num">3<span>×</span></div>
+    <div class="big-label">More qualified leads per week</div>
+    <div class="big-source">B2B SaaS client · workflow-sales retainer</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     6 PRODUCTS
+══════════════════════════════════════════════ -->
+<div id="products" class="section-head">
+  <div class="section-eyebrow">What we offer</div>
+  <div class="section-title">Six ways we put your <em>back office on autopilot</em></div>
+</div>
+
+<div class="products-grid">
+
+  <!-- 1: CRM -->
+  <div class="product-card">
+    <div class="card-top">
+      <div class="card-num">Product 01</div>
+      <div class="card-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M6 8h.01M10 8h4M6 11h.01M10 11h4"/></svg>
+      </div>
+      <div class="card-name">CRM & Workflow Automation</div>
+      <div class="card-hook">Every job runs itself — from first email to final payment</div>
+    </div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat-pill"><div class="num">&lt;1s</div><div class="lbl">Email detect</div></div>
+        <div class="stat-pill"><div class="num">11</div><div class="lbl">Step workflow</div></div>
+        <div class="stat-pill"><div class="num">20h</div><div class="lbl">Saved/week</div></div>
+      </div>
+      <ul class="proof-list">
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Incoming emails classified in under 1 second — customer, subcontractor, or invoice — routed to the right workflow automatically</li>
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>11-step gutter + 14-step window replacement workflows advance on their own as emails come in — no manual tracking</li>
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Works inside Gmail, Google Calendar & Housecall Pro — no new tools for your team</li>
+      </ul>
+      <div class="wow-block">
+        <div class="wow-label">⚡ Wow moment</div>
+        <p>Subcontractor replies at 7pm. By 7:01pm the job has advanced, the next draft is in your Gmail, and the project dashboard shows green.</p>
+      </div>
+      <div class="coffee-q">"When a job is waiting on a reply, how do you actually know where it stands?"</div>
+    </div>
+  </div>
+
+  <!-- 2: AgentVault -->
+  <div class="product-card">
+    <div class="card-top">
+      <div class="card-num">Product 02</div>
+      <div class="card-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </div>
+      <div class="card-name">AgentVault — Business Operations</div>
+      <div class="card-hook">73 pre-built workflows for sales, research, and ops — deployed in days</div>
+    </div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat-pill"><div class="num">73</div><div class="lbl">Workflows</div></div>
+        <div class="stat-pill"><div class="num">+175%</div><div class="lbl">More leads</div></div>
+        <div class="stat-pill"><div class="num">31%</div><div class="lbl">Open rate</div></div>
+      </div>
+      <ul class="proof-list">
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Lead pipeline scores every prospect on 6 dimensions and delivers personalized outreach drafts ready to approve</li>
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Case study: 15 hrs/week prospecting → 1.5 hrs review only. Qualified leads: 8/week → 22/week in 3 months</li>
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Nothing sends without your approval — every workflow has a human gate built in</li>
+      </ul>
+      <div class="wow-block">
+        <div class="wow-label">⚡ Wow moment</div>
+        <p>Monday 9am: 20 researched prospects, scored, with personalized email drafts waiting for your review. Outreach done by noon.</p>
+      </div>
+      <div class="coffee-q">"How many hours does your team spend writing first outreach emails every week?"</div>
+    </div>
+  </div>
+
+  <!-- 3: Content -->
+  <div class="product-card">
+    <div class="card-top">
+      <div class="card-num">Product 03</div>
+      <div class="card-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      </div>
+      <div class="card-name">Content Generation</div>
+      <div class="card-hook">Product photos, videos, captions, and hashtags — one automated batch</div>
+    </div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat-pill"><div class="num">10×</div><div class="lbl">Posts/week</div></div>
+        <div class="stat-pill"><div class="num">20min</div><div class="lbl">Review time</div></div>
+        <div class="stat-pill"><div class="num">0</div><div class="lbl">Auto-posts</div></div>
+      </div>
+      <ul class="proof-list">
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Pipeline discovers products, fetches real images, composites lifestyle backgrounds, generates video reels — all in one batch</li>
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Captions, hashtags, and affiliate links generated in your brand voice — ready to post on Instagram & TikTok</li>
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Every piece queues for your review — nothing goes live without your approval</li>
+      </ul>
+      <div class="wow-block">
+        <div class="wow-label">⚡ Wow moment</div>
+        <p>10 products in Monday morning → lifestyle image, video reel, caption + hashtags + affiliate link for all 10 by Tuesday. Review takes 20 minutes.</p>
+      </div>
+      <div class="coffee-q">"How often do you miss posting because making the content takes too long?"</div>
+    </div>
+  </div>
+
+  <!-- 4: SEO -->
+  <div class="product-card">
+    <div class="card-top">
+      <div class="card-num">Product 04</div>
+      <div class="card-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+      </div>
+      <div class="card-name">Website Dev & SEO</div>
+      <div class="card-hook">Rank on Google — and in ChatGPT, Perplexity, and AI Overviews</div>
+    </div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat-pill"><div class="num">45%</div><div class="lbl">Searches use AI</div></div>
+        <div class="stat-pill"><div class="num">Full</div><div class="lbl">Pipeline</div></div>
+        <div class="stat-pill"><div class="num">Days</div><div class="lbl">Not months</div></div>
+      </div>
+      <ul class="proof-list">
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Full SEO engine: keyword research → content generation → publish → rank tracking → refresh — all gated for your review</li>
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Optimized for AI search — Google AI Overviews appear in 45% of searches and cut site traffic by 58% if you're not cited</li>
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Technical SEO on autopilot — broken links, page speed, content drift fixed on a schedule, not just once</li>
+      </ul>
+      <div class="wow-block">
+        <div class="wow-label">⚡ Wow moment</div>
+        <p>A Plano roofing company shows up in Google AI Overviews when a homeowner searches "best roofer near me" — without paying for ads.</p>
+      </div>
+      <div class="coffee-q">"If a customer searches for what you do right now, are you showing up — in the AI answer at the top?"</div>
+    </div>
+  </div>
+
+  <!-- 5: Chief of Staff -->
+  <div class="product-card">
+    <div class="card-top">
+      <div class="card-num">Product 05</div>
+      <div class="card-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="1.8"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      </div>
+      <div class="card-name">Digital Chief of Staff</div>
+      <div class="card-hook">One morning briefing — everything in flight, every decision you need to make</div>
+    </div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat-pill"><div class="num">4min</div><div class="lbl">To caught up</div></div>
+        <div class="stat-pill"><div class="num">Weekly</div><div class="lbl">Comp intel</div></div>
+        <div class="stat-pill"><div class="num">24/7</div><div class="lbl">Always on</div></div>
+      </div>
+      <ul class="proof-list">
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Pulls active jobs, pending drafts, calendar, email, and decisions waiting for you — one prioritized briefing every morning</li>
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Weekly competitive intelligence reports run automatically — pricing changes trigger immediate alerts</li>
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>Routes work to the right system automatically — research, content, email, sales — no manual handoffs</li>
+      </ul>
+      <div class="wow-block">
+        <div class="wow-label">⚡ Wow moment</div>
+        <p>"3 job approvals needed. 2 high-score leads ready. Competitor dropped pricing — report attached." Caught up in 4 minutes.</p>
+      </div>
+      <div class="coffee-q">"How long does it take you each morning to figure out what actually needs your attention?"</div>
+    </div>
+  </div>
+
+  <!-- 6: Consulting -->
+  <div class="product-card">
+    <div class="card-top">
+      <div class="card-num">Product 06</div>
+      <div class="card-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="1.8"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <div class="card-name">AI Consulting & Enablement</div>
+      <div class="card-hook">Map your workflows, find the 3–5 worth automating, and get a real plan with pricing</div>
+    </div>
+    <div class="card-body">
+      <div class="stat-row">
+        <div class="stat-pill"><div class="num">$2.5k</div><div class="lbl">Workshop</div></div>
+        <div class="stat-pill"><div class="num">Half</div><div class="lbl">Day only</div></div>
+        <div class="stat-pill"><div class="num">ROI</div><div class="lbl">Projected</div></div>
+      </div>
+      <ul class="proof-list">
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>$2,500 half-day workshop maps your workflows, identifies the 3–5 worth automating, and hands you a prioritized roadmap — no retainer required</li>
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>AI Readiness Audit ($5k–$15k) benchmarks you against competitors and projects ROI for each opportunity with a 4-part deliverable package</li>
+        <li><span class="proof-check"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path d="m5 12 5 5L20 7"/></svg></span>We build, deploy, and manage — ongoing retainers include the running system, weekly reporting, and monthly tuning</li>
+      </ul>
+      <div class="wow-block">
+        <div class="wow-label">⚡ Wow moment</div>
+        <p>You leave the workshop holding a map of 4 specific workflows, time costs, automation costs, and payback periods. A real answer, not a deck.</p>
+      </div>
+      <div class="coffee-q">"What's the one thing your team does every week that a person probably shouldn't have to do?"</div>
+    </div>
+  </div>
+
+</div><!-- /products-grid -->
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════════
+     90-DAY SCENARIOS
+══════════════════════════════════════════════ -->
+<div id="scenarios" class="section-head">
+  <div class="section-eyebrow">90-Day Outcomes</div>
+  <div class="section-title">What your business looks like <em>after we build it</em></div>
+</div>
+
+<div class="scenarios-grid">
+
+  <div class="scenario-card">
+    <div class="scenario-icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0d4f4f" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
+    <div>
+      <div class="scenario-tag">Scenario A · Service Business</div>
+      <div class="scenario-headline">A roofing owner stops spending mornings on email</div>
+      <div class="scenario-body">Every new job kicks off an automated workflow. Measurement requests go out, subcontractor replies are processed, status updates in real time. The owner reviews only the decisions that need him. He gets 8 hours back every week.</div>
+    </div>
+  </div>
+
+  <div class="scenario-card">
+    <div class="scenario-icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0d4f4f" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </div>
+    <div>
+      <div class="scenario-tag">Scenario B · B2B Sales Team</div>
+      <div class="scenario-headline">A 3-person team starts closing instead of finding</div>
+      <div class="scenario-body">The lead pipeline runs every Monday morning without anyone touching it. By 9am: 20 qualified prospects, personalized outreach drafts, ready to approve. Prospecting drops from 15 hours/week to 90 minutes. Pipeline triples by month two.</div>
+    </div>
+  </div>
+
+  <div class="scenario-card">
+    <div class="scenario-icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0d4f4f" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+    </div>
+    <div>
+      <div class="scenario-tag">Scenario C · Content Creator</div>
+      <div class="scenario-headline">Goes from 2 posts a week to 10 — without hiring anyone</div>
+      <div class="scenario-body">The content pipeline discovers trending products, generates lifestyle images and short video clips, writes captions and hashtag sets, and queues for review. 20 minutes of approval replaces 4 hours of production per post.</div>
+    </div>
+  </div>
+
+  <div class="scenario-card">
+    <div class="scenario-icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0d4f4f" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </div>
+    <div>
+      <div class="scenario-tag">Scenario D · Local Business SEO</div>
+      <div class="scenario-headline">Starts showing up in Google — and in AI answers</div>
+      <div class="scenario-body">After a keyword audit and content build-out, the business appears on page one for 18 local terms and gets cited in Google AI Overviews. Inbound calls increase. They stop paying for Google Ads to cover the gap their website wasn't filling.</div>
+    </div>
+  </div>
+
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════════
+     COMMITMENT CLOSER
+══════════════════════════════════════════════ -->
+<div id="closer" class="section-head">
+  <div class="section-eyebrow">End the meeting with a next step</div>
+  <div class="section-title">Offer one of these — match it to <em>what resonated</em></div>
+</div>
+
+<div class="closer-grid">
+
+  <div class="closer-card featured">
+    <div class="closer-type">⭐ Most popular</div>
+    <div class="closer-name">Workflow Workshop</div>
+    <div class="closer-price">$2,500 · Half day</div>
+    <div class="closer-desc">We map your team's workflows and hand you a prioritized automation roadmap with real cost and payback estimates. No retainer, no commitment beyond the day.</div>
+    <a href="https://alphaspeedai.com" target="_blank" class="closer-cta">Book the Workshop</a>
+  </div>
+
+  <div class="closer-card">
+    <div class="closer-type">Low barrier</div>
+    <div class="closer-name">Live Demo</div>
+    <div class="closer-price">Free · 30 min</div>
+    <div class="closer-desc">We show the actual system running — not slides. You see the email arrive, the workflow advance, the draft appear. We schedule it this week.</div>
+    <a href="https://alphaspeedai.com/#portfolio" target="_blank" class="closer-cta">See Demos Online</a>
+  </div>
+
+  <div class="closer-card">
+    <div class="closer-type">For larger firms</div>
+    <div class="closer-name">AI Readiness Audit</div>
+    <div class="closer-price">$5k–$15k</div>
+    <div class="closer-desc">Full competitive assessment + ROI projections + phased implementation plan. A 4-part deliverable package. Best when they're ready to move fast.</div>
+    <a href="mailto:miguel@alphaspeedai.com" class="closer-cta">Request Audit</a>
+  </div>
+
+  <div class="closer-card">
+    <div class="closer-type">Ongoing</div>
+    <div class="closer-name">Managed Retainer</div>
+    <div class="closer-price">$1,500–$2,500/mo</div>
+    <div class="closer-desc">We build, deploy, and run the system. Monthly reviews, weekly reporting, continuous tuning. Best after workshop or demo converts.</div>
+    <a href="mailto:miguel@alphaspeedai.com" class="closer-cta">Talk Retainer</a>
+  </div>
+
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════════
+     QUICK REFERENCE CARD
+══════════════════════════════════════════════ -->
+<div id="qr" class="section-head">
+  <div class="section-eyebrow">Leave-behind</div>
+  <div class="section-title">Quick Reference Card</div>
+</div>
+
+<div class="qr-card">
+  <div class="qr-header">
+    <div>
+      <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:8px;">ALPHA SPEED AI</div>
+      <div class="qr-tagline">We automate your back office.<br><em>You run the business.</em></div>
+    </div>
+    <div class="qr-links">
+      <a href="https://alphaspeedai.com" target="_blank" class="qr-link-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        alphaspeedai.com
+      </a>
+      <a href="https://alphaspeedai.com/#portfolio" target="_blank" class="qr-link-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        See live demos
+      </a>
+      <a href="https://instagram.com/alphaspeed.ai" target="_blank" class="qr-link-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        @alphaspeed.ai
+      </a>
+      <a href="mailto:miguel@alphaspeedai.com" class="qr-link-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        miguel@alphaspeedai.com
+      </a>
+    </div>
+  </div>
+
+  <div class="qr-body">
+
+    <div class="qr-col">
+      <div class="qr-col-title">The 6 Products</div>
+      <div class="qr-pill-list">
+        <div class="qr-pill">
+          <div class="qr-pill-num">1</div>
+          <div class="qr-pill-text">
+            <strong>CRM & Workflow Automation</strong>
+            <span>Your jobs run themselves, step by step</span>
+          </div>
+        </div>
+        <div class="qr-pill">
+          <div class="qr-pill-num">2</div>
+          <div class="qr-pill-text">
+            <strong>AgentVault Operations</strong>
+            <span>Prospecting, scoring, outreach — automated</span>
+          </div>
+        </div>
+        <div class="qr-pill">
+          <div class="qr-pill-num">3</div>
+          <div class="qr-pill-text">
+            <strong>Content Generation</strong>
+            <span>Images, videos, captions — one batch</span>
+          </div>
+        </div>
+        <div class="qr-pill">
+          <div class="qr-pill-num">4</div>
+          <div class="qr-pill-text">
+            <strong>Website & SEO</strong>
+            <span>Rank on Google and in AI search answers</span>
+          </div>
+        </div>
+        <div class="qr-pill">
+          <div class="qr-pill-num">5</div>
+          <div class="qr-pill-text">
+            <strong>Digital Chief of Staff</strong>
+            <span>One briefing. Everything in flight. Daily.</span>
+          </div>
+        </div>
+        <div class="qr-pill">
+          <div class="qr-pill-num">6</div>
+          <div class="qr-pill-text">
+            <strong>AI Consulting & Enablement</strong>
+            <span>Workshop → roadmap → implementation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-col">
+      <div class="qr-col-title">Why Alpha Speed AI</div>
+      <ul class="diff-list">
+        <li>
+          <span class="diff-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+          <span><strong>Built, not designed.</strong> These systems are running in production for real businesses right now — not prototypes.</span>
+        </li>
+        <li>
+          <span class="diff-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+          <span><strong>73 pre-built workflows.</strong> Your industry's workflow likely already exists and deploys in days, not months.</span>
+        </li>
+        <li>
+          <span class="diff-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2d8a7a" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+          <span><strong>You stay in control.</strong> Nothing sends, posts, or executes without your explicit approval. Every system has a human gate.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="qr-col">
+      <div class="qr-col-title">Contact & Next Step</div>
+      <div class="contact-block">
+        <div class="contact-row">
+          <strong>Website</strong>
+          <a href="https://alphaspeedai.com" target="_blank">alphaspeedai.com</a>
+        </div>
+        <div class="contact-row">
+          <strong>Instagram</strong>
+          <a href="https://instagram.com/alphaspeed.ai" target="_blank">@alphaspeed.ai</a>
+        </div>
+        <div class="contact-row">
+          <strong>Email</strong>
+          <a href="mailto:miguel@alphaspeedai.com">miguel@alphaspeedai.com</a>
+        </div>
+        <div class="contact-row">
+          <strong>Founder</strong>
+          <span>Miguel Franco</span>
+        </div>
+        <a href="https://alphaspeedai.com/#portfolio" target="_blank" class="link-btn" style="margin-top:8px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Watch a live demo
+        </a>
+        <a href="https://alphaspeedai.com" target="_blank" class="link-btn outline" style="margin-top:4px;">
+          Book free consultation
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="qr-footer">
+    <span>Confidential · Internal sales use only · Not for redistribution</span>
+    <span>Alpha Speed AI · alphaspeedai.com · May 2026</span>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+</body>
+</html>
