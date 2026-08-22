@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { Wrench, Bot } from "lucide-react";
 import CalendlyBooking from "@/components/CalendlyBooking";
 import AgentVaultPricing from "@/components/AgentVaultPricing";
+import GovernanceSection from "@/components/GovernanceSection";
+import { PLATFORM_STATS, TIER_ENTITLEMENTS } from "@/lib/constants";
 
 interface Agent {
   name: string;
@@ -130,15 +132,15 @@ const AgentRoster = () => {
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>AgentVault — AI Agents, MCP Connectors &amp; Workflows | Alpha Speed AI</title>
-        <meta name="description" content="AgentVault is the AI workflow automation platform from Alpha Speed AI. Get 10+ specialized agents, MCP connectors, 30+ skills, and canonical workflows — installed in minutes via Claude's Cowork plugin." />
+        <meta name="description" content="AgentVault is the AI workflow automation platform from Alpha Speed AI. 30+ specialized agents, 65+ skills, 10 MCP servers, and 80+ canonical workflows — installed in minutes via Claude's Cowork plugin." />
         <link rel="canonical" href={canonicalUrl} />
         <meta property="og:title" content="AgentVault — AI Agents, MCP Connectors &amp; Workflows | Alpha Speed AI" />
-        <meta property="og:description" content="AgentVault gives your team 10+ AI agents, 30+ skills, and 38 canonical workflows. Works inside Claude's Cowork plugin." />
+        <meta property="og:description" content="AgentVault gives your team 30+ AI agents, 65+ skills, and 80+ canonical workflows. Works inside Claude's Cowork plugin." />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content="https://alphaspeedai.com/og-image.jpeg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="AgentVault — AI Agents, MCP Connectors &amp; Workflows | Alpha Speed AI" />
-        <meta name="twitter:description" content="AgentVault gives your team 10+ AI agents, 30+ skills, and 38 canonical workflows." />
+        <meta name="twitter:description" content="AgentVault gives your team 30+ AI agents, 65+ skills, and 80+ canonical workflows." />
         <meta name="twitter:image" content="https://alphaspeedai.com/og-image.jpeg" />
         <script type="application/ld+json">
           {JSON.stringify(buildBreadcrumbSchema([
@@ -158,7 +160,7 @@ const AgentRoster = () => {
             },
             {
               question: "What's included in every AgentVault plan?",
-              answer: "Every plan includes the full agent roster (Product Owner, Developer, Architect, and more), the Cowork plugin installer, and at least 5 canonical workflows. Higher tiers add more connectors, skills, and workflow runs per month.",
+              answer: "Every plan includes the Cowork plugin installer, the document and productivity skills, 8 connectors, and 8 canonical workflows. Advanced adds the AI Product Agents, 23 skills, 17 connectors and 34 workflows; Custom unlocks the full catalog.",
             },
           ]))}
         </script>
@@ -191,15 +193,13 @@ const AgentRoster = () => {
         <section className="pb-8">
           <div className="container mx-auto px-6">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto text-center">
-              {[
-                { stat: "10+", label: "AI Agents" },
-                { stat: "30+", label: "Skills" },
-                { stat: "18", label: "MCP Connectors" },
-                { stat: "38", label: "Workflows" },
-              ].map(({ stat, label }) => (
+              {PLATFORM_STATS.map(({ value, label, detail }) => (
                 <div key={label} className="rounded-xl bg-card border border-border p-4">
-                  <p className="text-3xl font-extrabold gradient-text">{stat}</p>
+                  <p className="text-3xl font-extrabold gradient-text">{value}</p>
                   <p className="text-sm text-muted-foreground mt-1">{label}</p>
+                  {detail && (
+                    <p className="text-xs text-muted-foreground/70 mt-0.5">{detail}</p>
+                  )}
                 </div>
               ))}
             </div>
@@ -213,7 +213,9 @@ const AgentRoster = () => {
               Your <span className="gradient-text">Agent Roster</span>
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Every agent has a defined role and toolset. They're included in every AgentVault plan.
+              Every agent has a defined role and toolset. These are ten of the 30+
+              agents in the AgentVault catalog — the {TIER_ENTITLEMENTS.advanced.agents}{" "}
+              orchestrated AI Product Agents are entitled on Advanced and Custom plans.
             </p>
           </div>
         </section>
@@ -263,6 +265,9 @@ const AgentRoster = () => {
             </div>
           </div>
         </section>
+
+        {/* Governance */}
+        <GovernanceSection />
 
         {/* Pricing */}
         <AgentVaultPricing />

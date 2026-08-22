@@ -8,6 +8,13 @@ import {
   Sparkles,
   MessageSquare,
   BarChart,
+  ShieldCheck,
+  ClipboardCheck,
+  GitBranch,
+  Eye,
+  Inbox,
+  ListChecks,
+  LineChart,
   type LucideIcon,
 } from "lucide-react";
 
@@ -181,6 +188,8 @@ export interface DemoVideo {
   description: string;
   src: string;
   captionUrl?: string;
+  /** Rendered in its own feature section instead of the demo carousel. */
+  featured?: boolean;
 }
 
 export const DEMO_VIDEOS: DemoVideo[] = [
@@ -223,6 +232,7 @@ export const DEMO_VIDEOS: DemoVideo[] = [
     title: "Agent Vault: Governance Layer",
     description: "Governance and control layer for AI agents — policies, compliance, and safe deployment.",
     src: "Videos/AgentVault_Governance_Layer.mp4",
+    featured: true,
   },
   {
     title: "DCR Portal: AI Command Center",
@@ -238,3 +248,219 @@ export const DEMO_VIDEOS: DemoVideo[] = [
 
 // ── Reels (short-form videos from Alpha) ─────────────────────────────
 export const REELS_VIDEOS: DemoVideo[] = [];
+
+// ── AgentVault: Platform Catalog Stats ───────────────────────────────
+// SOURCE OF TRUTH #1 — the AgentVault *catalog*: everything that exists on
+// the platform, regardless of which plan entitles it.
+//
+// Verified against cowork_plugin/docs/canonical-workflow-registry.json
+// (committed ead20c2, generated 2026-08-19):
+//   workflows 83 (54 local / 17 hybrid / 12 remote) · skills 67
+//   agents catalogued 31 · MCP servers 10 · AgentVault MCP tools 217
+//
+// ⚠️ These are CATALOG figures. They are NOT what a customer receives —
+// that is TIER_ENTITLEMENTS below. Never use these in pricing copy.
+//
+// Floor framing ("80+") is deliberate: the registry returned 81 on
+// 2026-08-10 and 83 on 2026-08-19. Hard-coded exact counts have gone
+// stale twice already (38 on-site, 73 in the sales kit).
+
+export interface PlatformStat {
+  value: string;
+  label: string;
+  detail?: string;
+}
+
+export const PLATFORM_STATS_SOURCE =
+  "cowork_plugin/docs/canonical-workflow-registry.json";
+export const PLATFORM_STATS_VERIFIED_ON = "2026-08-19";
+
+export const PLATFORM_STATS: PlatformStat[] = [
+  { value: "30+", label: "Agents", detail: "31 catalogued" },
+  { value: "65+", label: "Skills", detail: "67 catalogued" },
+  { value: "10", label: "MCP Servers", detail: "first-party + bundled" },
+  { value: "80+", label: "Workflows", detail: "54 local · 17 hybrid · 12 remote" },
+];
+
+/** Exact catalog counts behind the floor-framed stats above. */
+export const PLATFORM_CATALOG_COUNTS = {
+  workflows: 83,
+  workflowsLocal: 54,
+  workflowsHybrid: 17,
+  workflowsRemote: 12,
+  skills: 67,
+  agents: 31,
+  mcpServers: 10,
+  mcpTools: 217,
+} as const;
+
+// ── AgentVault: Per-Tier Entitlements ────────────────────────────────
+// SOURCE OF TRUTH #2 — what each paying plan actually grants.
+//
+// Verified 2026-08-22 against cowork_plugin/agentvault_platform/server.py
+// → TIER_MANIFESTS, by counting the real `skills` / `connectors` / `agents` /
+// `workflows` lists. Corroborated by agentvault_platform/tier_access.py.
+//
+// ⚠️ Read the LISTS, never the tier `description` strings — server.py's own
+// Advanced description says "28 workflows" while its list holds 34. The
+// upstream description strings have drifted from the lists they describe.
+//
+// ⚠️ These figures are contractual: they state what $99 and $199 buy.
+// Any change here must be checked against TIER_MANIFESTS first.
+
+export interface TierEntitlement {
+  skills: number | "all";
+  connectors: number | "all";
+  /** Orchestrated AI Product Agents. Basic entitles none. */
+  agents: number | "all";
+  workflows: number | "all";
+  rateLimit: number;
+  /** Included product-agent workflow runs per month. -1 = unlimited. */
+  workflowRuns?: number;
+  overageRate?: number;
+}
+
+export const TIER_ENTITLEMENTS_SOURCE =
+  "cowork_plugin/agentvault_platform/server.py → TIER_MANIFESTS";
+export const TIER_ENTITLEMENTS_VERIFIED_ON = "2026-08-22";
+
+export const TIER_ENTITLEMENTS: Record<
+  "basic" | "advanced" | "custom" | "developer_license",
+  TierEntitlement
+> = {
+  basic: {
+    skills: 7,
+    connectors: 8,
+    agents: 0,
+    workflows: 8,
+    rateLimit: 100,
+    workflowRuns: 0,
+  },
+  advanced: {
+    skills: 23,
+    connectors: 17,
+    agents: 9,
+    workflows: 34,
+    rateLimit: 1000,
+    workflowRuns: 20,
+    overageRate: 0.15,
+  },
+  custom: {
+    skills: "all",
+    connectors: "all",
+    agents: "all",
+    workflows: "all",
+    rateLimit: 10000,
+    workflowRuns: -1,
+  },
+  developer_license: {
+    skills: "all",
+    connectors: "all",
+    agents: "all",
+    workflows: "all",
+    rateLimit: 5000,
+    workflowRuns: -1,
+  },
+};
+
+/**
+ * All 13 AI Product Agents run under the Developer License via the local
+ * Development_agents runtime. The Advanced tier entitles 9. Do not print
+ * 13 against Advanced.
+ */
+export const DEVELOPER_LICENSE_PRODUCT_AGENTS = 13;
+
+// ── AgentVault: Governance Layer ─────────────────────────────────────
+// Verified 2026-08-22 against the canonical workflow registry (see
+// PLATFORM_STATS_SOURCE) and the tier manifests:
+//   required_controls: audit_chain on 82 of 83 workflows, evidence_gate on 29
+//   autonomy_level:    L1 13 · L2 52 · L3 17
+//   risk_tier:         low 7 · medium 53 · high 22
+//   governance_visibility connector: entitled on every paying tier (2026-08-03)
+
+export interface GovernanceFact {
+  icon: LucideIcon;
+  stat: string;
+  title: string;
+  description: string;
+}
+
+export const GOVERNANCE_FACTS: GovernanceFact[] = [
+  {
+    icon: ClipboardCheck,
+    stat: "82 of 83",
+    title: "Workflows write an audit chain",
+    description:
+      "Almost every canonical workflow carries a required audit-chain control. What the agent did, when, and on whose authority is recorded as the work happens — not reconstructed afterwards.",
+  },
+  {
+    icon: ShieldCheck,
+    stat: "29",
+    title: "Workflows require an evidence gate",
+    description:
+      "The higher-stakes workflows cannot act on an assumption. They must produce supporting evidence before the step is allowed to proceed, so nothing consequential runs on a guess.",
+  },
+  {
+    icon: GitBranch,
+    stat: "3 levels",
+    title: "Autonomy is graded, not all-or-nothing",
+    description:
+      "Every workflow is assigned an autonomy level and a risk tier. Routine work runs unattended; anything sensitive stops for a human. You decide where that line sits — it is configuration, not a rewrite.",
+  },
+  {
+    icon: Eye,
+    stat: "Every plan",
+    title: "Governance visibility is not an upsell",
+    description:
+      "The governance connector is entitled on every paying tier. Oversight is not something you buy back later — it ships with the platform from the first plan up.",
+  },
+];
+
+/** Already-public governance line, reused from the sales kit. */
+export const GOVERNANCE_HEADLINE =
+  "Nothing sends without your approval — every workflow has a human gate built in.";
+
+// ── AgentVault: Cockpit & Mission Control ────────────────────────────
+// ⚠️ CAPABILITY-LEVEL COPY ONLY. The underlying system holds live client
+// and commercial data. Never add client names, deal terms, contact details,
+// account-tied metrics, or internal screenshots to this file.
+// Capability categories map to cowork_plugin/agentvault_platform/cockpit/
+// (capture, brief, portfolio, cost, task_launch, actions, read_api).
+
+export interface CockpitCapability {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  outcome: string;
+}
+
+export const COCKPIT_CAPABILITIES: CockpitCapability[] = [
+  {
+    icon: Inbox,
+    title: "One place to capture the work",
+    description:
+      "Requests arrive from everywhere — email, chat, a hallway conversation, a form on the site. Everything lands in a single capture point instead of scattering across inboxes and notes apps, and each item is routed to the agent or person who owns it.",
+    outcome: "Nothing depends on someone remembering it.",
+  },
+  {
+    icon: ListChecks,
+    title: "A backlog that tells you what is actually blocked",
+    description:
+      "Work is separated into what is ready to start and what is waiting on someone else, then rolled into a standing brief. The queue distinguishes between work that is stalled and work that simply has not been picked up yet.",
+    outcome: "The daily question becomes what to do next, not what is going on.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Approval gates on the consequential steps",
+    description:
+      "Agents run the routine work unattended, but anything that spends money, sends on your behalf, or touches a client record stops at a gate first. Approvals happen in the same place the work is tracked, with the context attached.",
+    outcome: "Autonomy where it is safe, a human where it is not.",
+  },
+  {
+    icon: LineChart,
+    title: "Delivery and cost tracked as the work moves",
+    description:
+      "Every engagement carries its own progress and spend view, updated as agents complete steps rather than assembled for a status meeting. Cost per workflow run is tracked alongside delivery so throughput and spend are read together.",
+    outcome: "Status is a page you open, not a report someone writes.",
+  },
+];

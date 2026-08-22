@@ -23,6 +23,8 @@ import Footer from "@/components/Footer";
 
 // Lazy-load below-fold heavy sections
 const UseCasesSection = lazy(() => import("@/components/UseCasesSection"));
+const GovernanceSection = lazy(() => import("@/components/GovernanceSection"));
+const CockpitSection = lazy(() => import("@/components/CockpitSection"));
 const DemoVideosSection = lazy(() => import("@/components/DemoVideosSection"));
 
 const Index = () => {
@@ -100,6 +102,8 @@ const Index = () => {
         <ResourcePathways />
         <Suspense fallback={null}>
           <UseCasesSection />
+          <GovernanceSection />
+          <CockpitSection />
           <DemoVideosSection />
         </Suspense>
         <About />

@@ -22,7 +22,7 @@ const DemoVideosSection = () => {
 
         {/* Video Grid */}
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 mb-10 md:mb-16">
-          {DEMO_VIDEOS.map((video, index) => (
+          {DEMO_VIDEOS.filter((video) => !video.featured).map((video, index) => (
             <div
               key={index}
               className="rounded-2xl bg-card border border-border card-hover overflow-hidden"

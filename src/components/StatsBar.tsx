@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
 
+// Customer-outcome claims. Unlike PLATFORM_STATS / TIER_ENTITLEMENTS in
+// constants.ts, these have no registry equivalent in the AgentVault repo and
+// could not be verified against a live source. Values are carried forward
+// unchanged; `verifiedOn` records that they are awaiting confirmation so the
+// staleness is visible rather than silent.
+export const STATS_VERIFIED_ON: string | null = null; // stamp an ISO date once confirmed
+
 const STATS = [
   { value: "20+", label: "hours saved per week", detail: "per client average" },
   { value: "90%", label: "faster lead response", detail: "automated follow-up" },

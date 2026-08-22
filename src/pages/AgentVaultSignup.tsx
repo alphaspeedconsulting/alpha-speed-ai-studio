@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
+import { DEVELOPER_LICENSE_PRODUCT_AGENTS, TIER_ENTITLEMENTS } from "@/lib/constants";
 
 const LICENSE_SERVER_URL = "https://agentvault-license-server.onrender.com";
 
@@ -16,20 +17,36 @@ const tierDetails: Record<Exclude<Tier, "custom">, { label: string; price: strin
   basic: {
     label: "Basic",
     price: "$99/mo",
-    description: "6 skills, 6 connectors, 5 workflows",
-    features: ["6 document & productivity skills", "Gmail Learning Filter + Google Calendar", "5 canonical workflows", "100 tool calls / hour"],
+    description: `${TIER_ENTITLEMENTS.basic.skills} skills, ${TIER_ENTITLEMENTS.basic.connectors} connectors, ${TIER_ENTITLEMENTS.basic.workflows} workflows`,
+    features: [
+      `${TIER_ENTITLEMENTS.basic.skills} document & productivity skills`,
+      `${TIER_ENTITLEMENTS.basic.connectors} connectors incl. Gmail Learning Filter`,
+      `${TIER_ENTITLEMENTS.basic.workflows} canonical workflows`,
+      `${TIER_ENTITLEMENTS.basic.rateLimit} tool calls / hour`,
+    ],
   },
   advanced: {
     label: "Advanced",
     price: "$199/mo",
-    description: "Full agent suite — 30 skills, 18 connectors, 38 workflows",
-    features: ["Everything in Basic", "30 skills + 18 connectors", "13 AI Product Agents", "38 canonical workflows", "1,000 tool calls / hour"],
+    description: `Full agent suite — ${TIER_ENTITLEMENTS.advanced.skills} skills, ${TIER_ENTITLEMENTS.advanced.connectors} connectors, ${TIER_ENTITLEMENTS.advanced.workflows} workflows`,
+    features: [
+      "Everything in Basic",
+      `${TIER_ENTITLEMENTS.advanced.skills} skills + ${TIER_ENTITLEMENTS.advanced.connectors} connectors`,
+      `${TIER_ENTITLEMENTS.advanced.agents} AI Product Agents`,
+      `${TIER_ENTITLEMENTS.advanced.workflows} canonical workflows`,
+      `${TIER_ENTITLEMENTS.advanced.rateLimit.toLocaleString()} tool calls / hour`,
+    ],
   },
   developer_license: {
     label: "Developer",
     price: "$499/mo",
     description: "Full local runtime — all agents, prompts, and pipelines",
-    features: ["Full ai_product_agents_mcp runtime", "Real multi-step PRD, architecture & pitch agents", "Private repo access (Development_agents)", "Run workflows locally with your own infra"],
+    features: [
+      "Full ai_product_agents_mcp runtime",
+      `All ${DEVELOPER_LICENSE_PRODUCT_AGENTS} AI Product Agents via local runtime`,
+      "Private repo access (Development_agents)",
+      "Run workflows locally with your own infra",
+    ],
     badge: "Beta",
   },
 };

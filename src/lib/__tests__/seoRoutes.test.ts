@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   BLOG_POST_SLUGS,
+  PRERENDER_CONTENT_MARKERS,
   PRERENDER_ROUTES,
   SITEMAP_DYNAMIC_ROUTES,
   SITEMAP_EXCLUDE_ROUTES,
@@ -35,6 +36,18 @@ describe("seoRoutes", () => {
         "/dfw-ai-automation-services",
         "/ai-automation-for-contractors",
       ])
+    );
+  });
+
+  it("verifies the governance and cockpit sections actually prerender", () => {
+    // These markers are a hard build gate (vite.config.ts prerenderPlugin):
+    // if the lazy-loaded sections fail to render, `npm run build` fails rather
+    // than silently deploying an empty shell to Google.
+    expect(PRERENDER_CONTENT_MARKERS["/"]).toEqual(
+      expect.arrayContaining(["Governance Layer", "Mission Control"])
+    );
+    expect(PRERENDER_CONTENT_MARKERS["/agentvault"]).toEqual(
+      expect.arrayContaining(["AgentVault", "Governance Layer"])
     );
   });
 

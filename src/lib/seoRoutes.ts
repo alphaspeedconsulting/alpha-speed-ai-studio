@@ -49,10 +49,10 @@ export const SITEMAP_EXCLUDE_ROUTES = [
 ] as const;
 
 export const PRERENDER_CONTENT_MARKERS: Record<string, string[]> = {
-  "/": ["Alpha Speed AI", "DFW", "AI Automation"],
+  "/": ["Alpha Speed AI", "DFW", "AI Automation", "Governance Layer", "Mission Control"],
   "/roi-calculator": ["ROI Calculator", "Save with AI"],
   "/case-studies": ["Case Studies", "Real Work"],
-  "/agentvault": ["AgentVault"],
+  "/agentvault": ["AgentVault", "Governance Layer"],
   "/assistant": ["Assistant"],
   "/blog": ["Alpha Speed AI Blog", "DFW business owners"],
   "/blog/chatbot-vs-ai-agent": ["Chatbot vs AI Agent", "What's the Difference"],

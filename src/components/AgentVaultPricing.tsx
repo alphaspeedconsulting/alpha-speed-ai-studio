@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { TIER_ENTITLEMENTS } from "@/lib/constants";
+
+const basic = TIER_ENTITLEMENTS.basic;
+const advanced = TIER_ENTITLEMENTS.advanced;
 
 const tiers = [
   {
@@ -10,11 +14,11 @@ const tiers = [
     period: "/mo",
     description: "For teams getting started with AI workflow automation.",
     features: [
-      "6 document & productivity skills",
-      "Gmail Learning Filter connector",
-      "Google Calendar connector",
-      "5 canonical workflows",
-      "100 tool calls / hour",
+      `${basic.skills} document & productivity skills`,
+      `${basic.connectors} connectors incl. Gmail Learning Filter`,
+      "Chief of Staff (ops management)",
+      `${basic.workflows} canonical workflows`,
+      `${basic.rateLimit} tool calls / hour`,
       "License key + Cowork plugin install",
     ],
     cta: "Get Started",
@@ -26,14 +30,14 @@ const tiers = [
     price: "$199",
     period: "/mo",
     overage: "+ $0.15/run above 20 workflow runs/mo",
-    description: "Full agent suite, SEO tools, dev workflows, and recon.",
+    description: "Full agent suite, dev workflows, sales and recon.",
     features: [
       "Everything in Basic",
-      "30 skills — SEO, dev, recon, lead gen",
-      "18 connectors incl. Family Optimizer",
-      "13 AI Product Agents",
-      "38 canonical workflows",
-      "1,000 tool calls / hour",
+      `${advanced.skills} skills — dev, sales, recon & lead gen`,
+      `${advanced.connectors} connectors incl. Family Optimizer`,
+      `${advanced.agents} AI Product Agents`,
+      `${advanced.workflows} canonical workflows`,
+      `${advanced.rateLimit.toLocaleString()} tool calls / hour`,
     ],
     cta: "Get Started",
     href: "/agentvault/signup?tier=advanced",
@@ -46,7 +50,7 @@ const tiers = [
     description: "White-label, unlimited rate limits, and custom connector bundles.",
     features: [
       "Everything in Advanced",
-      "All skills, connectors & workflows",
+      "All skills, connectors & workflows — incl. SEO",
       "Custom connector bundles",
       "White-label branding",
       "10,000 tool calls / hour",
