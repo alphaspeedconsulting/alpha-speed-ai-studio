@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ExternalLink, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CONTACT_MAILTO, DEMO_VIDEOS } from "@/lib/constants";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
 
 const DemoVideosSection = () => {
   return (
@@ -28,18 +29,22 @@ const DemoVideosSection = () => {
               className="rounded-2xl bg-card border border-border card-hover overflow-hidden"
             >
               <div className="relative aspect-video bg-muted overflow-hidden rounded-t-2xl">
-                <video
-                  src={`${import.meta.env.BASE_URL}${video.src}`}
-                  controls
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-full object-cover focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
-                  aria-label={video.title}
-                >
-                  {video.captionUrl && (
-                    <track kind="captions" src={video.captionUrl} srcLang="en" label="English" default />
-                  )}
-                </video>
+                {video.youtubeId ? (
+                  <YouTubeEmbed youtubeId={video.youtubeId} title={video.title} />
+                ) : (
+                  <video
+                    src={`${import.meta.env.BASE_URL}${video.src}`}
+                    controls
+                    playsInline
+                    preload="metadata"
+                    className="w-full h-full object-cover focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+                    aria-label={video.title}
+                  >
+                    {video.captionUrl && (
+                      <track kind="captions" src={video.captionUrl} srcLang="en" label="English" default />
+                    )}
+                  </video>
+                )}
               </div>
               <div className="p-6">
                 <h3 className="text-lg font-bold mb-2">{video.title}</h3>

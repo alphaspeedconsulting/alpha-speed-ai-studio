@@ -1,5 +1,10 @@
 import { Badge } from "@/components/ui/badge";
-import { COCKPIT_CAPABILITIES } from "@/lib/constants";
+import { COCKPIT_CAPABILITIES, DEMO_VIDEOS } from "@/lib/constants";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
+
+const cockpitVideo = DEMO_VIDEOS.find(
+  (video) => video.title === "AgentVault Cockpit Walk"
+);
 
 const CockpitSection = () => {
   return (
@@ -23,6 +28,26 @@ const CockpitSection = () => {
             cockpit — the same one we hand to clients.
           </p>
         </div>
+
+        {/* Walkthrough */}
+        {cockpitVideo?.youtubeId && (
+          <div className="max-w-3xl mx-auto mb-10 md:mb-16">
+            <div className="rounded-2xl bg-card border border-border overflow-hidden">
+              <div className="relative aspect-video bg-muted overflow-hidden">
+                <YouTubeEmbed
+                  youtubeId={cockpitVideo.youtubeId}
+                  title={cockpitVideo.title}
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-bold mb-2">{cockpitVideo.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {cockpitVideo.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Capability Grid */}
         <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">

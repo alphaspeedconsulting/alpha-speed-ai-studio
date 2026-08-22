@@ -121,10 +121,20 @@ export interface PortfolioItem {
   category: string;
   description: string;
   images: string[];
+  /** YouTube video id, rendered as the card's media in place of screenshots. */
+  youtubeId?: string;
   link?: string;
 }
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
+  {
+    title: "AgentVault",
+    category: "AI Platform",
+    description:
+      "Our own AI platform, running inside Claude's Cowork plugin. Agents, MCP connectors, skills, and workflows behind a governance layer — with the cockpit we use to run the business ourselves.",
+    images: [],
+    youtubeId: "rXoIt_SVlOQ",
+  },
   {
     title: "DCR Portal",
     category: "Workflow Automation",
@@ -186,7 +196,10 @@ export const HOW_WE_WORK_STEPS: WorkStep[] = [
 export interface DemoVideo {
   title: string;
   description: string;
-  src: string;
+  /** Path to a self-hosted mp4 under `public/`. Omit when `youtubeId` is set. */
+  src?: string;
+  /** YouTube video id, for videos we host on the channel instead of in-repo. */
+  youtubeId?: string;
   captionUrl?: string;
   /** Rendered in its own feature section instead of the demo carousel. */
   featured?: boolean;
@@ -238,6 +251,12 @@ export const DEMO_VIDEOS: DemoVideo[] = [
     title: "DCR Portal: AI Command Center",
     description: "The DCR Portal AI command center — central control for workflows, automation, and operations.",
     src: "Videos/DCR/DCR_Portal__AI_Command_Center.mp4",
+  },
+  {
+    title: "AgentVault Cockpit Walk",
+    description:
+      "A walkthrough of the cockpit — how work is captured, queued, approved, and tracked in one place.",
+    youtubeId: "rXoIt_SVlOQ",
   },
   {
     title: "The AI Content Studio",

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
 import { PORTFOLIO_ITEMS } from "@/lib/constants";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
 
 // Import product screenshots
 import dcr1 from "@/assets/product screenshots/dcr1.png";
@@ -46,11 +47,19 @@ const PortfolioSection = () => {
         <div className="space-y-12">
           {PORTFOLIO_ITEMS.map((item, index) => {
             const hasImages = item.images.length > 0;
+            const hasVideo = Boolean(item.youtubeId);
             return (
               <div
                 key={index}
                 className="rounded-2xl bg-card border border-border card-hover overflow-hidden"
               >
+                {/* Walkthrough video */}
+                {hasVideo && (
+                  <div className="relative aspect-video bg-muted overflow-hidden">
+                    <YouTubeEmbed youtubeId={item.youtubeId!} title={item.title} />
+                  </div>
+                )}
+
                 {/* Screenshots */}
                 {hasImages && (
                   <div className={`grid gap-1 ${item.images.length === 1 ? "grid-cols-1" : item.images.length === 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-3"}`}>
@@ -67,8 +76,8 @@ const PortfolioSection = () => {
                   </div>
                 )}
 
-                {/* No-image fallback — compact gradient placeholder (e.g. AI Studio card) */}
-                {!hasImages && (
+                {/* No-media fallback — compact gradient placeholder (e.g. AI Studio card) */}
+                {!hasImages && !hasVideo && (
                   <div className="aspect-[6/1] max-h-28 bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 flex items-center justify-center">
                     <span className="text-2xl font-bold gradient-text opacity-40">
                       αlphaspeed
@@ -77,7 +86,7 @@ const PortfolioSection = () => {
                 )}
 
                 {/* Info */}
-                <div className={`p-6 sm:p-8 ${!hasImages ? "py-4 sm:py-5" : ""}`}>
+                <div className={`p-6 sm:p-8 ${!hasImages && !hasVideo ? "py-4 sm:py-5" : ""}`}>
                   <div className="flex items-center gap-3 mb-3">
                     <h3 className="text-xl font-bold">{item.title}</h3>
                     <Badge variant="outline" className="text-xs border-primary/50 text-primary">
