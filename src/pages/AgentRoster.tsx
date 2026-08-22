@@ -11,6 +11,7 @@ import { Wrench, Bot } from "lucide-react";
 import CalendlyBooking from "@/components/CalendlyBooking";
 import AgentVaultPricing from "@/components/AgentVaultPricing";
 import GovernanceSection from "@/components/GovernanceSection";
+import CockpitSection from "@/components/CockpitSection";
 import { PLATFORM_STATS, TIER_ENTITLEMENTS } from "@/lib/constants";
 
 interface Agent {
@@ -268,6 +269,9 @@ const AgentRoster = () => {
 
         {/* Governance */}
         <GovernanceSection />
+
+        {/* Cockpit & Mission Control */}
+        <CockpitSection />
 
         {/* Pricing */}
         <AgentVaultPricing />

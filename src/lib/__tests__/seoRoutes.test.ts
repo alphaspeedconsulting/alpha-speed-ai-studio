@@ -44,10 +44,10 @@ describe("seoRoutes", () => {
     // if the lazy-loaded sections fail to render, `npm run build` fails rather
     // than silently deploying an empty shell to Google.
     expect(PRERENDER_CONTENT_MARKERS["/"]).toEqual(
-      expect.arrayContaining(["Governance Layer", "Mission Control"])
+      expect.arrayContaining(["Governance Layer"])
     );
     expect(PRERENDER_CONTENT_MARKERS["/agentvault"]).toEqual(
-      expect.arrayContaining(["AgentVault", "Governance Layer"])
+      expect.arrayContaining(["AgentVault", "Governance Layer", "Mission Control"])
     );
   });
 
