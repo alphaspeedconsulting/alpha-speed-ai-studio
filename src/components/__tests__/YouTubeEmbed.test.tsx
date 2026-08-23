@@ -1,7 +1,12 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import YouTubeEmbed from "../YouTubeEmbed";
-import { DEMO_VIDEOS, PORTFOLIO_ITEMS } from "@/lib/constants";
+import {
+  DEMO_VIDEOS,
+  PORTFOLIO_ITEMS,
+  COCKPIT_VIDEO_IDS,
+  getDemoVideoByYouTubeId,
+} from "@/lib/constants";
 
 describe("YouTubeEmbed", () => {
   it("shows a play control and no iframe until the viewer asks for it", () => {
@@ -42,6 +47,16 @@ describe("video media sources", () => {
     }
   });
 
+  it("resolves every cockpit and portfolio video id to a demo entry", () => {
+    const referenced = [
+      ...COCKPIT_VIDEO_IDS,
+      ...PORTFOLIO_ITEMS.flatMap((item) => item.youtubeIds ?? []),
+    ];
+    for (const id of referenced) {
+      expect(getDemoVideoByYouTubeId(id), `${id} has no DEMO_VIDEOS entry`).toBeDefined();
+    }
+  });
+
   it("keeps a single featured video, so the carousel cannot duplicate it", () => {
     expect(DEMO_VIDEOS.filter((video) => video.featured)).toHaveLength(1);
   });
@@ -49,7 +64,7 @@ describe("video media sources", () => {
   it("references only real YouTube ids", () => {
     const ids = [
       ...DEMO_VIDEOS.map((video) => video.youtubeId),
-      ...PORTFOLIO_ITEMS.map((item) => item.youtubeId),
+      ...PORTFOLIO_ITEMS.flatMap((item) => item.youtubeIds ?? []),
     ].filter(Boolean);
 
     expect(ids.length).toBeGreaterThan(0);

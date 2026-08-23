@@ -1,9 +1,13 @@
 import { Badge } from "@/components/ui/badge";
-import { COCKPIT_CAPABILITIES, DEMO_VIDEOS } from "@/lib/constants";
+import {
+  COCKPIT_CAPABILITIES,
+  COCKPIT_VIDEO_IDS,
+  getDemoVideoByYouTubeId,
+} from "@/lib/constants";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 
-const cockpitVideo = DEMO_VIDEOS.find(
-  (video) => video.title === "AgentVault Cockpit Walk"
+const cockpitVideos = COCKPIT_VIDEO_IDS.map(getDemoVideoByYouTubeId).filter(
+  (video): video is NonNullable<typeof video> => Boolean(video?.youtubeId)
 );
 
 const CockpitSection = () => {
@@ -29,23 +33,25 @@ const CockpitSection = () => {
           </p>
         </div>
 
-        {/* Walkthrough */}
-        {cockpitVideo?.youtubeId && (
-          <div className="max-w-3xl mx-auto mb-10 md:mb-16">
-            <div className="rounded-2xl bg-card border border-border overflow-hidden">
-              <div className="relative aspect-video bg-muted overflow-hidden">
-                <YouTubeEmbed
-                  youtubeId={cockpitVideo.youtubeId}
-                  title={cockpitVideo.title}
-                />
+        {/* Walkthrough videos */}
+        {cockpitVideos.length > 0 && (
+          <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto mb-10 md:mb-16">
+            {cockpitVideos.map((video) => (
+              <div
+                key={video.youtubeId}
+                className="rounded-2xl bg-card border border-border overflow-hidden flex flex-col"
+              >
+                <div className="relative aspect-video bg-muted overflow-hidden">
+                  <YouTubeEmbed youtubeId={video.youtubeId!} title={video.title} />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold mb-2">{video.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {video.description}
+                  </p>
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-lg font-bold mb-2">{cockpitVideo.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {cockpitVideo.description}
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         )}
 

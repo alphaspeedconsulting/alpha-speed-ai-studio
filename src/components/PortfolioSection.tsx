@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
-import { PORTFOLIO_ITEMS } from "@/lib/constants";
+import { PORTFOLIO_ITEMS, getDemoVideoByYouTubeId } from "@/lib/constants";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 
 // Import product screenshots
@@ -47,7 +47,8 @@ const PortfolioSection = () => {
         <div className="space-y-12">
           {PORTFOLIO_ITEMS.map((item, index) => {
             const hasImages = item.images.length > 0;
-            const hasVideo = Boolean(item.youtubeId);
+            const videoIds = item.youtubeIds ?? [];
+            const hasVideo = videoIds.length > 0;
             return (
               <div
                 key={index}
@@ -55,8 +56,15 @@ const PortfolioSection = () => {
               >
                 {/* Walkthrough video */}
                 {hasVideo && (
-                  <div className="relative aspect-video bg-muted overflow-hidden">
-                    <YouTubeEmbed youtubeId={item.youtubeId!} title={item.title} />
+                  <div className={`grid gap-1 ${videoIds.length === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}>
+                    {videoIds.map((id) => (
+                      <div key={id} className="relative aspect-video bg-muted overflow-hidden">
+                        <YouTubeEmbed
+                          youtubeId={id}
+                          title={getDemoVideoByYouTubeId(id)?.title ?? item.title}
+                        />
+                      </div>
+                    ))}
                   </div>
                 )}
 

@@ -121,8 +121,8 @@ export interface PortfolioItem {
   category: string;
   description: string;
   images: string[];
-  /** YouTube video id, rendered as the card's media in place of screenshots. */
-  youtubeId?: string;
+  /** YouTube video ids, rendered as the card's media in place of screenshots. */
+  youtubeIds?: string[];
   link?: string;
 }
 
@@ -133,7 +133,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     description:
       "Our own AI platform, running inside Claude's Cowork plugin. Agents, MCP connectors, skills, and workflows behind a governance layer — with the cockpit we use to run the business ourselves.",
     images: [],
-    youtubeId: "rXoIt_SVlOQ",
+    youtubeIds: ["VM13Ys1eJ5c", "rXoIt_SVlOQ"],
   },
   {
     title: "DCR Portal",
@@ -251,6 +251,12 @@ export const DEMO_VIDEOS: DemoVideo[] = [
     title: "DCR Portal: AI Command Center",
     description: "The DCR Portal AI command center — central control for workflows, automation, and operations.",
     src: "Videos/DCR/DCR_Portal__AI_Command_Center.mp4",
+  },
+  {
+    title: "AgentVault Cockpit Teaser Intro",
+    description:
+      "A short look at the cockpit we run the business from — the command center behind every engagement.",
+    youtubeId: "VM13Ys1eJ5c",
   },
   {
     title: "AgentVault Cockpit Walk",
@@ -452,6 +458,16 @@ export interface CockpitCapability {
   description: string;
   outcome: string;
 }
+
+/**
+ * Videos shown in the Cockpit section, in display order (teaser, then the
+ * full walkthrough). Ids reference DEMO_VIDEOS so titles and descriptions
+ * are written once.
+ */
+export const COCKPIT_VIDEO_IDS = ["VM13Ys1eJ5c", "rXoIt_SVlOQ"];
+
+export const getDemoVideoByYouTubeId = (id: string) =>
+  DEMO_VIDEOS.find((video) => video.youtubeId === id);
 
 export const COCKPIT_CAPABILITIES: CockpitCapability[] = [
   {
