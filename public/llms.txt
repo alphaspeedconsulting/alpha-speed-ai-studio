@@ -1,0 +1,32 @@
+# Alpha Speed AI
+
+> Alpha Speed AI is a Dallas-Fort Worth AI automation studio. We design, build, and operate AI agents for small and mid-sized businesses — lead follow-up, scheduling, customer chat, and back-office workflows — behind AgentVault, a governance layer with approval gates, audit logs, and MCP connectors.
+
+Keep this file in sync with src/lib/seoRoutes.ts (every indexable route should be reachable from here). Convention: https://llmstxt.org/
+
+## Start here
+
+- [Home](https://alphaspeedai.com/): what we build, who it is for, and how an engagement works
+- [DFW AI Automation Services](https://alphaspeedai.com/dfw-ai-automation-services/): service catalog for Dallas-Fort Worth businesses
+- [AI Automation for Contractors](https://alphaspeedai.com/ai-automation-for-contractors/): roofing, HVAC, and trades workflows we automate
+- [Case Studies](https://alphaspeedai.com/case-studies/): real deployments with outcomes
+- [ROI Calculator](https://alphaspeedai.com/roi-calculator/): estimate hours and revenue recovered by automating follow-up
+
+## Products
+
+- [AgentVault](https://alphaspeedai.com/agentvault/): the governed AI-agent platform — agent roster, MCP connectors, Cockpit and Mission Control
+- [AI Assistant Demo](https://alphaspeedai.com/assistant/): interactive demo of a governed business assistant
+
+## Articles
+
+- [Chatbot vs AI Agent: What's the Difference?](https://alphaspeedai.com/blog/chatbot-vs-ai-agent/): how to decide which one a business needs
+- [How Much Does AI Automation Cost for a Small Business?](https://alphaspeedai.com/blog/how-much-does-ai-automation-cost/): pricing ranges and what drives them
+- [How Contractors Use AI Automation](https://alphaspeedai.com/blog/how-contractors-use-ai-automation/): field-service workflows that pay back fastest
+- [DFW AI Automation Guide](https://alphaspeedai.com/blog/dfw-ai-automation-guide/): where Dallas-Fort Worth businesses start
+- [Blog index](https://alphaspeedai.com/blog/)
+
+## Policies
+
+- [Privacy Policy](https://alphaspeedai.com/privacy-policy/)
+- [Terms of Service](https://alphaspeedai.com/terms-of-service/)
+- [Privacy Request](https://alphaspeedai.com/privacy-request/)

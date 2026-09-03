@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { buildCanonicalUrl } from "@/lib/site";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -69,6 +70,12 @@ const PrivacyRequest = () => {
         <title>Privacy Request | αlphaspeed AI</title>
         <meta name="description" content="Submit a data privacy request to Alpha Speed Consulting, LLC." />
         <link rel="canonical" href={canonicalUrl} />
+        <script type="application/ld+json">
+          {JSON.stringify(buildBreadcrumbSchema([
+            { name: "Home", url: "https://alphaspeedai.com/" },
+            { name: "Privacy Request", url: canonicalUrl },
+          ]))}
+        </script>
       </Helmet>
 
       <Header />

@@ -97,7 +97,7 @@ const AssistantLayoutC = ({
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 py-12">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2">AI Assistant</h1>
+        <h2 className="text-3xl font-bold mb-2">AI Assistant</h2>
         <p className="text-muted-foreground">Layout C - Minimal focused view</p>
       </div>
 
