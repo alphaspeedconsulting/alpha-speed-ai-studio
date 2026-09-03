@@ -9,6 +9,7 @@ import { Play } from "lucide-react";
 import { getSupabase } from "@/lib/supabase";
 import { INSTAGRAM_PROFILE_URL, TIKTOK_PROFILE_URL } from "@/lib/constants";
 import { buildCanonicalUrl } from "@/lib/site";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 
 type PublishedReel = {
   id: string;
@@ -53,6 +54,12 @@ const Reels = () => {
         <title>AI Automation Reels | Alpha Speed AI</title>
         <meta name="description" content="Bite-sized videos from the Alpha Speed AI platform — tips, demos, and updates on AI automation for DFW businesses." />
         <link rel="canonical" href={canonicalUrl} />
+        <script type="application/ld+json">
+          {JSON.stringify(buildBreadcrumbSchema([
+            { name: "Home", url: "https://alphaspeedai.com/" },
+            { name: "AI Automation Reels", url: canonicalUrl },
+          ]))}
+        </script>
         <meta property="og:title" content="AI Automation Reels | Alpha Speed AI" />
         <meta property="og:description" content="Short-form videos from Alpha Speed AI — AI automation tips, demos, and platform updates." />
         <meta property="og:url" content={canonicalUrl} />

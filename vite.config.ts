@@ -7,6 +7,7 @@ import sitemap from "vite-plugin-sitemap";
 import {
   PRERENDER_CONTENT_MARKERS,
   PRERENDER_ROUTES,
+  REDIRECT_ROUTES,
   SITEMAP_CHANGEFREQ,
   SITEMAP_DYNAMIC_ROUTES,
   SITEMAP_EXCLUDE_ROUTES,
@@ -163,9 +164,21 @@ function prerenderPlugin(): Plugin {
           }
         }
 
-        // Verify meta tags are present in pre-rendered output
-        if (!html.includes("<title>") || !html.includes('meta name="description"')) {
-          console.warn(`[seo-prerender] ⚠ ${route} missing <title> or meta description in rendered HTML`);
+        // Indexability gate (PRP domain 27, prp.seo.per-route-metadata): every route that
+        // is NOT noindex must ship a <title>, a meta description and a self-referencing
+        // canonical in the FIRST response. Missing any of them is a build failure, not a
+        // warning — a warning was the previous behaviour and it let regressions deploy.
+        const isNoindex = /<meta\s+name="robots"\s+content="[^"]*noindex/i.test(html);
+        if (!isNoindex) {
+          const missingMeta = [
+            !/<title>[^<]+<\/title>/.test(html) && "<title>",
+            !/<meta\s+name="description"\s+content="[^"]+"/i.test(html) && "meta description",
+            !/<link\s+rel="canonical"\s+href="https:\/\/alphaspeedai\.com\//i.test(html) && "canonical",
+          ].filter(Boolean);
+          if (missingMeta.length > 0) {
+            console.error(`[seo-prerender] ✗ ${route} MISSING METADATA: ${missingMeta.join(", ")}`);
+            failures++;
+          }
         }
 
         const outDir = route === "/" ? distDir : path.join(distDir, route);
@@ -176,6 +189,57 @@ function prerenderPlugin(): Plugin {
 
       await browser.close();
       await new Promise<void>((resolve) => server.close(() => resolve()));
+
+      // Host-side redirect stubs (prp.seo.hard-404-and-redirect-integrity). GitHub Pages
+      // cannot 301, so a prerendered meta-refresh + canonical stub is the strongest
+      // redirect signal available; the SPA's <Navigate> still handles in-app navigation.
+      for (const [from, to] of Object.entries(REDIRECT_ROUTES)) {
+        // Route targets use the same trailing-slash canonical form the pages declare
+        // (buildCanonicalUrl); static files (.html) keep their exact path.
+        const target = to.startsWith("http")
+          ? to
+          : `https://alphaspeedai.com${to.endsWith(".html") || to.endsWith("/") ? to : `${to}/`}`;
+        const stubDir = path.join(distDir, from);
+        fs.mkdirSync(stubDir, { recursive: true });
+        fs.writeFileSync(
+          path.join(stubDir, "index.html"),
+          `<!doctype html><html lang="en"><head><meta charset="utf-8">` +
+            `<title>Redirecting to ${target}</title>` +
+            `<meta http-equiv="refresh" content="0; url=${target}">` +
+            `<link rel="canonical" href="${target}">` +
+            `<meta name="robots" content="noindex">` +
+            `</head><body><p>This page has moved to <a href="${target}">${target}</a>.</p></body></html>`,
+          "utf8"
+        );
+        console.log(`[seo-prerender] ↪ ${from} → ${target} (meta-refresh stub)`);
+      }
+
+      // Sitemap <loc> must be the EXACT canonical URL (prp.seo.sitemap-route-parity).
+      // vite-plugin-sitemap emits `/route`; every page's canonical is `/route/`, and
+      // GitHub Pages 301s the former to the latter — so without this rewrite the sitemap
+      // submitted nothing but redirects. Also assert no noindex route slipped in.
+      const sitemapPath = path.join(distDir, "sitemap.xml");
+      if (fs.existsSync(sitemapPath)) {
+        let sitemap = fs.readFileSync(sitemapPath, "utf8");
+        sitemap = sitemap.replace(
+          /<loc>(https:\/\/alphaspeedai\.com)(\/[^<]*?)?<\/loc>/g,
+          (_m, origin: string, p: string | undefined) => {
+            const pathname = p && p !== "/" ? p.replace(/\/+$/, "") + "/" : "/";
+            return `<loc>${origin}${pathname}</loc>`;
+          }
+        );
+        const noindexRoutes = PRERENDER_ROUTES.filter((r) => {
+          const f = path.join(r === "/" ? distDir : path.join(distDir, r), "index.html");
+          return fs.existsSync(f) && /name="robots"\s+content="[^"]*noindex/i.test(fs.readFileSync(f, "utf8"));
+        });
+        const leaked = noindexRoutes.filter((r) => sitemap.includes(`<loc>https://alphaspeedai.com${r}/</loc>`));
+        if (leaked.length > 0) {
+          console.error(`[seo-prerender] ✗ noindex route(s) listed in sitemap.xml: ${leaked.join(", ")}`);
+          failures++;
+        }
+        fs.writeFileSync(sitemapPath, sitemap, "utf8");
+        console.log(`[seo-prerender] ✓ sitemap.xml <loc> values normalised to canonical (trailing-slash) form`);
+      }
 
       if (failures > 0) {
         // Hard failure: a silent deploy of empty shells would mean Google indexes nothing.
@@ -235,6 +299,9 @@ export default defineConfig(({ mode }) => ({
       exclude: [...SITEMAP_EXCLUDE_ROUTES],
       changefreq: SITEMAP_CHANGEFREQ,
       priority: SITEMAP_PRIORITY,
+      // public/robots.txt is the source of truth (explicit AI-crawler policy); the plugin's
+      // generated robots.txt would silently overwrite it in dist/.
+      generateRobotsTxt: false,
     }),
     prerenderPlugin(),
   ],

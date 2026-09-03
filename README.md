@@ -2,7 +2,7 @@
 
 One flexible AI platform that automates lead follow-up, scheduling, customer chat, and more for small businesses.
 
-**Live site:** https://alphaspeedconsulting.github.io/alpha-speed-ai-studio/
+**Live site:** https://alphaspeedai.com (GitHub Pages, custom domain; the github.io project URL redirects here)
 
 ## Tech Stack
 

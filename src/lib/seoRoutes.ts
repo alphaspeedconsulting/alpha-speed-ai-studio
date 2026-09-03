@@ -46,7 +46,22 @@ export const SITEMAP_EXCLUDE_ROUTES = [
   "/404",
   "/from/instagram",
   "/from/linkedin",
+  // Sales collateral shared by link; noindex in the static file, never a landing page
+  "/alpha-speed-sales-kit",
 ] as const;
+
+/**
+ * Formerly-public URLs that must redirect at the HOST level, not only via a
+ * client-side <Navigate>. GitHub Pages has no redirect rules, so the prerender
+ * plugin writes a `<meta http-equiv="refresh">` + canonical stub at
+ * dist/<from>/index.html for each entry — Google treats a 0-second meta refresh
+ * as a permanent redirect, and crawlers that don't run JS still land on the target.
+ * Keep in sync with the <Navigate>/redirect routes in App.tsx.
+ */
+export const REDIRECT_ROUTES: Record<string, string> = {
+  "/agents": "/agentvault",
+  "/sales-kit": "/alpha-speed-sales-kit.html",
+};
 
 export const PRERENDER_CONTENT_MARKERS: Record<string, string[]> = {
   "/": ["Alpha Speed AI", "DFW", "AI Automation", "Governance Layer"],

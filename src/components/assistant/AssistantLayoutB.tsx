@@ -72,7 +72,7 @@ const AssistantLayoutB = ({
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold mb-2">AI Assistant Terminal</h1>
+          <h2 className="text-3xl font-bold mb-2">AI Assistant Terminal</h2>
           <p className="text-muted-foreground">Layout B - Terminal/developer-style view</p>
         </div>
         <div className="flex items-center gap-2">

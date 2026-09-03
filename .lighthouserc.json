@@ -3,8 +3,12 @@
     "collect": {
       "url": [
         "http://localhost:4173/",
-        "http://localhost:4173/agents",
-        "http://localhost:4173/assistant",
+        "http://localhost:4173/agentvault/",
+        "http://localhost:4173/assistant/",
+        "http://localhost:4173/blog/",
+        "http://localhost:4173/blog/chatbot-vs-ai-agent/",
+        "http://localhost:4173/dfw-ai-automation-services/",
+        "http://localhost:4173/ai-automation-for-contractors/",
         "http://localhost:4173/roi-calculator",
         "http://localhost:4173/case-studies",
         "http://localhost:4173/reels"
