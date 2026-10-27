@@ -1,0 +1,51 @@
+# Dependabot version updates.
+#
+# Schedule: weekly, Monday 06:00 America/Chicago. Minor+patch bumps are grouped
+# per ecosystem/directory (one PR each); majors stay as individual PRs.
+#
+# cooldown.default-days: 7 follows the 7-day supply-chain cooldown policy: a
+# release must be a week old before Dependabot proposes it. Security updates are
+# NOT subject to cooldown (they are also not driven by this file -- Dependabot
+# alerts + security updates must be enabled in Settings -> Code security).
+#
+# NO AUTO-MERGE. Review every Dependabot PR by hand.
+# GitHub Actions billing is currently off in some repos, so CI may not validate
+# Dependabot PRs: run the tests locally before merging.
+# Merging to main publishes the site to GitHub Pages (.github/workflows/deploy.yml).
+
+version: 2
+updates:
+  # package.json + package-lock.json (deploy.yml runs `npm install`). bun.lockb is also
+  # tracked but is not used by the deploy; Dependabot's npm ecosystem will not update
+  # it, so it will drift -- regenerate it with `bun install` or delete it.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "America/Chicago"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    groups:
+      npm-minor-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "America/Chicago"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    groups:
+      actions-minor-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
