@@ -35,6 +35,23 @@ describe("EmailCapture", () => {
     });
   });
 
+  it("shows validation error for an address the browser accepts but the schema rejects", async () => {
+    global.fetch = vi.fn().mockResolvedValue({ ok: true });
+    const user = userEvent.setup();
+    render(<EmailCapture />);
+
+    await user.type(screen.getByPlaceholderText("your@email.com"), "a@b");
+    await user.click(screen.getByText("Subscribe"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Please enter a valid email address"),
+      ).toBeInTheDocument();
+    });
+    expect(global.fetch).not.toHaveBeenCalled();
+    expect(screen.queryByText(/You're in!/)).not.toBeInTheDocument();
+  });
+
   it("shows success state after valid submission", async () => {
     // Mock Supabase fetch
     global.fetch = vi.fn().mockResolvedValue({ ok: true });

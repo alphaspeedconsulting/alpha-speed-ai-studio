@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail, CheckCircle2, Loader2 } from "lucide-react";
 import { trackConversion } from "@/lib/analytics";
-
-const schema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-});
-
-type FormData = z.infer<typeof schema>;
+import {
+  emailCaptureSchema as schema,
+  type EmailCaptureFormData as FormData,
+} from "@/lib/emailCaptureSchema";
 
 interface EmailCaptureProps {
   compact?: boolean;
