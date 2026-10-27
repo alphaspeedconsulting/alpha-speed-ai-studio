@@ -41,7 +41,7 @@ jobs:
           VITE_GSC_VERIFICATION: ${{ secrets.VITE_GSC_VERIFICATION }}
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./dist
 
