@@ -35,3 +35,9 @@ ai-assistant-local/
 
 # Local env overrides
 .env
+
+# AgentVault knowledge pipeline artifacts (internal; this repo is a PUBLIC remote)
+# Written by the post-commit hook. docs/CHANGELOG.md is deliberately NOT ignored —
+# the pre-push hook commits it and a public changelog is intentional.
+STATE.md
+docs/IMPROVEMENTS.md
